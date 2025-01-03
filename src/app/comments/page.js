@@ -4,6 +4,9 @@ const fetcher = (url) => fetch(url).then((res) => res.json());
 
 export default function CommentsPage() {
     return (
+        <div>
+            <h1>Hallo</h1>
+        </div>
         /*<div>
             <div className="navbar">
                 <Link href="/">
