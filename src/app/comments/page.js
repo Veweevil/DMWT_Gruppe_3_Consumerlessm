@@ -4,11 +4,7 @@ const fetcher = (url) => fetch(url).then((res) => res.json());
 
 export default function CommentsPage() {
     return (
-<<<<<<< HEAD
         /*<div>
-=======
-        <div>
->>>>>>> 1ca01b4425af56b83760bf3b6ba99096ea551c48
             <div className="navbar">
                 <Link href="/">
                     <img className='logo' src="/logo.ico" alt="logo"/>
@@ -40,10 +36,6 @@ export default function CommentsPage() {
                     </li>
                 ))}
             </ul>
-<<<<<<< HEAD
         </div>*/
-=======
-        </div>
->>>>>>> 1ca01b4425af56b83760bf3b6ba99096ea551c48
     );
 }
