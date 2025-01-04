@@ -12,13 +12,13 @@ const sql = postgres({
 // API-Routenhandler f端r POST-Anfragen
 export default async function handler(req, res) {
     if (req.method === 'POST') {
-        const { name, kommentar } = req.body; // Die Daten, die vom Frontend geschickt werden
+        const { name, content } = req.body; // Die Daten, die vom Frontend geschickt werden
 
         try {
             // F端ge den Kommentar in die Datenbank ein
             const result = await sql`
                 INSERT INTO Kommentare (name, kommentar)
-                VALUES (${name}, ${kommentar})
+                VALUES (${name}, ${content})
             `;
 
             // R端ckmeldung, dass der Kommentar erfolgreich gespeichert wurde
