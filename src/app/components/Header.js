@@ -1,6 +1,6 @@
 import Link from 'next/link';
 
-export default function Home() { 
+export default function Header() {
     return (
     <div className="navbar"> 
             <Link href="/"> 
@@ -12,7 +12,7 @@ export default function Home() {
                 <li>Community</li>
                 <li>
                 <Link href="/comments" className="navLink">
-                    Diskussion
+                    Kommentare
                 </Link> 
                 </li>
             </ul>
