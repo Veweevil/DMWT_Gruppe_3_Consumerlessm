@@ -2,8 +2,6 @@
 import React, { useState } from 'react';
 import axios from 'axios'; // Um HTTP-Anfragen zu senden
 
-//const fetcher = (url) => fetch(url).then((res) => res.json());
-
 function CommentForm() {
     const [name, setName] = useState(''); // Speichert den Namen des Nutzers
     const [content, setContent] = useState(''); // Speichert den Kommentartext
@@ -14,12 +12,13 @@ function CommentForm() {
 
         try {
             // Sende die POST-Anfrage an den Backend-Endpunkt
-            await axios.post('/API', {
+            await axios.post('/api/comments', {
                 name: name,        // Der Name des Nutzers
-                content: content  // Der Kommentar des Nutzers
+                content: content   // Der Kommentar des Nutzers
             });
+
             // Erfolgreiche Antwort
-            setMessage('Kommentar erfolgreich gespeichert!');
+            setMessage('Nachricht gesendet');
             setName('');  // Löscht das Name-Feld
             setContent(''); // Löscht das Kommentar-Feld
         } catch (error) {
