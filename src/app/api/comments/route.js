@@ -43,6 +43,7 @@ export async function GET(req) {
         const comments = await sql`
             SELECT name, kommentar AS content
             FROM "Kommentare"
+            ORDER BY id DESC
         `;
 
         return new Response(
