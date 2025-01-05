@@ -2,20 +2,52 @@
 @tailwind components;
 @tailwind utilities;
 
+/* CSS-Regeln für globale Variablen /
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --background: #ffffff; / Weiß als Standardhintergrund /
+  --foreground: #000000; / Schwarz als Schriftfarbe /
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+/*Lokale Schriftart Trash Hand */
+@font-face {
+  font-family: 'Trash Hand';
+  src: url('/fonts/TrashHand.TTF') format('truetype');
+  font-weight: normal;
+  font-style: normal;
 }
 
+/* Lokale Schriftart Anonymous Pro */
+@font-face {
+  font-family: 'Anonymous Pro';
+  src: url('/fonts/AnonymousPro-Regular.ttf') format('truetype');
+  font-weight: 400;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Anonymous Pro';
+  src: url('/fonts/AnonymousPro-Bold.ttf') format('truetype');
+  font-weight: 700;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Anonymous Pro';
+  src: url('/fonts/AnonymousPro-Italic.ttf') format('truetype');
+  font-weight: 400;
+  font-style: italic;
+}
+
+@font-face {
+  font-family: 'Anonymous Pro';
+  src: url('/fonts/AnonymousPro-BoldItalic.ttf') format('truetype');
+  font-weight: 700;
+  font-style: italic;
+}
+
+/* Schriftart für den Body */
 body {
+  font-family: 'Anonymous Pro', monospace;
   color: var(--foreground);
   background: var(--background);
-  font-family: Arial, Helvetica, sans-serif;
 }
