@@ -11,6 +11,10 @@ export default {
         background: "var(--background)",
         foreground: "var(--foreground)",
       },
+      fontFamily: {
+        'trash-hand': ['"Trash Hand"', 'cursive'], // Trash Hand Schriftart
+        'anonymous-pro': ['"Anonymous Pro"', 'monospace'], // Anonymous Pro Schriftart
+      },
     },
   },
   plugins: [],
