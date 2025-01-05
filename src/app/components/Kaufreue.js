@@ -29,9 +29,11 @@ export default function Kaufreue() {
             </p>
 
             {/* Button */}
+            <Link href="/Kaufreue">
             <button className="bg-gray-200 hover:bg-gray-300 text-gray-800 px-8 py-4 rounded shadow text-xl">
                 Mehr dazu
             </button>
+            </Link>
         </div>
     );
 }

@@ -13,7 +13,7 @@ export default function Header() {
                 </li>
                 <li className="text-gray-700 hover:text-black">
                     <Link href = "/#kaufreue-section">
-                    Kaufreue
+                        Kaufreue
                     </Link>
                 </li>
                 <li className="text-gray-700 hover:text-black">Community</li>
@@ -24,11 +24,11 @@ export default function Header() {
                 </li>
             </ul>
             <div className="auth-buttons flex space-x-4">
-                <Link href="/login">
+            <Link href="/Login">
                     <button className="login-button bg-[#A9D09A] hover:bg-[#90B883] text-gray-800 px-4 py-2 rounded">
                         Login
                     </button>
-                </Link>
+            </Link>
                 <Link href="/register">
                     <button className="register-button bg-white border border-gray-300 hover:bg-gray-100 text-gray-800 px-4 py-2 rounded">
                         Registrieren
