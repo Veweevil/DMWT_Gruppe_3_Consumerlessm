@@ -5,8 +5,14 @@ export default function Kaufreue() {
         <div className="flex flex-col items-center justify-center bg-white min-h-screen p-10">
             {/* Prozentanzeige */}
             <div className="flex items-baseline mb-4">
-                <h1 className="text-[8rem] font-trash-hand text-black leading-none">82</h1>
-                <span className="text-[5rem] font-trash-hand text-black ml-2">%</span>
+            <h1 className="text-[8rem] font-trash-hand text-black leading-none">82</h1>
+            <h1 className="text-[5rem] text-black ml-2" style={{ fontFamily: 'Arial, bold-serif' }}>
+                %
+            </h1>
+
+
+
+
             </div>
             <hr className="w-1/4 border-t-2 border-gray-400 mb-6" />
 
@@ -23,9 +29,11 @@ export default function Kaufreue() {
             </p>
 
             {/* Button */}
+            <Link href="/Kaufreue">
             <button className="bg-gray-200 hover:bg-gray-300 text-gray-800 px-8 py-4 rounded shadow text-xl">
                 Mehr dazu
             </button>
+            </Link>
         </div>
     );
 }
