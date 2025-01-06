@@ -12,7 +12,7 @@ export default function Kaufreue() {
 
 
             </div>
-            <hr className="w-1/4 border-t-2 border-gray-400 mb-6" />
+            <hr className="hr-mitte" />
 
             {/* Haupttext */}
             <p className="text-3xl font-anonymous-pro text-center text-black mb-6">

@@ -52,30 +52,44 @@ body {
   background: var(--background);
 }
 
-.trennlinie {
-  width: 25%;
-  border-top-width: 2px;
-  border-color: #9ca3af;
-  margin-bottom: 1.5rem;
-  margin-left: auto;
-  margin-right: auto;
+/* Trennlinie unter den Überschriften*/
+.hr-mitte {
+  width: 30%;               /* w-1/4: Setzt die Breite auf 25% */
+  border-top: 2px solid #9CA3AF; /* border-t-2 und border-gray-400: 2px graue Linie */
+  margin-bottom: 1.5rem;    /* mb-6: Abstand nach unten */
+  margin-left: auto;        /* mx-auto: Automatische Ränder links */
+  margin-right: auto;       /* mx-auto: Automatische Ränder rechts */
 }
 /* Community - Argumente*/
 .container {
   display: flex;
   flex-direction: row; /* Die Richtung der Anordung der items ist von links nach rechts*/
   flex-wrap: wrap; /* Die items rücken in die zweite Zeile wenn nötig*/
-  justify-content: space-evenly;
-  align-items: center;
+  justify-content: space-between;
+  margin: 0 auto;
+  width:900px;
+  /*align-items: center;
   width: 1000px;
   height: 300px;
-  margin: 0 auto;
+  margin: 0 auto;*/
 }
 
 .item {
+  display: flex;
+  align-items: center;
+  gap: 15px;
   width: calc(50% - 40px);
-  padding: 50px; /* Innenabstand*/
-  background-color: white;
+  padding: 20px; /* Innenabstand*/
+  background-color: #A9D09A;
   margin-bottom: 20px; /* Abstand nach unten für jedes item*/
   border-radius: 10px;
+}
+
+.icon {
+  flex-shrink: 0; /* Verhindert dass das Icon skaliert*/
+}
+
+.icon-img {
+  width: 50px;
+  height: 50px;
 }
