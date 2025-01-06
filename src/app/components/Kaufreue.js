@@ -11,8 +11,6 @@ export default function Kaufreue() {
             </h1>
 
 
-
-
             </div>
             <hr className="w-1/4 border-t-2 border-gray-400 mb-6" />
 

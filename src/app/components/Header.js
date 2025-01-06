@@ -2,7 +2,7 @@ import Link from 'next/link';
 
 export default function Header() {
     return (
-        <div className="navbar flex items-center justify-between bg-white px-6 py-4 border-b border-gray-200">
+        <div className="navbar flex items-center justify-between bg-white px-6 py-4 border-b border-gray-200 scroll-smooth">
             <Link href="/"> 
                 <img className="logo h-8 w-auto" src="/logo.ico" alt="logo" />
             </Link>
@@ -16,7 +16,10 @@ export default function Header() {
                         Kaufreue
                     </Link>
                 </li>
-                <li className="text-gray-700 hover:text-black">Community</li>
+                <li className="text-gray-700 hover:text-black">
+                    <Link href = "/#community-section">Community</Link>
+                </li>
+    
                 <li>
                     <Link href="/comments" className="navLink text-gray-700 hover:text-black">
                         Kommentare

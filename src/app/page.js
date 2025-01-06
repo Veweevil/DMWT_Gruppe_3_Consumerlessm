@@ -7,11 +7,9 @@ export default function Home() {
   return (
     <div className="body">
         <div className="Header"> <Header/> </div>
-        <Hero/>
-        <Community/>
-        <div id="kaufreue-section">
-          <Kaufreue/>
-        </div>
+        <div> <Hero/> </div>
+        <div id="kaufreue-section"> <Kaufreue/> </div>
+        <div> <Community/> </div>
     </div>
-  )
+  );
 }
