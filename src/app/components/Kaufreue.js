@@ -21,9 +21,7 @@ export default function Kaufreue() {
 
             {/* Beschreibungstext */}
             <p className="text-lg font-anonymous-pro text-center text-gray-600 max-w-3xl mb-8">
-                Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed diam nonumy eirmod tempor invidunt ut
-                labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores
-                et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.
+            Der übermäßige Konsum kann nicht nur unsere Finanzen belasten, sondern auch unser Wohlbefinden beeinträchtigen. Viele Menschen fühlen sich nach unnötigen Käufen leer oder schuldig – ein Zustand, der langfristig zu Stress und Unzufriedenheit führen kann.
             </p>
 
             {/* Button */}

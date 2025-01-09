@@ -52,10 +52,30 @@ body {
   background: var(--background);
 }
 
+.ueberschrift {
+  font-family: 'Trash Hand';
+  text-align: center;
+  font-size: 4.5rem;
+  margin-bottom: 10px;
+}
+
+.hintergrund {
+  background-color: #F0F7EC;
+  padding: 5rem;
+}
+
 /* Trennlinie unter den Überschriften*/
 .hr-mitte {
   width: 30%;               /* w-1/4: Setzt die Breite auf 25% */
   border-top: 2px solid #9CA3AF; /* border-t-2 und border-gray-400: 2px graue Linie */
+  margin-bottom: 1.5rem;    /* mb-6: Abstand nach unten */
+  margin-left: auto;        /* mx-auto: Automatische Ränder links */
+  margin-right: auto;       /* mx-auto: Automatische Ränder rechts */
+}
+
+.hr-mitte1 {
+  width: 40%;               /* w-1/4: Setzt die Breite auf 25% */
+  border-top: 1px solid #9CA3AF; /* border-t-2 und border-gray-400: 2px graue Linie */
   margin-bottom: 1.5rem;    /* mb-6: Abstand nach unten */
   margin-left: auto;        /* mx-auto: Automatische Ränder links */
   margin-right: auto;       /* mx-auto: Automatische Ränder rechts */
@@ -80,7 +100,7 @@ body {
   gap: 15px;
   width: calc(50% - 40px);
   padding: 20px; /* Innenabstand*/
-  background-color: #A9D09A;
+  background-color: #F0F7EC;
   margin-bottom: 20px; /* Abstand nach unten für jedes item*/
   border-radius: 10px;
 }
@@ -93,3 +113,4 @@ body {
   width: 50px;
   height: 50px;
 }
+

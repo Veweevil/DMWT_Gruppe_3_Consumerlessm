@@ -1,11 +1,13 @@
 import Link from "next/link";
 export default function Community() {
     return (
-<div id ="community-section" className=" bg-[#F0F7EC] p-20 items-center justify-center flex flex-col">
-    <h1 className="mb-10 font-trash-hand text-center text-7xl">Community</h1>
+<div id ="community-section" className="p-20 items-center justify-center flex flex-col">
+    <h1 className="ueberschrift">Community</h1>
     <hr className="hr-mitte"/>
     <p className="mb-10 font-anonymous-pro text-center text-3xl italic">&bdquo;Entdecke die Community, die dich inspiriert&ldquo;</p>
-    <img className="mx-auto mb-10 rounded" src="community.jpg" alt="Peoples holding each others" width="600" height="250"></img>
+    <img className="mx-auto mb-16 rounded" src="community.jpg" alt="Peoples holding each others" width="600" height="250"></img>
+    <p className="mb-5 font-anonymous-pro text-center text-2xl">So hilft dir consumerless, deinen Konsum zu reduzieren</p>
+    <hr className="hr-mitte1"></hr>
     <div className="container">
         {/*Feld 1*/}
         <div className="item">
