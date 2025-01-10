@@ -2,13 +2,52 @@
 @tailwind components;
 @tailwind utilities;
 
-/* CSS-Regeln für globale Variablen /
-:root {
-  --background: #ffffff; / Weiß als Standardhintergrund /
-  --foreground: #000000; / Schwarz als Schriftfarbe /
+@keyframes float {
+  0% {
+      transform: translateY(0);
+  }
+  50% {
+      transform: translateY(-5px);
+  }
+  100% {
+      transform: translateY(0);
+  }
 }
 
-/*Lokale Schriftart Trash Hand */
+@keyframes discard {
+  0% {
+      transform: translateX(0) scale(1);
+      opacity: 1;
+  }
+  100% {
+      transform: translateX(100vw) scale(0.5);
+      opacity: 0;
+  }
+}
+
+.animate-discard {
+  animation: discard 1s ease-out forwards;
+}
+
+.animate-float {
+  animation: float 2s infinite ease-in-out;
+}
+
+.animate-float-slow {
+  animation: float 3s infinite ease-in-out;
+}
+
+.animate-float-slower {
+  animation: float 4s infinite ease-in-out;
+}
+
+/* CSS-Regeln für globale Variablen */
+:root {
+  --background: #ffffff; /* Weiß als Standardhintergrund */
+  --foreground: #000000; /* Schwarz als Schriftfarbe */
+}
+
+/* Lokale Schriftart Trash Hand */
 @font-face {
   font-family: 'Trash Hand';
   src: url('/fonts/TrashHand.TTF') format('truetype');
@@ -64,7 +103,7 @@ body {
   padding: 5rem;
 }
 
-/* Trennlinie unter den Überschriften*/
+/* Trennlinie unter den Überschriften */
 .hr-mitte {
   width: 30%;               /* w-1/4: Setzt die Breite auf 25% */
   border-top: 2px solid #9CA3AF; /* border-t-2 und border-gray-400: 2px graue Linie */
@@ -80,18 +119,15 @@ body {
   margin-left: auto;        /* mx-auto: Automatische Ränder links */
   margin-right: auto;       /* mx-auto: Automatische Ränder rechts */
 }
-/* Community - Argumente*/
+
+/* Community - Argumente */
 .container {
   display: flex;
-  flex-direction: row; /* Die Richtung der Anordung der items ist von links nach rechts*/
-  flex-wrap: wrap; /* Die items rücken in die zweite Zeile wenn nötig*/
+  flex-direction: row; /* Die Richtung der Anordung der items ist von links nach rechts */
+  flex-wrap: wrap; /* Die items rücken in die zweite Zeile wenn nötig */
   justify-content: space-between;
   margin: 0 auto;
-  width:900px;
-  /*align-items: center;
-  width: 1000px;
-  height: 300px;
-  margin: 0 auto;*/
+  width: 900px;
 }
 
 .item {
@@ -99,18 +135,17 @@ body {
   align-items: center;
   gap: 15px;
   width: calc(50% - 40px);
-  padding: 20px; /* Innenabstand*/
+  padding: 20px; /* Innenabstand */
   background-color: #F0F7EC;
-  margin-bottom: 20px; /* Abstand nach unten für jedes item*/
+  margin-bottom: 20px; /* Abstand nach unten für jedes item */
   border-radius: 10px;
 }
 
 .icon {
-  flex-shrink: 0; /* Verhindert dass das Icon skaliert*/
+  flex-shrink: 0; /* Verhindert dass das Icon skaliert */
 }
 
 .icon-img {
   width: 50px;
   height: 50px;
 }
-
