@@ -6,7 +6,7 @@ export default function Registrierung() {
         <div>
             {/* Header-Komponente */}
             <Header />
-            <div className="flex flex-col items-center justify-center bg-gray-100 min-h-screen p-6">
+            <div className="flex flex-col items-center justify-center min-h-screen p-6">
                 {/* Registrierungs-Formular mit Rahmen */}
                 <div
                     className="relative bg-cover bg-center"
@@ -21,7 +21,6 @@ export default function Registrierung() {
                         alignItems: "center",
                         justifyContent: "flex-start",
                         paddingTop: "100px", // Platz für die Überschrift oben
-                        boxShadow: "0 4px 8px rgba(0, 0, 0, 0.2)", // Schattierung um das SVG
                     }}
                 >
                     {/* Weißer Hintergrund innerhalb des Rahmens */}
@@ -119,7 +118,7 @@ export default function Registrierung() {
                                 Bereits einen Account?{' '}
                                 <button
                                     className="text-[#A9D09A] hover:underline font-bold"
-                                    onClick={() => window.location.href = '/login'}
+                                    onClick={() => window.location.href = '/Login'}
                                 >
                                     Einloggen
                                 </button>

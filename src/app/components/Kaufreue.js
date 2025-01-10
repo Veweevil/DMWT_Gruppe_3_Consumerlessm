@@ -96,9 +96,7 @@ export default function KaufreuePage() {
 
                 {/* Beschreibungstext */}
                 <p className="text-lg font-anonymous-pro text-center text-gray-600 max-w-3xl mb-8">
-                    Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed diam nonumy eirmod tempor invidunt ut
-                    labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores
-                    et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.
+                Impulsives Verhalten beim Einkaufen ist keine Seltenheit. Häufig führen spontane Entscheidungen, der Wunsch nach Belohnung oder äußere Einflüsse dazu, dass Konsument:innen Produkte erwerben, die später als unnötig wahrgenommen werden. Solche Käufe können nicht nur zu Reuegefühlen führen, sondern auch finanzielle und emotionale Belastungen verursachen. Reflektieren Sie Ihre Entscheidungen, um bewusster zu konsumieren.
                 </p>
 
                 {/* Button */}
@@ -114,9 +112,9 @@ export default function KaufreuePage() {
             {showChart && (
                 <div
                     ref={chartRef} // Referenz für das Scrollen
-                    className="flex flex-col items-center mt-12 p-6 w-full transition-all duration-500 ease-in-out"
-                >
-                    <h2 className="text-4xl sm:text-3xl font-bold mb-6 text-center">
+                    className="flex flex-col items-center justify-center bg-white min-h-screen p-0"
+                    >
+                    <h2 className="text-4xl sm:text-3xl font-bold mb-0 text-center">
                         Konsum und Emotionen
                     </h2>
                     <p className="text-lg sm:text-base text-gray-600 text-center mb-6 max-w-xl">
