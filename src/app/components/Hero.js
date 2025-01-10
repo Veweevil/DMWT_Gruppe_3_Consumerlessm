@@ -60,7 +60,7 @@ export default function Hero() {
                     </Link>
                 </div>
                 <Link href="#kaufreue-section">
-                    <img src="/pfeil.svg" alt="Pfeil" className="hidden lg:block mt-10 max-w-none lg:w-[60px] lg:h[60px]" />
+                    <img src="/pfeil.svg" alt="Pfeil" className="hidden lg:block mt-20 max-w-none lg:w-[60px] lg:h[60px]" />
                 </Link>
             </div>
 
