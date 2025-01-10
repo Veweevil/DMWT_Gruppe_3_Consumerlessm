@@ -22,18 +22,18 @@ export default function Header() {
                     </Link>
                 </li>
             </ul>
-            <div className="auth-buttons flex space-x-4">
+                <div className="auth-buttons flex space-x-4">
                 <Link href="/Login">
-                    <button className="login-button bg-[#A9D09A] hover:bg-[#90B883] text-gray-800 px-4 py-2 rounded">
-                        Login
-                    </button>
+                        <button className="login-button bg-[#A9D09A] hover:bg-[#90B883] text-gray-800 px-4 py-2 rounded">
+                            Login
+                        </button>
                 </Link>
-                <Link href="/register">
-                    <button className="register-button bg-white border border-gray-300 hover:bg-gray-100 text-gray-800 px-4 py-2 rounded">
-                        Registrieren
-                    </button>
-                </Link>
-            </div>
+                    <Link href="/Register">
+                        <button className="registrieren-button bg-white border border-gray-300 hover:bg-gray-100 text-gray-800 px-4 py-2 rounded">
+                            Registrieren
+                        </button>
+                    </Link>
+                </div>
         </div>
     );
 }
