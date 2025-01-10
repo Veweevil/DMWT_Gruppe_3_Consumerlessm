@@ -53,7 +53,7 @@ export default function Hero() {
                     <p className="hero-text text-lg font-anonymous-pro text-gray-700 mb-3">
                         Werde Teil unserer Community!
                     </p>
-                    <Link href="Login">
+                    <Link href="Register">
                     <button className="hero-button bg-gray-200 hover:bg-gray-300 text-gray-800 px-6 py-3 rounded shadow text-lg">
                         Jetzt anmelden
                     </button>

@@ -53,11 +53,11 @@ export default function Community() {
             </div>
         </div>
     </div>
-    {/*<Link href="/SignUp">*/}
+    <Link href="/Register">
     <button className="bg-gray-200 hover:bg-gray-300 text-gray-800 px-8 py-4 rounded shadow text-xl mt-10">
                 Jetzt anmelden!
     </button>
-    {/*</Link>*/}
+    </Link>
 
 </div>
     );
