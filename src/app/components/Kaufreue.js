@@ -57,6 +57,7 @@ export default function KaufreuePage() {
                 position: "top",
                 labels: {
                     font: {
+                        family: 'Anonymous Pro',
                         size: 16,
                     },
                 },

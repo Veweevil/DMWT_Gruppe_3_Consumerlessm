@@ -1,40 +1,75 @@
-// src/app/Kaufreue/page.js
 'use client';
+import { useState } from 'react';
+import { useAuth } from '../../context/AuthContext';
 import Header from "../components/Header";
 
-// Registrierung der Chart-Komponenten
+export default function LoginPage() {
+    const [formData, setFormData] = useState({ username: '', password: '' });
+    const { login } = useAuth(); 
+    
+    const handleChange = (e) => {
+        setFormData({ ...formData, [e.target.id]: e.target.value });
+    };
 
-export default function Testseite() {
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+    
+        const { username, password } = formData;
+    
+        if (!username || !password) {
+            alert('Bitte alle Felder ausfüllen.');
+            return;
+        }
+    
+        try {
+            const response = await fetch('/api/login', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ username, password }),
+            });
+    
+            const data = await response.json();
+    
+            if (response.ok) {
+                login(data); // Login-Daten an den AuthContext übergeben
+                alert('Login erfolgreich!');
+                window.location.href = '/Dashboard'; // Weiterleitung
+            } else {
+                alert(data.message || 'Login fehlgeschlagen.');
+            }
+        } catch (error) {
+            console.error('Fehler beim Login:', error);
+            alert('Serverfehler. Bitte später erneut versuchen.');
+        }
+    };
+    
+
     return (
         <div>
-            {/* Header-Komponente */}
             <Header />
-            <div className="flex flex-col items-center justify-center  min-h-screen p-6">
-                {/* Login-Formular mit Rahmen */}
+            <div className="flex flex-col items-center justify-center min-h-screen p-6">
                 <div
                     className="relative bg-cover bg-center"
                     style={{
                         backgroundImage: "url('/Rahmen.svg')",
-                        width: "400px", // Breite des Rahmens
-                        height: "600px", // Höhe des Rahmens
+                        width: "400px",
+                        height: "600px",
                         backgroundSize: "contain",
                         backgroundRepeat: "no-repeat",
                         display: "flex",
                         flexDirection: "column",
                         alignItems: "center",
                         justifyContent: "flex-start",
-                        paddingTop: "120px", // Platz für die Überschrift oben
+                        paddingTop: "120px",
                     }}
                 >
-                    {/* Überschrift */}
                     <h1 className="text-5xl font-trash-hand text-black mb-6">Einloggen</h1>
-
-                    {/* Login-Formular */}
                     <form
+                        onSubmit={handleSubmit}
                         className="px-6 pt-4 pb-6"
                         style={{
-                            width: "70%", // Breite des Formulars
-                            height: "60%", // Höhe des Formulars
+                            width: "70%",
+                            height: "60%",
                         }}
                     >
                         <div className="mb-4 w-full">
@@ -48,6 +83,8 @@ export default function Testseite() {
                                 id="username"
                                 type="text"
                                 placeholder="E-Mail-Adresse / Nutzername"
+                                value={formData.username}
+                                onChange={handleChange}
                                 className="appearance-none border border-gray-300 rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:border-green-500"
                             />
                         </div>
@@ -63,6 +100,8 @@ export default function Testseite() {
                                 id="password"
                                 type="password"
                                 placeholder="Passwort"
+                                value={formData.password}
+                                onChange={handleChange}
                                 className="appearance-none border border-gray-300 rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:border-green-500"
                             />
                         </div>
@@ -77,13 +116,12 @@ export default function Testseite() {
                         </div>
                     </form>
 
-                    {/* Registrierungs-Link */}
                     <div className="mt-4">
                         <p className="text-sm text-gray-600">
                             Noch keinen Account?{' '}
                             <button
                                 className="text-[#A9D09A] hover:underline font-bold"
-                                onClick={() => window.location.href = '/Register'} // Beispiel-Redirect
+                                onClick={() => window.location.href = '/Register'}
                             >
                                 Registrieren
                             </button>
