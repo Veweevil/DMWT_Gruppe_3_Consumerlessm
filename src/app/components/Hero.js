@@ -84,7 +84,7 @@ export default function Hero() {
                     <img
                         src="/restart.svg"
                         alt="Einkaufswagen zurücksetzen"
-                        className="w-12 h-12 cursor-pointer hover:scale-110 transition-transform duration-200"
+                        className="w-11 h-11 cursor-pointer hover:scale-110 transition-transform duration-200"
                         onClick={handleRestart}
                     />
                 </div>
