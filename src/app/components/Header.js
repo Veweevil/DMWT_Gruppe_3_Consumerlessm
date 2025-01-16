@@ -3,13 +3,16 @@ import Link from 'next/link';
 import { useAuth } from '../../context/AuthContext';
 
 export default function Header() {
-    const { isLoggedIn, logout } = useAuth();  //gibt an ob ein Benutzer angemeldet ist oder nicht
+    const { isLoggedIn, logout } = useAuth(); //Zugriff auf Login-Status und Logout-Funktion
 
     return (
         <div className="navbar flex items-center justify-between bg-white px-6 py-2 border-b border-gray-200 fixed top-0 left-0 w-full z-50">
+            {/* Logo */}
             <Link href="/">
                 <img className="logo h-6 w-auto" src="/logo.ico" alt="logo" />
             </Link>
+
+            {/* Navigation */}
             <ul className="menu flex space-x-6">
                 <li>
                     <Link href="/" className="text-gray-700 hover:text-black">Home</Link>
@@ -23,10 +26,17 @@ export default function Header() {
                 <li>
                     <Link href="/comments" className="text-gray-700 hover:text-black">Erfolge</Link>
                 </li>
+                {isLoggedIn && (
+                    <li>
+                        <Link href="/Dashboard" className="text-gray-700 hover:text-black">Dashboard</Link>
+                    </li>
+                )}
             </ul>
 
+            {/*Auth-Bereich*/}
             <div className="auth-buttons flex space-x-4">
                 {!isLoggedIn ? (
+                    //Wenn der Nutzer NICHT eingeloggt ist
                     <>
                         <Link href="/Login">
                             <button className="bg-[#A9D09A] hover:bg-[#90B883] text-gray-800 px-4 py-2 rounded">
@@ -40,6 +50,7 @@ export default function Header() {
                         </Link>
                     </>
                 ) : (
+                    //Wenn der Nutzer EINGELOGGT ist
                     <button
                         onClick={logout}
                         className="bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded"

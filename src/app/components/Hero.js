@@ -2,12 +2,14 @@
 
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
+import { useAuth } from '../../context/AuthContext';
 
 export default function Hero() {
     const [activeItem, setActiveItem] = useState(null); //Zustand aktives Element
     const [discardingItem, setDiscardingItem] = useState(null); //Zustand verworfenes Objekt
     const [infoVisible, setInfoVisible] = useState(false); //Zustand Info-Feld
     const [cartItems, setCartItems] = useState(['iphone', 'chocolate', 'bottle']); //Liste Objekte im Warenkorb
+    const { isLoggedIn, logout } = useAuth(); //Zugriff auf Login-Status und Logout-Funktion
 
     const handleItemClick = (item) => {
         setActiveItem(activeItem === item ? null : item);
@@ -57,16 +59,37 @@ export default function Hero() {
                     RAUS AUS DEM WARENKORB!
                 </p>
 
-                <div className="flex flex-col items-center">
-                    <p className="hero-text text-lg font-anonymous-pro text-gray-700 mb-3">
-                        Werde Teil unserer Community!
-                    </p>
-                    <Link href="Register">
-                        <button className="bg-gray-200 hover:bg-gray-300 text-gray-800 px-6 py-3 rounded shadow text-lg">
-                            Jetzt anmelden
-                        </button>
-                    </Link>
-                </div>
+                {!isLoggedIn ? (
+                    //Wenn der Nutzer NICHT eingeloggt ist
+                    <>
+                       <div className="flex flex-col items-center">
+                            <p className="hero-text text-lg font-anonymous-pro text-gray-700 mb-3">
+                                Werde Teil unserer Community!
+                            </p>
+                            <Link href="Register">
+                                <button className="bg-gray-200 hover:bg-gray-300 text-gray-800 px-6 py-3 rounded shadow text-lg">
+                                    Jetzt anmelden
+                                </button>
+                            </Link>
+                        </div>
+                    </>
+                ) : (
+                    //Wenn der Nutzer EINGELOGGT ist
+                    <>
+                        <div className="flex flex-col items-center">
+                            <p className="hero-text text-lg font-anonymous-pro text-gray-700 mb-3">
+                                Willkommen zurück!
+                            </p>
+                            <Link href="/Dashboard">
+                                <button className="bg-gray-200 hover:bg-gray-300 text-gray-800 px-6 py-3 rounded shadow text-lg">
+                                    Zum Dashboard
+                                </button>
+                            </Link>
+                        </div>
+                    </>
+                    
+                )}
+                
                 <Link href="#kaufreue-section">
                     <img src="/pfeil.svg" alt="Pfeil" className="hidden lg:block mt-20 max-w-none lg:w-[60px] lg:h[60px]" />
                 </Link>
