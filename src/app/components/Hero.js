@@ -53,7 +53,7 @@ export default function Hero() {
         <div className="hero-container flex flex-col lg:flex-row items-center justify-between bg-[#F0F7EC] p-20 relative">
             <div className="hero-text-container text-center lg:text-left">
                 <h1 className="text-[8rem] font-trash-hand text-black mb-6 leading-none">
-                    CONSUMER<span className="text-[#A9D09A]">LESSM</span>
+                    CONSUMER<span className="text-[#A9D09A]">LESS</span>M
                 </h1>
                 <p className="text-2xl font-anonymous-pro text-gray-600 mb-8 text-center leading-snug">
                     RAUS AUS DEM WARENKORB!
