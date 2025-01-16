@@ -15,13 +15,14 @@ export const AuthProvider = ({ children }) => {
             setUser(storedUser);
         }
     }, []);
-
     const login = (userInfo) => {
         console.log('Login mit Benutzer:', userInfo);
+        const { user } = userInfo; //Extrahiere nur das Benutzerobjekt
         setIsLoggedIn(true);
-        setUser(userInfo);
-        localStorage.setItem('user', JSON.stringify(userInfo));
+        setUser(user);
+        localStorage.setItem('user', JSON.stringify(user)); //Nur den Benutzer speichern
     };
+    
 
     const logout = () => {
         console.log('Benutzer wird ausgeloggt');

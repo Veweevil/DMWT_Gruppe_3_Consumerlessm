@@ -4,7 +4,7 @@ import { useAuth } from "../../context/AuthContext"; // Importiere den AuthConte
 import Header from "../components/Header";
 
 
-export default function Testseite() {
+export default function Dashboard() {
     const [nutzername, setNutzername] = useState('');
     const { user } = useAuth(); // Zugriff auf den aktuellen Benutzer
 
@@ -13,15 +13,15 @@ export default function Testseite() {
             try {
                 // Überprüfe, ob ein Benutzer angemeldet ist
                 if (!user || !user.email) {
-                    console.error('Kein Benutzer angemeldet');
+                    console.warn('Kein Benutzer angemeldet');
                     setNutzername('Gast');
-                    return;
+                    return; // Beende die Funktion frühzeitig
                 }
-
+    
                 const email = user.email; // Hole die Email des angemeldeten Benutzers
                 const response = await fetch(`/api/getUserInfo?email=${email}`);
                 const data = await response.json();
-
+    
                 if (response.ok) {
                     setNutzername(data.nutzername || 'Gast');
                 } else {
@@ -33,10 +33,14 @@ export default function Testseite() {
                 setNutzername('Gast');
             }
         };
-
-        fetchNutzername();
+    
+        // Nur ausführen, wenn user nicht null ist
+        if (user) {
+            fetchNutzername();
+        }
     }, [user]);
-
+    
+    
     return (
         <div>
             <Header />

@@ -4,45 +4,45 @@ import axios from 'axios';
 import Header from '../components/Header';
 
 function CommentForm() {
-    const [name, setName] = useState(''); // Name des Nutzers
-    const [content, setContent] = useState(''); // Kommentartext
-    const [message, setMessage] = useState(''); // Erfolg/Fehler-Nachricht
-    const [comments, setComments] = useState([]); // Liste der Kommentare
+    const [name, setName] = useState(''); //Name des Nutzers
+    const [content, setContent] = useState(''); //Erfolgstext
+    const [message, setMessage] = useState(''); //Erfolg/Fehler-Nachricht
+    const [comments, setComments] = useState([]); //Liste der Erfolge (intern)
 
-    // Funktion zum Laden der Kommentare
+    //Erfolge laden
     const fetchComments = async () => {
         try {
             const response = await axios.get('/api/comments');
-            setComments(response.data.comments); // Kommentare in den Zustand speichern
+            setComments(response.data.comments); //Erfolge speichern
         } catch (error) {
-            console.error('Fehler beim Laden der Kommentare:', error);
+            console.error('Fehler beim Laden der Erfolge:', error);
         }
     };
 
-    // Kommentare beim ersten Laden abrufen
+    //Erfolge beim ersten Laden abrufen
     useEffect(() => {
         fetchComments();
     }, []);
 
-    // Formular absenden
+    //Formular absenden
     const handleSubmit = async (e) => {
         e.preventDefault();
 
         try {
-            // Kommentar absenden
+            //Erfolg absenden
             await axios.post('/api/comments', {
                 name: name,
                 content: content,
             });
 
-            setMessage('Kommentar erfolgreich hinzugefügt!');
+            setMessage('Erfolg erfolgreich geteilt!');
             setName('');
             setContent('');
 
-            // Kommentare nach dem Absenden erneut abrufen
+            //Erfolge erneut abrufen
             fetchComments();
         } catch (error) {
-            setMessage('Fehler beim Hinzufügen des Kommentars.');
+            setMessage('Fehler beim Teilen des Erfolgs.');
             console.error('Fehler:', error);
         }
     };
@@ -52,12 +52,12 @@ function CommentForm() {
             {/* Header */}
             <Header />
 
-            {/* Kommentarformular */}
+            {/* Erfolg teilen Formular */}
             <div className="flex flex-col items-center mt-12">
                 <div className="max-w-3xl w-full bg-white p-8 rounded-lg shadow-lg">
                     {/* Überschrift */}
-                    <h2 className="text-[5rem] font-trash-hand text-black text-center mb-10">
-                        Kommentar abgeben
+                    <h2 className="text-[5rem] font-trash-hand text-black text-center mb-5">
+                        Erfolge teilen
                     </h2>
 
                     {/* Formular */}
@@ -76,10 +76,10 @@ function CommentForm() {
                             />
                         </div>
 
-                        {/* Kommentar */}
+                        {/* Erfolg */}
                         <div>
                             <label className="block text-xl font-anonymous-pro text-gray-700 mb-3">
-                                Kommentar:
+                                Teile deinen Erfolg:
                             </label>
                             <textarea
                                 value={content}
@@ -95,7 +95,7 @@ function CommentForm() {
                             type="submit"
                             className="w-full bg-[#A9D09A] hover:bg-[#90B883] text-gray-800 py-3 rounded-lg text-xl font-bold shadow-lg"
                         >
-                            Kommentar absenden
+                            Erfolg teilen
                         </button>
                     </form>
 
@@ -107,13 +107,13 @@ function CommentForm() {
                     )}
                 </div>
 
-                {/* Kommentare anzeigen */}
+                {/* Erfolge anzeigen */}
                 <div className="max-w-3xl w-full mt-12">
                     <h3 className="text-3xl font-anonymous-pro text-gray-800 mb-6">
-                        Kommentare:
+                        Geteilte Erfolge:
                     </h3>
 
-                    {/* Kommentar-Liste */}
+                    {/* Erfolgsliste */}
                     {comments.length > 0 ? (
                         <ul className="space-y-6">
                             {comments.map((comment, index) => (
@@ -129,7 +129,7 @@ function CommentForm() {
                             ))}
                         </ul>
                     ) : (
-                        <p className="text-gray-700">Noch keine Kommentare vorhanden.</p>
+                        <p className="text-gray-700">Noch keine Erfolge geteilt.</p>
                     )}
                 </div>
             </div>

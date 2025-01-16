@@ -21,7 +21,7 @@ export default function Header() {
                     <Link href="/#community-section" className="text-gray-700 hover:text-black">Community</Link>
                 </li>
                 <li>
-                    <Link href="/comments" className="text-gray-700 hover:text-black">Kommentare</Link>
+                    <Link href="/comments" className="text-gray-700 hover:text-black">Erfolge</Link>
                 </li>
             </ul>
 

@@ -12,26 +12,28 @@ export default function LoginPage() {
     };
 
     const handleSubmit = async (e) => {
-        e.preventDefault();
+        e.preventDefault(); //verhindert Standardformular-Submit
     
-        const { username, password } = formData;
+        const { username, password } = formData; // Entpacke `formData`
     
+        // Überprüfen, ob Felder leer sind
         if (!username || !password) {
             alert('Bitte alle Felder ausfüllen.');
             return;
         }
     
         try {
+            // API-Request
             const response = await fetch('/api/login', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ username, password }),
+                body: JSON.stringify({ username, password }), // Sende NUR Strings/JSON
             });
     
-            const data = await response.json();
+            const data = await response.json(); // Antwort parsen
     
             if (response.ok) {
-                login(data); // Login-Daten an den AuthContext übergeben
+                login(data); // Daten an AuthContext übergeben
                 alert('Login erfolgreich!');
                 window.location.href = '/Dashboard'; // Weiterleitung
             } else {
