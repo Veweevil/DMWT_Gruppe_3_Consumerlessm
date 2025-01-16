@@ -41,6 +41,53 @@
   animation: float 4s infinite ease-in-out;
 }
 
+@keyframes discard-iphone {
+  0% {
+    transform: translateX(0) translateY(-338%) scale(1); /* Startet bei der iPhone-Position */
+    opacity: 1; /* Voll sichtbar */
+  }
+  100% {
+    transform: translateX(100vw) translateY(28%) scale(0.5); /* Bewegt nach rechts, bleibt auf Y-Position */
+    opacity: 0; /* Unsichtbar */
+  }
+}
+
+@keyframes discard-chocolate {
+  0% {
+    transform: translateX(0) translateY(-330%) scale(1); /* Startet bei der Schokoladen-Position */
+    opacity: 1; /* Voll sichtbar */
+  }
+  100% {
+    transform: translateX(100vw) translateY(-15%) scale(0.5); /* Bewegt nach rechts, bleibt auf Y-Position */
+    opacity: 0; /* Unsichtbar */
+  }
+}
+
+@keyframes discard-bottle {
+  0% {
+    transform: translateX(100) translateY(-400%) scale(1); /* Startet bei der Flaschen-Position */
+    opacity: 1; /* Voll sichtbar */
+  }
+  100% {
+    transform: translateX(100vw) translateY(30%) scale(0.5); /* Bewegt nach rechts, bleibt auf Y-Position */
+    opacity: 0; /* Unsichtbar */
+  }
+}
+
+/* Klassen für die spezifischen Animationen */
+.animate-discard-iphone {
+  animation: discard-iphone 1s ease-out forwards;
+}
+
+.animate-discard-chocolate {
+  animation: discard-chocolate 1s ease-out forwards;
+}
+
+.animate-discard-bottle {
+  animation: discard-bottle 1s ease-out forwards;
+}
+
+
 /* CSS-Regeln für globale Variablen */
 :root {
   --background: #ffffff; /* Weiß als Standardhintergrund */

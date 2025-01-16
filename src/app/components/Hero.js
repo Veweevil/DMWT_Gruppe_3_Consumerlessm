@@ -4,9 +4,10 @@ import { useState, useEffect } from 'react';
 import Link from 'next/link';
 
 export default function Hero() {
-    const [activeItem, setActiveItem] = useState(null); // Zustand für das aktive Element ('iphone', 'chocolate', 'bottle')
-    const [discardingItem, setDiscardingItem] = useState(null); // Zustand für das Objekt, das verworfen wird
-    const [infoVisible, setInfoVisible] = useState(false); // Zustand für das Info-Textfeld
+    const [activeItem, setActiveItem] = useState(null); //Zustand aktives Element
+    const [discardingItem, setDiscardingItem] = useState(null); //Zustand verworfenes Objekt
+    const [infoVisible, setInfoVisible] = useState(false); //Zustand Info-Feld
+    const [cartItems, setCartItems] = useState(['iphone', 'chocolate', 'bottle']); //Liste Objekte im Warenkorb
 
     const handleItemClick = (item) => {
         setActiveItem(activeItem === item ? null : item);
@@ -15,21 +16,28 @@ export default function Hero() {
     const handleDiscard = (item) => {
         setDiscardingItem(item);
         setTimeout(() => {
-            setActiveItem(null);
+            setCartItems((prevItems) => prevItems.filter((cartItem) => cartItem !== item)); //Objekt entfernen
             setDiscardingItem(null);
-        }, 1000);
+        }, 1000); //Animationsdauer
+    };
+
+    const handleRestart = () => {
+        setCartItems(['iphone', 'chocolate', 'bottle']); //Objekte wiederherstellen
     };
 
     const toggleInfo = (e) => {
-        e.stopPropagation(); // Verhindert, dass das Klick-Event zum globalen Listener durchläuft
+        e.stopPropagation(); //Stoppt Eventweitergabe
         setInfoVisible((prev) => !prev);
+    };
+
+    const handleInfoClick = (e) => {
+        e.stopPropagation(); //Stoppt Eventweitergabe
     };
 
     useEffect(() => {
         const handleClickOutside = () => {
-            if (infoVisible) {
-                setInfoVisible(false); // Blendet das Textfeld aus, wenn irgendwo anders geklickt wird
-            }
+            if (activeItem) setActiveItem(null); //Deaktiviert aktives Element
+            if (infoVisible) setInfoVisible(false); //Blendet Info aus
         };
 
         document.addEventListener('click', handleClickOutside);
@@ -37,7 +45,7 @@ export default function Hero() {
         return () => {
             document.removeEventListener('click', handleClickOutside);
         };
-    }, [infoVisible]);
+    }, [activeItem, infoVisible]);
 
     return (
         <div className="hero-container flex flex-col lg:flex-row items-center justify-between bg-[#F0F7EC] p-20 relative">
@@ -54,9 +62,9 @@ export default function Hero() {
                         Werde Teil unserer Community!
                     </p>
                     <Link href="Register">
-                    <button className="hero-button bg-gray-200 hover:bg-gray-300 text-gray-800 px-6 py-3 rounded shadow text-lg">
-                        Jetzt anmelden
-                    </button>
+                        <button className="bg-gray-200 hover:bg-gray-300 text-gray-800 px-6 py-3 rounded shadow text-lg">
+                            Jetzt anmelden
+                        </button>
                     </Link>
                 </div>
                 <Link href="#kaufreue-section">
@@ -65,51 +73,67 @@ export default function Hero() {
             </div>
 
             <div className="hero-image-container relative">
-                {/* Info-Icon */}
-                <div className="relative" onClick={toggleInfo}>
+                {/*Info und Restart*/}
+                <div className="absolute top-4 right-4 flex space-x-4">
                     <img
                         src="/info.svg"
                         alt="Info"
-                        className="info w-12 h-12 absolute top-0 right-0 mt-4 mr-4 cursor-pointer"
+                        className="w-12 h-12 cursor-pointer hover:scale-110 transition-transform duration-200"
+                        onClick={toggleInfo}
                     />
-                    {infoVisible && (
-                        <div className="absolute top-0 right-16 mt-4 bg-white border border-gray-300 p-4 rounded shadow-lg text-gray-800 w-60 overflow-hidden transform transition-all duration-500">
-                            <p className="text-sm font-anonymous-pro">
-                                Klicke auf die Artikel, um den Warenkorb zu leeren.
-                            </p>
-                        </div>
-                    )}
+                    <img
+                        src="/restart.svg"
+                        alt="Einkaufswagen zurücksetzen"
+                        className="w-12 h-12 cursor-pointer hover:scale-110 transition-transform duration-200"
+                        onClick={handleRestart}
+                    />
                 </div>
+                {infoVisible && (
+                    <div
+                        className="absolute top-16 right-4 bg-white border border-gray-300 p-4 rounded shadow-lg text-gray-800 w-60 transform transition-all duration-500"
+                        onClick={handleInfoClick} //Verhindert Schließen des Info-Feldes
+                    >
+                        <p className="text-sm font-anonymous-pro">
+                            Klicke auf die Artikel, um den Warenkorb zu leeren.
+                        </p>
+                    </div>
+                )}
 
-                {/* Einkaufswagen-Bild */}
+                {/*Einkaufswagen*/}
                 <img
                     src="/cart.svg"
                     alt="Einkaufswagen"
                     className="wagen w-full max-w-none lg:w-[700px] lg:h-[700px]"
                 />
 
-                {/* iPhone-Bild */}
-                <img
-                    src="/iphone.svg"
-                    alt="iPhone"
-                    className={`absolute transition-all duration-500 animate-float ${
-                        discardingItem === 'iphone'
-                            ? 'animate-discard'
-                            : activeItem === 'iphone'
-                            ? 'top-[-30px] left-[23%] transform -translate-x-[50%]'
-                            : 'top-[28%] left-[23%] transform -translate-x-[50%] -translate-y-[50%]'
-                    } lg:w-[120px] lg:h-[240px] cursor-pointer`}
-                    onClick={(e) => {
-                        e.stopPropagation();
-                        handleItemClick('iphone');
-                    }}
-                />
+                {/*iPhone*/}
+                {cartItems.includes('iphone') && (
+                    <img
+                        src="/iphone.svg"
+                        alt="iPhone"
+                        className={`absolute transition-all duration-500 animate-float ${
+                            discardingItem === 'iphone'
+                                ? 'animate-discard-iphone'
+                                : activeItem === 'iphone'
+                                ? 'top-[-30px] left-[20%] transform -translate-x-[50%]'
+                                : 'top-[28%] left-[20%] transform -translate-x-[50%] -translate-y-[50%]'
+                        } lg:w-[120px] lg:h-[240px] cursor-pointer`}
+                        style={{
+                            filter: 'drop-shadow(0 0 15px #A9D09A)',
+                        }}
+                        onClick={(e) => {
+                            e.stopPropagation();
+                            handleItemClick('iphone');
+                        }}
+                    />
+                )}
 
-                {/* Textfeld für iPhone */}
+                {/*Textfeld iPhone*/}
                 {activeItem === 'iphone' && (
                     <div className="absolute top-[-10px] left-[36%] bg-white border border-[#A9D09A] p-4 rounded shadow-lg text-gray-800">
                         <p className="text-sm font-anonymous-pro mb-4">
-                            Auch kaputte Smartphones lassen sich noch reparieren. Überleg dir ob du wirklich ein neues brauchst!
+                            Auch kaputte Smartphones lassen sich noch reparieren. Überleg dir ob du wirklich ein neues
+                            brauchst!
                         </p>
                         <div className="flex justify-end space-x-2">
                             <button
@@ -128,28 +152,34 @@ export default function Hero() {
                     </div>
                 )}
 
-                {/* Schokolade-Bild */}
-                <img
-                    src="/schokolade.svg"
-                    alt="Dubai-Schokolade"
-                    className={`absolute transition-all duration-500 animate-float-slow ${
-                        discardingItem === 'chocolate'
-                            ? 'animate-discard'
-                            : activeItem === 'chocolate'
-                            ? 'top-[-50px] left-[32%] transform -translate-x-[50%]'
-                            : 'top-[18%] left-[32%] transform -translate-x-[50%] -translate-y-[50%]'
-                    } lg:w-[120px] lg:h-[240px] cursor-pointer`}
-                    onClick={(e) => {
-                        e.stopPropagation();
-                        handleItemClick('chocolate');
-                    }}
-                />
+                {/*Schokolade*/}
+                {cartItems.includes('chocolate') && (
+                    <img
+                        src="/schokolade.svg"
+                        alt="Dubai-Schokolade"
+                        className={`absolute transition-all duration-500 animate-float-slow ${
+                            discardingItem === 'chocolate'
+                                ? 'animate-discard-chocolate'
+                                : activeItem === 'chocolate'
+                                ? 'top-[-50px] left-[32%] transform -translate-x-[50%]'
+                                : 'top-[15%] left-[32%] transform -translate-x-[50%] -translate-y-[50%]'
+                        } lg:w-[120px] lg:h-[240px] cursor-pointer`}
+                        style={{
+                            filter: 'drop-shadow(0 0 15px #A9D09A)',
+                        }}
+                        onClick={(e) => {
+                            e.stopPropagation();
+                            handleItemClick('chocolate');
+                        }}
+                    />
+                )}
 
-                {/* Textfeld für Schokolade */}
+                {/*Textfeld Schokolade*/}
                 {activeItem === 'chocolate' && (
                     <div className="absolute top-[0px] left-[50%] bg-white border border-[#A9D09A] p-4 rounded shadow-lg text-gray-800">
                         <p className="text-sm font-anonymous-pro mb-4">
-                            Noch ein Essenstrend? Überleg dir ob du wirklich so viel Geld für Schokolade ausgeben möchtest!
+                            Noch ein Essenstrend? Überleg dir ob du wirklich so viel Geld für Schokolade ausgeben
+                            möchtest!
                         </p>
                         <div className="flex justify-end space-x-2">
                             <button
@@ -168,32 +198,38 @@ export default function Hero() {
                     </div>
                 )}
 
-                {/* Flasche-Bild */}
-                <div
-                    className={`absolute ${
-                        discardingItem === 'bottle'
-                            ? 'animate-discard'
-                            : activeItem === 'bottle'
-                            ? 'top-[-10px] left-[43%]'
-                            : 'top-[30%] left-[43%] transform rotate-[75deg]'
-                    } transition-all duration-500`}
-                >
-                    <img
-                        src="/flasche.svg"
-                        alt="Wasserflasche"
-                        className="animate-float-slower lg:w-[80px] lg:h-[160px] cursor-pointer"
-                        onClick={(e) => {
-                            e.stopPropagation();
-                            handleItemClick('bottle');
+                {/*Flasche*/}
+                {cartItems.includes('bottle') && (
+                    <div
+                        className={`absolute ${
+                            discardingItem === 'bottle'
+                                ? 'animate-discard-bottle'
+                                : activeItem === 'bottle'
+                                ? 'top-[-10px] left-[43%]'
+                                : 'top-[30%] left-[43%] transform rotate-[75deg]'
+                        } transition-all duration-500`}
+                        style={{
+                            filter: 'drop-shadow(0 0 15px #A9D09A)',
                         }}
-                    />
-                </div>
+                    >
+                        <img
+                            src="/flasche.svg"
+                            alt="Wasserflasche"
+                            className="animate-float-slower lg:w-[80px] lg:h-[160px] cursor-pointer"
+                            onClick={(e) => {
+                                e.stopPropagation();
+                                handleItemClick('bottle');
+                            }}
+                        />
+                    </div>
+                )}
 
-                {/* Textfeld für Flasche */}
+                {/*Textfeld Flasche*/}
                 {activeItem === 'bottle' && (
                     <div className="absolute top-[0px] left-[56%] bg-white border border-[#A9D09A] p-4 rounded shadow-lg text-gray-800">
                         <p className="text-sm font-anonymous-pro mb-4">
-                            Überleg dir, ob du wirklich jedes Mal Flaschen kaufen musst, oder ob du nicht lieber eine wiederverwendbare Flasche benutzen möchtest!
+                            Überleg dir, ob du wirklich jedes Mal Flaschen kaufen musst, oder ob du nicht lieber eine
+                            wiederverwendbare Flasche benutzen möchtest!
                         </p>
                         <div className="flex justify-end space-x-2">
                             <button
