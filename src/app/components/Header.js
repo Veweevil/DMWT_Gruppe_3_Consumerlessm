@@ -21,16 +21,23 @@ export default function Header() {
                     <Link href="/#kaufreue-section" className="text-gray-700 hover:text-black">Kaufreue</Link>
                 </li>
                 <li>
-                    <Link href="/#community-section" className="text-gray-700 hover:text-black">Community</Link>
+                    <Link href="/#calendar-section" className="text-gray-700 hover:text-black">Termine</Link>       
                 </li>
-                <li>
-                    <Link href="/comments" className="text-gray-700 hover:text-black">Erfolge</Link>
-                </li>
-                {isLoggedIn && (
+                {!isLoggedIn?(
+                    <li>
+                        <Link href = "/#community-section" className="text-gray-700 hover:text-black">Community</Link>
+
+                    </li>
+                ):(
                     <li>
                         <Link href="/Dashboard" className="text-gray-700 hover:text-black">Dashboard</Link>
                     </li>
                 )}
+                
+                <li>
+                    <Link href="/comments" className="text-gray-700 hover:text-black">Erfolge</Link>
+                </li>
+              
             </ul>
 
             {/*Auth-Bereich*/}
@@ -42,7 +49,7 @@ export default function Header() {
                             <button className="bg-[#A9D09A] hover:bg-[#90B883] text-gray-800 px-4 py-2 rounded">
                                 Login
                             </button>
-                        </Link>
+                        </Link>     
                         <Link href="/Register">
                             <button className="bg-white border border-gray-300 hover:bg-gray-100 text-gray-800 px-4 py-2 rounded">
                                 Registrieren
