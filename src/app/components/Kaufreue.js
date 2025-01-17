@@ -48,8 +48,7 @@ export default function KaufreuePage() {
             },
         ],
     };
-    
-    
+
     const options = {
         responsive: true,
         plugins: {
@@ -83,10 +82,17 @@ export default function KaufreuePage() {
             <div className="flex flex-col items-center justify-center bg-white min-h-screen p-10">
                 {/* Prozentanzeige */}
                 <div className="flex items-baseline mb-4">
-                    <h1 className="text-[8rem] font-trash-hand text-black leading-none">82</h1>
-                    <h1 className="text-[5rem] text-black ml-2" style={{ fontFamily: 'Arial, bold-serif' }}>
-                        %
-                    </h1>
+                <h1
+                    className="text-[8rem] font-trash-hand text-black leading-none relative"
+                    style={{
+                        textShadow: "4px 4px 0 #A9D09A", // Fester grüner Schatten mit 100% Deckkraft
+                    }}
+                >
+                    82
+                </h1>
+                <h1 className="text-[5rem] text-black ml-2" style={{ fontFamily: 'Arial, bold-serif' }}>
+                    %
+                </h1>
                 </div>
                 <hr className="hr-mitte" />
 
@@ -97,7 +103,7 @@ export default function KaufreuePage() {
 
                 {/* Beschreibungstext */}
                 <p className="text-lg font-anonymous-pro text-center text-gray-600 max-w-3xl mb-8">
-                Impulsives Verhalten beim Einkaufen ist keine Seltenheit. Häufig führen spontane Entscheidungen, der Wunsch nach Belohnung oder äußere Einflüsse dazu, dass Konsument:innen Produkte erwerben, die später als unnötig wahrgenommen werden. Solche Käufe können nicht nur zu Reuegefühlen führen, sondern auch finanzielle und emotionale Belastungen verursachen. Reflektieren Sie Ihre Entscheidungen, um bewusster zu konsumieren.
+                    Impulsives Verhalten beim Einkaufen ist keine Seltenheit. Häufig führen spontane Entscheidungen, der Wunsch nach Belohnung oder äußere Einflüsse dazu, dass Konsument:innen Produkte erwerben, die später als unnötig wahrgenommen werden. Solche Käufe können nicht nur zu Reuegefühlen führen, sondern auch finanzielle und emotionale Belastungen verursachen. Reflektieren Sie Ihre Entscheidungen, um bewusster zu konsumieren.
                 </p>
 
                 {/* Button */}
@@ -114,7 +120,7 @@ export default function KaufreuePage() {
                 <div
                     ref={chartRef} // Referenz für das Scrollen
                     className="flex flex-col items-center justify-center bg-white min-h-screen p-0"
-                    >
+                >
                     <h2 className="text-4xl sm:text-3xl font-bold mb-0 text-center">
                         Konsum und Emotionen
                     </h2>

@@ -166,7 +166,7 @@ export default function Calendar() {
                     <div
                         key={currentDay.toISOString()}
                         className={`border p-2 text-center cursor-pointer ${
-                            isSameDay(currentDay, selectedDate) ? 'bg-green-200 text-white' : 'bg-white'
+                            isSameDay(currentDay, selectedDate) ? 'bg-[#A9D09A] text-white' : 'bg-white'
                         } ${!isSameMonth(currentDay, currentMonth) ? 'text-gray-400' : ''}`}
                         onClick={() => setSelectedDate(new Date(currentDay))}
                     >
@@ -221,7 +221,7 @@ export default function Calendar() {
                     <div className="col-span-1 bg-gray-100 p-6 rounded-lg shadow-lg">
                         <div className="flex justify-between items-center mb-4">
                             <button
-                                className="bg-[#A9D09A] text-white px-4 py-2 rounded hover:bg-[#90B883]"
+                                className="bg-[#A9D09A] text-white px-4 py-2 rounded hover:bg-[#A9D09A]"
                                 onClick={() => setCurrentMonth(subMonths(currentMonth, 1))}
                             >
                                 ◀ Zurück
