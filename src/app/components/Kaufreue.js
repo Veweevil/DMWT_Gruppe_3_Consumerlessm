@@ -102,7 +102,7 @@ export default function KaufreuePage() {
 
                 {/* Button */}
                 <button
-                    className="bg-gray-200 hover:bg-gray-300 text-gray-800 px-8 py-4 rounded shadow text-xl"
+                    className="mt-2 bg-white text-black border-2 border-[#A9D09A] px-6 py-2 rounded hover:bg-[#A9D09A] hover:text-white"
                     onClick={handleToggleChart}
                 >
                     {showChart ? "Weniger anzeigen" : "Mehr dazu"}

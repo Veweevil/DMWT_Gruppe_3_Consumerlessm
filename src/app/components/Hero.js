@@ -67,8 +67,10 @@ export default function Hero() {
                                 Werde Teil unserer Community!
                             </p>
                             <Link href="Register">
-                                <button className="bg-gray-200 hover:bg-gray-300 text-gray-800 px-6 py-3 rounded shadow text-lg">
-                                    Jetzt anmelden
+                                <button 
+                                    className="mt-2 bg-white text-black border-2 border-[#A9D09A] px-4 py-2 rounded hover:bg-[#A9D09A] hover:text-white"
+                                >
+                                    Jetzt registrieren
                                 </button>
                             </Link>
                         </div>
@@ -81,7 +83,9 @@ export default function Hero() {
                                 Willkommen zurück!
                             </p>
                             <Link href="/Dashboard">
-                                <button className="bg-gray-200 hover:bg-gray-300 text-gray-800 px-6 py-3 rounded shadow text-lg">
+                                <button 
+                                    className="mt-2 bg-white text-black border-2 border-[#A9D09A] px-4 py-2 rounded hover:bg-[#A9D09A] hover:text-white"
+                                >
                                     Zum Dashboard
                                 </button>
                             </Link>

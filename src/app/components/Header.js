@@ -21,6 +21,9 @@ export default function Header() {
                     <Link href="/#kaufreue-section" className="text-gray-700 hover:text-black">Kaufreue</Link>
                 </li>
                 <li>
+                    <Link href="/#what-you-can-do-section" className="text-gray-700 hover:text-black">Mitwirken</Link>
+                </li>
+                <li>
                     <Link href="/#calendar-section" className="text-gray-700 hover:text-black">Termine</Link>       
                 </li>
                 {!isLoggedIn?(

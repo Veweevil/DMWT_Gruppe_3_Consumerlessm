@@ -21,7 +21,8 @@ export default function Calendar() {
     const [currentMonth, setCurrentMonth] = useState(new Date());
     const [selectedDate, setSelectedDate] = useState(new Date());
     const [bookmarkedEvents, setBookmarkedEvents] = useState([]);
-    const { isLoggedIn } = useAuth();
+    const [emailNotifications, setEmailNotifications] = useState(false); // State für Email-Benachrichtigungen
+    const { isLoggedIn, user } = useAuth(); // AuthContext mit `user` (enthält die E-Mail)
 
     const [events] = useState([
         { id: 1, date: '2025-01-20', title: 'Workshop: Nachhaltiger Konsum', description: 'Lerne, wie du deinen Alltag nachhaltig gestalten kannst.', location: 'Online (Zoom)' },
@@ -57,6 +58,11 @@ export default function Calendar() {
         const updatedBookmarks = bookmarkedEvents.filter((e) => e.id !== eventId);
         setBookmarkedEvents(updatedBookmarks);
         updateLocalStorage(updatedBookmarks);
+    };
+
+    const toggleEmailNotifications = () => {
+        setEmailNotifications((prev) => !prev);
+        // Optional: Hier kannst du den Status an den Server senden, um die Benachrichtigung zu speichern
     };
 
     const renderCalendar = () => {
@@ -197,7 +203,7 @@ export default function Calendar() {
                                         window.location.href = '/Login';
                                     }}
                                 >
-                                    Jetzt einloggen
+                                    Jetzt anmelden
                                 </button>
                             </div>
                         )}
@@ -214,10 +220,51 @@ export default function Calendar() {
 
                 {/* Bookmarked Events */}
                 {isLoggedIn && (
-                    <div className="mt-8 bg-gray-100 p-6 rounded-lg shadow-lg">
-                        <h3 className="font-anonymous-pro text-xl text-gray-800 mb-4">Vorgemerkte Events</h3>
-                        {renderBookmarks()}
+                    <div className="mt-8 bg-gray-50 p-6 rounded-lg shadow-lg">
+                    <div className="flex items-center justify-between mb-4">
+                        <h3 className="font-anonymous-pro text-xl text-gray-800">
+                            Vorgemerkte Events
+                        </h3>
+                        <div className="flex items-center space-x-2">
+                            <p className="text-gray-800 text-sm">
+                                Benachrichtigung per Mail an {user?.email}
+                            </p>
+                            <label className="relative inline-flex items-center cursor-pointer">
+                                <input
+                                    type="checkbox"
+                                    className="sr-only peer"
+                                    checked={emailNotifications}
+                                    onChange={toggleEmailNotifications}
+                                />
+                                <div className="w-11 h-6 bg-gray-300 rounded-full peer peer-checked:bg-[#A9D09A] peer-focus:ring-2 peer-focus:ring-[#A9D09A]"></div>
+                                <div className="absolute left-1 top-1 w-4 h-4 bg-white rounded-full peer-checked:translate-x-5 transition-transform"></div>
+                            </label>
+                        </div>
                     </div>
+                    <div className="grid gap-6">
+                        {bookmarkedEvents.map((event) => (
+                            <div
+                                key={event.id}
+                                className="bg-white border border-gray-200 rounded-lg p-4 shadow-sm hover:shadow-md transition-shadow"
+                            >
+                                <h4 className="font-anonymous-pro text-lg text-gray-800 mb-2">
+                                    {event.title}
+                                </h4>
+                                <p className="text-sm text-gray-500 mb-1">
+                                    {format(parseISO(event.date), 'dd.MM.yyyy')}
+                                </p>
+                                <p className="text-sm text-gray-500 mb-3">{event.location}</p>
+                                <button
+                                    className="bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600 transition-colors"
+                                    onClick={() => removeBookmark(event.id)}
+                                >
+                                    Entfernen
+                                </button>
+                            </div>
+                        ))}
+                    </div>
+                </div>
+                
                 )}
             </div>
         </div>

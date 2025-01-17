@@ -19,7 +19,7 @@ export default function Home() {
         <div className="Header"> <Header/> </div>
         <div> <Hero/> </div>
         <div id="kaufreue-section"> <Kaufreue/> </div>
-        <div><WhatYouCanDo/></div>
+        <div id="what-you-can-do-section"><WhatYouCanDo/></div>
         <div id="calendar-section"> <Calendar /> </div>
         {!isLoggedIn && <div> <Community /> </div>}
         <div><Footer/></div>

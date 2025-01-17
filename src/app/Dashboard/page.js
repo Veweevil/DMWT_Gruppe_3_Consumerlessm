@@ -58,7 +58,7 @@ export default function Dashboard() {
                 {/* Dashboard Cards */}
                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mt-16 w-full max-w-6xl">
                     {/* Card 1 */}
-                    <div className="bg-[#DFF2E1] rounded-lg shadow-lg p-6 flex flex-col items-center hover:scale-105 transition-transform">
+                    <div className="bg-white border-2 border-[#A9D09A] rounded-lg shadow-lg p-6 flex flex-col items-center hover:scale-105 transition-transform">
                         <img src="/icons/profile.svg" alt="Profil" className="w-16 h-16 mb-4" />
                         <h2 className="font-anonymous-pro text-xl text-gray-800">Dein Profil</h2>
                         <p className="text-gray-600 text-center mt-2">
@@ -67,7 +67,7 @@ export default function Dashboard() {
                     </div>
 
                     {/* Card 2 */}
-                    <div className="bg-[#DFF2E1] rounded-lg shadow-lg p-6 flex flex-col items-center hover:scale-105 transition-transform">
+                    <div className="bg-white border-2 border-[#A9D09A] rounded-lg shadow-lg p-6 flex flex-col items-center hover:scale-105 transition-transform">
                         <img src="/icons/challenges.svg" alt="Challenges" className="w-16 h-16 mb-4" />
                         <h2 className="font-anonymous-pro text-xl text-gray-800">Challenges</h2>
                         <p className="text-gray-600 text-center mt-2">
@@ -76,7 +76,7 @@ export default function Dashboard() {
                     </div>
 
                     {/* Card 3 */}
-                    <div className="bg-[#DFF2E1] rounded-lg shadow-lg p-6 flex flex-col items-center hover:scale-105 transition-transform">
+                    <div className="bg-white border-2 border-[#A9D09A] rounded-lg shadow-lg p-6 flex flex-col items-center hover:scale-105 transition-transform">
                         <img src="/icons/tracker.svg" alt="Konsumtracker" className="w-16 h-16 mb-4" />
                         <h2 className="font-anonymous-pro text-xl text-gray-800">Konsumtracker</h2>
                         <p className="text-gray-600 text-center mt-2">
@@ -84,8 +84,8 @@ export default function Dashboard() {
                         </p>
                     </div>
 
-                    {/* Card 4 */}
-                    <div className="bg-[#DFF2E1] rounded-lg shadow-lg p-6 flex flex-col items-center hover:scale-105 transition-transform">
+                    {/* Card 4 */}                                    
+                    <div className="bg-white border-2 border-[#A9D09A] rounded-lg shadow-lg p-6 flex flex-col items-center hover:scale-105 transition-transform">
                         <img src="/icons/community.svg" alt="Community" className="w-16 h-16 mb-4" />
                         <h2 className="font-anonymous-pro text-xl text-gray-800">Community</h2>
                         <p className="text-gray-600 text-center mt-2">
