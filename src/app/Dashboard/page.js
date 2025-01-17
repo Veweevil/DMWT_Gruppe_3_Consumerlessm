@@ -2,7 +2,7 @@
 import { useEffect, useState } from 'react';
 import { useAuth } from "../../context/AuthContext";
 import Header from "../components/Header";
-
+import Link from 'next/link';
 export default function Dashboard() {
     const [nutzername, setNutzername] = useState('');
     const { user } = useAuth();
@@ -59,7 +59,7 @@ export default function Dashboard() {
                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mt-16 w-full max-w-6xl">
                     {/* Card 1 */}
                     <div className="bg-white border-2 border-[#A9D09A] rounded-lg shadow-lg p-6 flex flex-col items-center hover:scale-105 transition-transform">
-                        <img src="/icons/profile.svg" alt="Profil" className="w-16 h-16 mb-4" />
+                        <img src="/profile.png" alt="Profil" className="w-16 h-16 mb-4" />
                         <h2 className="font-anonymous-pro text-xl text-gray-800">Dein Profil</h2>
                         <p className="text-gray-600 text-center mt-2">
                             Verwalte deine Daten und Einstellungen.
@@ -68,7 +68,7 @@ export default function Dashboard() {
 
                     {/* Card 2 */}
                     <div className="bg-white border-2 border-[#A9D09A] rounded-lg shadow-lg p-6 flex flex-col items-center hover:scale-105 transition-transform">
-                        <img src="/icons/challenges.svg" alt="Challenges" className="w-16 h-16 mb-4" />
+                        <img src="/award.png" alt="Challenges" className="w-16 h-16 mb-4" />
                         <h2 className="font-anonymous-pro text-xl text-gray-800">Challenges</h2>
                         <p className="text-gray-600 text-center mt-2">
                             Stelle dich spannenden Aufgaben und reduziere deinen Konsum.
@@ -77,21 +77,23 @@ export default function Dashboard() {
 
                     {/* Card 3 */}
                     <div className="bg-white border-2 border-[#A9D09A] rounded-lg shadow-lg p-6 flex flex-col items-center hover:scale-105 transition-transform">
-                        <img src="/icons/tracker.svg" alt="Konsumtracker" className="w-16 h-16 mb-4" />
+                        <img src="/analysis.png" alt="Konsumtracker" className="w-16 h-16 mb-4" />
                         <h2 className="font-anonymous-pro text-xl text-gray-800">Konsumtracker</h2>
                         <p className="text-gray-600 text-center mt-2">
                             Behalte deine Fortschritte im Blick.
                         </p>
                     </div>
 
-                    {/* Card 4 */}                                    
+                    {/* Card 4 */}
+                    <Link href="/Community">                                    
                     <div className="bg-white border-2 border-[#A9D09A] rounded-lg shadow-lg p-6 flex flex-col items-center hover:scale-105 transition-transform">
-                        <img src="/icons/community.svg" alt="Community" className="w-16 h-16 mb-4" />
+                        <img src="/communities.png" alt="Community" className="w-16 h-16 mb-4" />
                         <h2 className="font-anonymous-pro text-xl text-gray-800">Community</h2>
                         <p className="text-gray-600 text-center mt-2">
                             Vernetze dich mit Gleichgesinnten und teile Erfolge.
                         </p>
                     </div>
+                    </Link>
                 </div>
             </div>
         </div>

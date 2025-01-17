@@ -16,117 +16,119 @@ import {
 } from 'date-fns';
 import { de } from 'date-fns/locale';
 import { useAuth } from '../../context/AuthContext';
-
 export default function Calendar() {
     const [currentMonth, setCurrentMonth] = useState(new Date());
     const [selectedDate, setSelectedDate] = useState(new Date());
+    const [events, setEvents] = useState([]);
     const [bookmarkedEvents, setBookmarkedEvents] = useState([]);
-    const [emailNotifications, setEmailNotifications] = useState(false); // State für Email-Benachrichtigungen
-    const { isLoggedIn, user } = useAuth(); // AuthContext mit `user` (enthält die E-Mail)
+    const [isModalOpen, setIsModalOpen] = useState(false);
+    const [newEvent, setNewEvent] = useState({ date: '', time: '', title: '', description: '', location: '' });
+    const { isLoggedIn, user } = useAuth();
 
-    const [events] = useState([
-        { id: 1, date: '2025-01-20', title: 'Workshop: Nachhaltiger Konsum', description: 'Lerne, wie du deinen Alltag nachhaltig gestalten kannst.', location: 'Online (Zoom)' },
-        { id: 2, date: '2025-01-25', title: 'Vortrag: Minimalismus im Alltag', description: 'Ein inspirierender Vortrag über die Vorteile eines minimalistischen Lebensstils.', location: 'Reutlingen, Aula H10' },
-        { id: 3, date: '2025-01-30', title: 'Workshop: DIY-Recycling', description: 'Kreative Ideen für Recycling und Upcycling.', location: 'Online (Google Meet)' },
-        { id: 4, date: '2025-01-30', title: 'Seminar: Zero-Waste-Lifestyle', description: 'Ein detaillierter Leitfaden zum Leben ohne Abfall.', location: 'Stuttgart, Konferenzzentrum' },
-        { id: 5, date: '2025-02-10', title: 'Diskussionsrunde: Nachhaltige Zukunft', description: 'Diskutiere über die Möglichkeiten einer nachhaltigen Gesellschaft.', location: 'Online, Zoom' },
-        { id: 6, date: '2025-02-10', title: 'Webinar: Plastikfrei einkaufen', description: 'Praktische Tipps und Strategien für einen plastikfreien Alltag.', location: 'Online, Teams' },
-    ]);
+    // **Zentralisierte Funktion zum Abrufen von Events**
+    const fetchEvents = async () => {
+        try {
+            const response = await fetch('/api/getEvents');
+            if (!response.ok) throw new Error('Fehler beim Abrufen der Veranstaltungen');
+            const data = await response.json();
+            console.log('Events geladen:', data.events);
+            setEvents(data.events || []);
+        } catch (error) {
+            console.error('Fehler beim Abrufen der Veranstaltungen:', error.message);
+        }
+    };
 
-    // Load bookmarked events from localStorage
+    // Initiales Abrufen der Events beim Laden der Komponente
     useEffect(() => {
+        fetchEvents();
+    
+        // Vorgemerkte Events aus LocalStorage laden
         const storedBookmarks = localStorage.getItem('bookmarkedEvents');
         if (storedBookmarks) {
             setBookmarkedEvents(JSON.parse(storedBookmarks));
         }
     }, []);
+    
+    const handleAddEvent = async () => {
+        if (!newEvent.date || !newEvent.time || !newEvent.title || !newEvent.description || !newEvent.location) {
+            alert('Bitte fülle alle Felder aus.');
+            return;
+        }
 
-    // Save bookmarked events to localStorage
-    const updateLocalStorage = (updatedBookmarks) => {
-        localStorage.setItem('bookmarkedEvents', JSON.stringify(updatedBookmarks));
-    };
+        try {
+            const formattedEvent = {
+                datum: newEvent.date,
+                uhrzeit: `${newEvent.time}:00+01:00`,
+                titel: newEvent.title,
+                beschreibung: newEvent.description,
+                ort: newEvent.location,
+                autor: user?.nutzername || 'Unbekannt',
+            };
 
-    const addBookmark = (event) => {
-        if (!bookmarkedEvents.find((e) => e.id === event.id)) {
-            const updatedBookmarks = [...bookmarkedEvents, event];
-            setBookmarkedEvents(updatedBookmarks);
-            updateLocalStorage(updatedBookmarks);
+            const response = await fetch('/api/addEvent', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(formattedEvent),
+            });
+
+            if (!response.ok) throw new Error('Fehler beim Hinzufügen der Veranstaltung.');
+
+            console.log('Neues Event hinzugefügt');
+            setIsModalOpen(false);
+            fetchEvents(); // Events nach dem Hinzufügen neu abrufen
+        } catch (error) {
+            console.error('Fehler beim Hinzufügen der Veranstaltung:', error.message);
         }
     };
 
-    const removeBookmark = (eventId) => {
-        const updatedBookmarks = bookmarkedEvents.filter((e) => e.id !== eventId);
-        setBookmarkedEvents(updatedBookmarks);
-        updateLocalStorage(updatedBookmarks);
-    };
+    const handleDeleteEvent = async (eventId) => {
+        try {
+            const response = await fetch('/api/deleteEvent', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ id: eventId }),
+            });
 
-    const toggleEmailNotifications = () => {
-        setEmailNotifications((prev) => !prev);
-        // Optional: Hier kannst du den Status an den Server senden, um die Benachrichtigung zu speichern
-    };
+            if (!response.ok) throw new Error('Fehler beim Löschen der Veranstaltung.');
 
-    const renderCalendar = () => {
-        const startMonth = startOfMonth(currentMonth);
-        const endMonth = endOfMonth(currentMonth);
-        const startDate = startOfWeek(startMonth, { locale: de });
-        const endDate = endOfWeek(endMonth, { locale: de });
-
-        const rows = [];
-        let days = [];
-        let day = startDate;
-
-        while (day <= endDate) {
-            for (let i = 0; i < 7; i++) {
-                const currentDay = day;
-                const dayEvents = events.filter((event) =>
-                    isSameDay(currentDay, parseISO(event.date))
-                );
-                days.push(
-                    <div
-                        key={currentDay.toISOString()}
-                        className={`border p-2 text-center cursor-pointer ${
-                            isSameDay(currentDay, selectedDate) ? 'bg-[#A9D09A] text-white' : 'bg-white'
-                        } ${!isSameMonth(currentDay, currentMonth) ? 'text-gray-400' : ''}`}
-                        onClick={() => setSelectedDate(new Date(currentDay))}
-                    >
-                        <p className="font-bold">{format(currentDay, 'd')}</p>
-                        {dayEvents.length > 0 && <p className="text-xs text-gray-600">{dayEvents.length} Event(s)</p>}
-                    </div>
-                );
-                day = addDays(day, 1);
-            }
-            rows.push(
-                <div key={`row-${day}`} className="grid grid-cols-7">
-                    {days}
-                </div>
-            );
-            days = [];
+            console.log('Event erfolgreich gelöscht');
+            fetchEvents(); // Events nach dem Löschen neu abrufen
+        } catch (error) {
+            console.error('Fehler beim Löschen der Veranstaltung:', error.message);
         }
-
-        return rows;
     };
 
     const renderEvents = () => {
         const selectedDayEvents = events.filter((event) =>
-            isSameDay(parseISO(event.date), selectedDate)
+            event.datum && isSameDay(parseISO(event.datum), selectedDate)
         );
-
+    
         if (selectedDayEvents.length === 0) {
             return <p className="text-gray-600">Keine Events für diesen Tag.</p>;
         }
-
+    
         return selectedDayEvents.map((event) => (
-            <div
-                key={event.id}
-                className="bg-white p-4 rounded-lg shadow-md mb-4"
-            >
-                <h2 className="font-anonymous-pro text-lg text-gray-800">{event.title}</h2>
-                <p className="text-sm text-gray-700">{event.description}</p>
-                <p className="text-sm text-gray-500">📍 {event.location}</p>
-                {isLoggedIn && (
+            <div key={event.id} className="bg-white p-4 rounded-lg shadow-md mb-4">
+                <h2 className="font-anonymous-pro text-lg text-gray-800">{event.titel}</h2>
+                <p className="text-sm text-gray-500">🗓 {format(parseISO(event.datum), 'dd.MM.yyyy')}</p>
+                <p className="text-sm text-gray-500">⏰ {event.uhrzeit.split('+')[0]}</p>
+                <p className="text-sm text-gray-700">{event.beschreibung}</p>
+                <p className="text-sm text-gray-500">📍 {event.ort}</p>
+                <p className="text-sm text-gray-500">👤 Autor: {event.autor}</p>
+                {/* Absagen-Button nur für den Autor sichtbar */}
+                {isLoggedIn && user?.nutzername === event.autor && (
                     <button
-                        className="mt-2 bg-[#A9D09A] text-white px-4 py-2 rounded hover:bg-[#90B883]"
-                        onClick={() => addBookmark(event)}
+                        className="mt-2 bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600"
+                        onClick={() => handleDeleteEvent(event.id)}
+                    >
+                        Absagen
+                    </button>
+                )}
+                {/* Vormerken-Button nur sichtbar, wenn der Benutzer nicht der Autor ist */}
+                {isLoggedIn && user?.nutzername !== event.autor && (
+                    <button
+                    className="mt-2 bg-transparent border-2 border-[#A9D09A] text- black px-4 py-2 rounded hover:bg-[#A9D09A] hover:text-white hover:border-[#90B883]"
+                    onClick={() => handleBookmarkEvent(event)}
                     >
                         Vormerken
                     </button>
@@ -134,23 +136,76 @@ export default function Calendar() {
             </div>
         ));
     };
-
-    const renderBookmarks = () => {
+    const handleRemoveBookmark = (eventId) => {
+        const updatedBookmarks = bookmarkedEvents.filter((event) => event.id !== eventId);
+        setBookmarkedEvents(updatedBookmarks);
+    
+        // Aktualisiere den LocalStorage
+        localStorage.setItem('bookmarkedEvents', JSON.stringify(updatedBookmarks));
+    };
+    
+    
+    
+    const renderCalendar = () => {
+        const startMonth = startOfMonth(currentMonth);
+        const endMonth = endOfMonth(currentMonth);
+        const startDate = startOfWeek(startMonth, { locale: de });
+        const endDate = endOfWeek(endMonth, { locale: de });
+    
+        const rows = [];
+        let days = [];
+        let day = startDate;
+    
+        while (day <= endDate) {
+            for (let i = 0; i < 7; i++) {
+                const currentDay = day;
+                const dayEvents = events.filter((event) =>
+                    event.datum && isSameDay(currentDay, parseISO(event.datum))
+                );
+                days.push(
+                    <div
+                        key={currentDay.toISOString()}
+                        className={`border p-2 text-center cursor-pointer ${
+                            isSameDay(currentDay, selectedDate) ? 'bg-green-200 text-white' : 'bg-white'
+                        } ${!isSameMonth(currentDay, currentMonth) ? 'text-gray-400' : ''}`}
+                        onClick={() => setSelectedDate(new Date(currentDay))}
+                    >
+                        <p className="font-bold">{format(currentDay, 'd')}</p>
+                        {dayEvents.length > 0 && (
+                            <p className="text-xs text-gray-600">{dayEvents.length} Event(s)</p>
+                        )}
+                    </div>
+                );
+                day = addDays(day, 1);
+            }
+            rows.push(<div key={`row-${day}`} className="grid grid-cols-7">{days}</div>);
+            days = [];
+        }
+    
+        return rows;
+    };
+    const handleBookmarkEvent = (event) => {
+        const updatedBookmarks = [...bookmarkedEvents, event];
+        setBookmarkedEvents(updatedBookmarks);
+    
+        // Speichere die vorgemerkten Events im LocalStorage
+        localStorage.setItem('bookmarkedEvents', JSON.stringify(updatedBookmarks));
+    };
+    
+    
+    const renderBookmarkedEvents = () => {
         if (bookmarkedEvents.length === 0) {
             return <p className="text-gray-600">Keine vorgemerkten Events.</p>;
         }
 
         return bookmarkedEvents.map((event) => (
-            <div
-                key={event.id}
-                className="bg-white p-4 rounded-lg shadow-md mb-4"
-            >
-                <h2 className="font-anonymous-pro text-lg text-gray-800">{event.title}</h2>
-                <p className="text-sm text-gray-500">{format(parseISO(event.date), 'dd.MM.yyyy')}</p>
-                <p className="text-sm text-gray-500">{event.location}</p>
+            <div key={event.id} className="bg-white p-4 rounded-lg shadow-md mb-4">
+                <h2 className="font-anonymous-pro text-lg text-gray-800">{event.titel}</h2>
+                <p className="text-sm text-gray-500">🗓 {event.datum}</p>
+                <p className="text-sm text-gray-500">📍 {event.ort}</p>
                 <button
                     className="mt-2 bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600"
-                    onClick={() => removeBookmark(event.id)}
+                    onClick={() => handleRemoveBookmark(event.id)}
                 >
                     Entfernen
                 </button>
@@ -163,7 +218,6 @@ export default function Calendar() {
             <div className="max-w-7xl mx-auto">
                 <h1 className="ueberschrift text-center mt-8">Eventkalender</h1>
                 <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mt-8">
-                    {/* Kalender */}
                     <div className="col-span-1 bg-gray-100 p-6 rounded-lg shadow-lg">
                         <div className="flex justify-between items-center mb-4">
                             <button
@@ -192,81 +246,108 @@ export default function Calendar() {
                             <div className="font-bold text-gray-600">So</div>
                         </div>
                         {renderCalendar()}
-                        {!isLoggedIn && (
-                            <div className="mt-4 text-center bg-gray-200 p-4 rounded-lg shadow-md">
-                                <p className="text-gray-700">
-                                    Melde dich an, um Veranstaltungen vorzumerken und Benachrichtigungen zu erhalten!
-                                </p>
-                                <button
-                                    className="mt-2 bg-white text-black border-2 border-[#A9D09A] px-4 py-2 rounded hover:bg-[#A9D09A] hover:text-white"
-                                    onClick={() => {
-                                        window.location.href = '/Login';
-                                    }}
-                                >
-                                    Jetzt anmelden
-                                </button>
-                            </div>
-                        )}
                     </div>
-
-                    {/* Events */}
                     <div className="bg-gray-100 p-6 rounded-lg shadow-lg">
                         <h2 className="font-anonymous-pro text-xl text-gray-800 mb-4">
                             Events am {format(selectedDate, 'dd.MM.yyyy')}
                         </h2>
                         {renderEvents()}
+                        {isLoggedIn && (
+                            <button
+                                className="mt-4 bg-[#A9D09A] text-white px-4 py-2 rounded hover:bg-[#90B883]"
+                                onClick={() => setIsModalOpen(true)}
+                            >
+                                Neue Veranstaltung hinzufügen
+                            </button>
+                        )}
                     </div>
                 </div>
-
-                {/* Bookmarked Events */}
                 {isLoggedIn && (
-                    <div className="mt-8 bg-gray-50 p-6 rounded-lg shadow-lg">
-                    <div className="flex items-center justify-between mb-4">
-                        <h3 className="font-anonymous-pro text-xl text-gray-800">
+                    <div className="bg-gray-50 mt-8 p-6 rounded-lg shadow-lg">
+                        <h3 className="font-anonymous-pro text-xl text-gray-800 mb-4">
                             Vorgemerkte Events
                         </h3>
-                        <div className="flex items-center space-x-2">
-                            <p className="text-gray-800 text-sm">
-                                Benachrichtigung per Mail an {user?.email}
-                            </p>
-                            <label className="relative inline-flex items-center cursor-pointer">
-                                <input
-                                    type="checkbox"
-                                    className="sr-only peer"
-                                    checked={emailNotifications}
-                                    onChange={toggleEmailNotifications}
-                                />
-                                <div className="w-11 h-6 bg-gray-300 rounded-full peer peer-checked:bg-[#A9D09A] peer-focus:ring-2 peer-focus:ring-[#A9D09A]"></div>
-                                <div className="absolute left-1 top-1 w-4 h-4 bg-white rounded-full peer-checked:translate-x-5 transition-transform"></div>
-                            </label>
-                        </div>
+                        {renderBookmarkedEvents()}
                     </div>
-                    <div className="grid gap-6">
-                        {bookmarkedEvents.map((event) => (
-                            <div
-                                key={event.id}
-                                className="bg-white border border-gray-200 rounded-lg p-4 shadow-sm hover:shadow-md transition-shadow"
-                            >
-                                <h4 className="font-anonymous-pro text-lg text-gray-800 mb-2">
-                                    {event.title}
-                                </h4>
-                                <p className="text-sm text-gray-500 mb-1">
-                                    {format(parseISO(event.date), 'dd.MM.yyyy')}
-                                </p>
-                                <p className="text-sm text-gray-500 mb-3">{event.location}</p>
-                                <button
-                                    className="bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600 transition-colors"
-                                    onClick={() => removeBookmark(event.id)}
-                                >
-                                    Entfernen
-                                </button>
-                            </div>
-                        ))}
-                    </div>
-                </div>
-                
                 )}
             </div>
+            {isModalOpen && (
+                <div className="fixed inset-0 bg-gray-800 bg-opacity-50 flex items-center justify-center">
+                    <div className="bg-white p-6 rounded-lg shadow-lg w-full max-w-md">
+                        <h2 className="font-anonymous-pro text-xl text-gray-800 mb-4">
+                            Neue Veranstaltung hinzufügen
+                        </h2>
+                        <div className="mb-4">
+                            <label className="block text-gray-700 mb-2">Datum</label>
+                            <input
+                                type="date"
+                                value={newEvent.date}
+                                onChange={(e) =>
+                                    setNewEvent({ ...newEvent, date: e.target.value })
+                                }
+                                className="w-full px-4 py-2 border rounded-lg"
+                            />
+                        </div>
+                        <div className="mb-4">
+                            <label className="block text-gray-700 mb-2">Uhrzeit</label>
+                            <input
+                                type="time"
+                                value={newEvent.time}
+                                onChange={(e) =>
+                                    setNewEvent({ ...newEvent, time: e.target.value })
+                                }
+                                className="w-full px-4 py-2 border rounded-lg"
+                            />
+                        </div>
+                        <div className="mb-4">
+                            <label className="block text-gray-700 mb-2">Titel</label>
+                            <input
+                                type="text"
+                                value={newEvent.title}
+                                onChange={(e) =>
+                                    setNewEvent({ ...newEvent, title: e.target.value })
+                                }
+                                className="w-full px-4 py-2 border rounded-lg"
+                            />
+                        </div>
+                        <div className="mb-4">
+                            <label className="block text-gray-700 mb-2">Beschreibung</label>
+                            <textarea
+                                value={newEvent.description}
+                                onChange={(e) =>
+                                    setNewEvent({ ...newEvent, description: e.target.value })
+                                }
+                                className="w-full px-4 py-2 border rounded-lg"
+                            ></textarea>
+                        </div>
+                        <div className="mb-4">
+                            <label className="block text-gray-700 mb-2">Ort</label>
+                            <input
+                                type="text"
+                                value={newEvent.location}
+                                onChange={(e) =>
+                                    setNewEvent({ ...newEvent, location: e.target.value })
+                                }
+                                className="w-full px-4 py-2 border rounded-lg"
+                            />
+                        </div>
+                        <div className="flex justify-end space-x-4">
+                            <button
+                                className="bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600"
+                                onClick={() => setIsModalOpen(false)}
+                            >
+                                Abbrechen
+                            </button>
+                            <button
+                                className="bg-[#A9D09A] text-white px-4 py-2 rounded hover:bg-[#90B883]"
+                                onClick={handleAddEvent}
+                            >
+                                Hinzufügen
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            )}
         </div>
     );
 }
