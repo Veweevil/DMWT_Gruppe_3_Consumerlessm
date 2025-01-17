@@ -20,7 +20,6 @@ export default function KaufreuePage() {
             }, 100);
         }
     };
-
     const data = {
         labels: [
             "Zu hoher Preis im Nachhinein",
@@ -33,23 +32,24 @@ export default function KaufreuePage() {
             {
                 data: [30, 25, 20, 15, 10], // Prozentwerte
                 backgroundColor: [
-                    "#FF6384",
-                    "#36A2EB",
-                    "#FFCE56",
-                    "#4BC0C0",
-                    "#9966FF"
+                    "#FF6F61", // Pastellrot
+                    "#6BAED6", // Pastellblau
+                    "#FFD966", // Pastellgelb
+                    "#88D498", // Pastellgrün
+                    "#C299FC", // Pastelllila
                 ],
                 hoverBackgroundColor: [
-                    "#FF4365",
-                    "#2196F3",
-                    "#FFC233",
-                    "#3CBEBE",
-                    "#7746FF"
+                    "#FF5A4F", // Etwas dunkleres Pastellrot
+                    "#5B9CC6", // Etwas dunkleres Pastellblau
+                    "#FFC84D", // Etwas dunkleres Pastellgelb
+                    "#76C488", // Etwas dunkleres Pastellgrün
+                    "#B58CEB", // Etwas dunkleres Pastelllila
                 ],
             },
         ],
     };
-
+    
+    
     const options = {
         responsive: true,
         plugins: {
