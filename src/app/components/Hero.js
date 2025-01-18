@@ -146,7 +146,7 @@ export default function Hero() {
                                 : 'top-[28%] left-[20%] transform -translate-x-[50%] -translate-y-[50%]'
                         } lg:w-[120px] lg:h-[240px] cursor-pointer`}
                         style={{
-                            filter: 'drop-shadow(0 0 15px #A9D09A)',
+                            filter: 'drop-shadow(0 0 5px #A9D09A)',
                         }}
                         onClick={(e) => {
                             e.stopPropagation();
@@ -192,7 +192,7 @@ export default function Hero() {
                                 : 'top-[15%] left-[32%] transform -translate-x-[50%] -translate-y-[50%]'
                         } lg:w-[120px] lg:h-[240px] cursor-pointer`}
                         style={{
-                            filter: 'drop-shadow(0 0 15px #A9D09A)',
+                            filter: 'drop-shadow(0 0 5px #A9D09A)',
                         }}
                         onClick={(e) => {
                             e.stopPropagation();
@@ -236,7 +236,7 @@ export default function Hero() {
                                 : 'top-[30%] left-[43%] transform rotate-[75deg]'
                         } transition-all duration-500`}
                         style={{
-                            filter: 'drop-shadow(0 0 15px #A9D09A)',
+                            filter: 'drop-shadow(0 0 5px #A9D09A)',
                         }}
                     >
                         <img
