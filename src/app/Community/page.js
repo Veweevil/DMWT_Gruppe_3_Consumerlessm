@@ -33,14 +33,21 @@ export default function Community() {
                     alt="Communities"
                     className="w-[8rem] h-[8rem] object-contain mb-4"
                 />
-                <h1 className="text-[8rem] font-trash-hand text-black text-center mb-6">
-                    COMMUNITY
+              
+                <h1
+                    className="text-8xl font-trash-hand text-black"
+                    style={{
+                        display: "inline-block",
+                        boxShadow: "0px -5px 0px 0px #000 inset",
+                    }}
+                >
+                    Community
                 </h1>
 
                 {loading ? (
                     <p className="text-2xl font-anonymous-pro text-gray-700">Lade öffentliche Benutzer...</p>
                 ) : users.length > 0 ? (
-                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 w-full max-w-6xl">
+                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 w-full max-w-6xl mt-24">
                         {users.map((user) => (
                             <div
                                 key={user.id}
