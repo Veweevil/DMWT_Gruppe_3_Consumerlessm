@@ -353,28 +353,28 @@ export default function Calendar() {
         </div> 
     )}
 
-                            {isLoggedIn && (
-                            <div className="bg-white p-6">
-                            <div className="max-w-7xl mx-auto">
-                                <h1 className="ueberschrift text-center mt-8">Eventkalender</h1>
-                                <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mt-8">
-                                    <div className="col-span-1 bg-gray-100 p-6 rounded-lg shadow-lg">
-                                        <div className="flex justify-between items-center mb-4">
-                                            <button
-                                                className="bg-[#A9D09A] text-white px-4 py-2 rounded hover:bg-[#A9D09A]"
-                                                onClick={() => setCurrentMonth(subMonths(currentMonth, 1))}
-                                            >
-                                                ◀ Zurück
-                                            </button>
-                                            <h2 className="font-anonymous-pro text-xl text-gray-800">
-                                                {format(currentMonth, 'MMMM yyyy', { locale: de })}
-                                            </h2>
-                                            <button
-                                                className="bg-[#A9D09A] text-white px-4 py-2 rounded hover:bg-[#90B883]"
-                                                onClick={() => setCurrentMonth(addMonths(currentMonth, 1))}
+    {isLoggedIn && (
+        <div className="bg-white p-6">
+              <div className="max-w-7xl mx-auto">
+                     <h1 className="ueberschrift text-center mt-8">Eventkalender</h1>
+                        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mt-8">
+                            <div className="col-span-1 bg-gray-100 p-6 rounded-lg shadow-lg">
+                                 <div className="flex justify-between items-center mb-4">
+                                     <button
+                                        className="bg-[#A9D09A] text-white px-4 py-2 rounded hover:bg-[#A9D09A]"
+                                        onClick={() => setCurrentMonth(subMonths(currentMonth, 1))}
+                                        >
+                                      ◀ Zurück
+                                    </button>
+                                        <h2 className="font-anonymous-pro text-xl text-gray-800">
+                                            {format(currentMonth, 'MMMM yyyy', { locale: de })}
+                                        </h2>
+                                        <button
+                                            className="bg-[#A9D09A] text-white px-4 py-2 rounded hover:bg-[#90B883]"
+                                            onClick={() => setCurrentMonth(addMonths(currentMonth, 1))}
                                             >
                                                 Weiter ▶
-                                            </button>
+                                        </button>
                                         </div>
                                         <div className="grid grid-cols-7 gap-1">
                                             <div className="font-bold text-gray-600">Mo</div>
@@ -477,19 +477,19 @@ export default function Calendar() {
                                                 onClick={() => setIsModalOpen(false)}
                                             >
                                                 Abbrechen
-                                            </button>
-                                            <button
+                                        </button>
+                                        <button
                                                 className="bg-[#A9D09A] text-white px-4 py-2 rounded hover:bg-[#90B883]"
                                                 onClick={handleAddEvent}
                                             >
-                                                Hinzufügen
-                                            </button>
-                                        </div>
-                                    </div>
-                                </div>
-                            )}
-                        </div>
-                        )}
-    </>
+                                         Hinzufügen
+                                     </button>
+                                 </div>
+                             </div>
+                         </div>
+                    )}
+                </div>
+            )}
+        </>
     );
 }
