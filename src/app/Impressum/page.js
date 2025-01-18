@@ -7,7 +7,7 @@ export default function Impressum() {
     <div className="pt-24 min-h-screen bg-gray-50 flex flex-col text-center items-center justify-center px-4">
         <Header />
       <div className="w-[800px] bg-white shadow-md rounded-lg p-6 mb-12">
-        <h1 className="text-4xl font-bold text-green-700 mb-6 text-center">
+        <h1 className="ueberschrift">
           Impressum
         </h1>
         <div className="text-gray-800 space-y-4">

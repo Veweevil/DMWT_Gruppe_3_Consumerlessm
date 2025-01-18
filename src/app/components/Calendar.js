@@ -214,7 +214,9 @@ export default function Calendar() {
     };
 
     return (
-        <div className="bg-white p-6">
+        <>
+        {!isLoggedIn && (
+        <div className="bg-[#F0F7EC] p-6">
             <div className="max-w-7xl mx-auto">
                 <h1 className="ueberschrift text-center mt-8">Eventkalender</h1>
                 <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mt-8">
@@ -348,6 +350,146 @@ export default function Calendar() {
                     </div>
                 </div>
             )}
-        </div>
+        </div> 
+    )}
+
+                            {isLoggedIn && (
+                            <div className="bg-white p-6">
+                            <div className="max-w-7xl mx-auto">
+                                <h1 className="ueberschrift text-center mt-8">Eventkalender</h1>
+                                <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mt-8">
+                                    <div className="col-span-1 bg-gray-100 p-6 rounded-lg shadow-lg">
+                                        <div className="flex justify-between items-center mb-4">
+                                            <button
+                                                className="bg-[#A9D09A] text-white px-4 py-2 rounded hover:bg-[#A9D09A]"
+                                                onClick={() => setCurrentMonth(subMonths(currentMonth, 1))}
+                                            >
+                                                ◀ Zurück
+                                            </button>
+                                            <h2 className="font-anonymous-pro text-xl text-gray-800">
+                                                {format(currentMonth, 'MMMM yyyy', { locale: de })}
+                                            </h2>
+                                            <button
+                                                className="bg-[#A9D09A] text-white px-4 py-2 rounded hover:bg-[#90B883]"
+                                                onClick={() => setCurrentMonth(addMonths(currentMonth, 1))}
+                                            >
+                                                Weiter ▶
+                                            </button>
+                                        </div>
+                                        <div className="grid grid-cols-7 gap-1">
+                                            <div className="font-bold text-gray-600">Mo</div>
+                                            <div className="font-bold text-gray-600">Di</div>
+                                            <div className="font-bold text-gray-600">Mi</div>
+                                            <div className="font-bold text-gray-600">Do</div>
+                                            <div className="font-bold text-gray-600">Fr</div>
+                                            <div className="font-bold text-gray-600">Sa</div>
+                                            <div className="font-bold text-gray-600">So</div>
+                                        </div>
+                                        {renderCalendar()}
+                                    </div>
+                                    <div className="bg-gray-100 p-6 rounded-lg shadow-lg">
+                                        <h2 className="font-anonymous-pro text-xl text-gray-800 mb-4">
+                                            Events am {format(selectedDate, 'dd.MM.yyyy')}
+                                        </h2>
+                                        {renderEvents()}
+                                        {isLoggedIn && (
+                                            <button
+                                                className="mt-4 bg-[#A9D09A] text-white px-4 py-2 rounded hover:bg-[#90B883]"
+                                                onClick={() => setIsModalOpen(true)}
+                                            >
+                                                Neue Veranstaltung hinzufügen
+                                            </button>
+                                        )}
+                                    </div>
+                                </div>
+                                {isLoggedIn && (
+                                    <div className="bg-gray-50 mt-8 p-6 rounded-lg shadow-lg">
+                                        <h3 className="font-anonymous-pro text-xl text-gray-800 mb-4">
+                                            Vorgemerkte Events
+                                        </h3>
+                                        {renderBookmarkedEvents()}
+                                    </div>
+                                )}
+                            </div>
+                            {isModalOpen && (
+                                <div className="fixed inset-0 bg-gray-800 bg-opacity-50 flex items-center justify-center">
+                                    <div className="bg-white p-6 rounded-lg shadow-lg w-full max-w-md">
+                                        <h2 className="font-anonymous-pro text-xl text-gray-800 mb-4">
+                                            Neue Veranstaltung hinzufügen
+                                        </h2>
+                                        <div className="mb-4">
+                                            <label className="block text-gray-700 mb-2">Datum</label>
+                                            <input
+                                                type="date"
+                                                value={newEvent.date}
+                                                onChange={(e) =>
+                                                    setNewEvent({ ...newEvent, date: e.target.value })
+                                                }
+                                                className="w-full px-4 py-2 border rounded-lg"
+                                            />
+                                        </div>
+                                        <div className="mb-4">
+                                            <label className="block text-gray-700 mb-2">Uhrzeit</label>
+                                            <input
+                                                type="time"
+                                                value={newEvent.time}
+                                                onChange={(e) =>
+                                                    setNewEvent({ ...newEvent, time: e.target.value })
+                                                }
+                                                className="w-full px-4 py-2 border rounded-lg"
+                                            />
+                                        </div>
+                                        <div className="mb-4">
+                                            <label className="block text-gray-700 mb-2">Titel</label>
+                                            <input
+                                                type="text"
+                                                value={newEvent.title}
+                                                onChange={(e) =>
+                                                    setNewEvent({ ...newEvent, title: e.target.value })
+                                                }
+                                                className="w-full px-4 py-2 border rounded-lg"
+                                            />
+                                        </div>
+                                        <div className="mb-4">
+                                            <label className="block text-gray-700 mb-2">Beschreibung</label>
+                                            <textarea
+                                                value={newEvent.description}
+                                                onChange={(e) =>
+                                                    setNewEvent({ ...newEvent, description: e.target.value })
+                                                }
+                                                className="w-full px-4 py-2 border rounded-lg"
+                                            ></textarea>
+                                        </div>
+                                        <div className="mb-4">
+                                            <label className="block text-gray-700 mb-2">Ort</label>
+                                            <input
+                                                type="text"
+                                                value={newEvent.location}
+                                                onChange={(e) =>
+                                                    setNewEvent({ ...newEvent, location: e.target.value })
+                                                }
+                                                className="w-full px-4 py-2 border rounded-lg"
+                                            />
+                                        </div>
+                                        <div className="flex justify-end space-x-4">
+                                            <button
+                                                className="bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600"
+                                                onClick={() => setIsModalOpen(false)}
+                                            >
+                                                Abbrechen
+                                            </button>
+                                            <button
+                                                className="bg-[#A9D09A] text-white px-4 py-2 rounded hover:bg-[#90B883]"
+                                                onClick={handleAddEvent}
+                                            >
+                                                Hinzufügen
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            )}
+                        </div>
+                        )}
+    </>
     );
 }

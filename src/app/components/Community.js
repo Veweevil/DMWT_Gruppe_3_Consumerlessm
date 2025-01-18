@@ -4,8 +4,7 @@ export default function Community() {
 <div id ="community-section" className="p-20 items-center justify-center flex flex-col">
     <h1 className="ueberschrift">Community</h1>
     
-    <p className="mb-10 font-anonymous-pro text-center text-3xl italic">&bdquo;Entdecke die Community, die dich inspiriert&ldquo;</p>
-    <img className="mx-auto mb-16 rounded" src="community.jpg" alt="Peoples holding each others" width="600" height="250"></img>
+    {/*<img className="mx-auto mb-16 rounded" src="community.jpg" alt="Peoples holding each others" width="600" height="250"></img>*/}
     <p className="mb-10 font-anonymous-pro text-center text-2xl">So hilft dir Consumerlessm, deinen Konsum zu reduzieren:</p>
     
     <div className="container">
@@ -53,9 +52,10 @@ export default function Community() {
             </div>
         </div>
     </div>
+    <p className="mb-5 mt-10 font-anonymous-pro text-center text-3xl italic">Entdecke die Community, die dich inspiriert</p>
     <Link href="/Register">
     <button className="bg-gray-200 hover:bg-gray-300 text-gray-800 px-8 py-4 rounded shadow text-xl mt-10">
-                Jetzt anmelden!
+                Jetzt registrieren!
     </button>
     </Link>
 
