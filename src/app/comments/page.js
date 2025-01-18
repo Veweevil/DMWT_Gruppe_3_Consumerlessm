@@ -117,7 +117,7 @@ function CommentForm() {
 
                     {/* Erfolgsliste */}
                     {comments.length > 0 ? (
-                        <ul className="space-y-6">
+                        <ul className="space-y-6 mb-6">
                             {comments.map((comment, index) => (
                                 <li
                                     key={index}
