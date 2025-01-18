@@ -76,13 +76,17 @@ export default function Dashboard() {
                     </div>
 
                     {/* Card 3 */}
+                    <Link href="/Konsum">
                     <div className="bg-white border-2 border-[#A9D09A] rounded-lg shadow-lg p-6 flex flex-col items-center hover:scale-105 transition-transform">
                         <img src="/analysis.png" alt="Konsumtracker" className="w-16 h-16 mb-4" />
                         <h2 className="font-anonymous-pro text-xl text-gray-800">Konsumtracker</h2>
                         <p className="text-gray-600 text-center mt-2">
                             Behalte deine Fortschritte im Blick.
+                        <br />
+                        <br />
                         </p>
                     </div>
+                    </Link>
 
                     {/* Card 4 */}
                     <Link href="/Community">                                    
