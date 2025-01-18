@@ -51,10 +51,10 @@ function CommentForm() {
     return (
         <div className="bg-[#F0F7EC] min-h-screen">
             {/* Header */}
-            <Header />
+            <Header/>
 
             {/* Erfolg teilen Formular */}
-            <div className="flex flex-col items-center mt-12">
+            <div className="flex flex-col items-center pt-24">
                 <div className="max-w-3xl w-full bg-white p-8 rounded-lg shadow-lg">
                     {/* Überschrift */}
                     <h2 className="text-[5rem] font-trash-hand text-black text-center mb-5">
