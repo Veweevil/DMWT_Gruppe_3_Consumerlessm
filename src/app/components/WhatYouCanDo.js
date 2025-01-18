@@ -19,7 +19,7 @@ export default function WhatYouCanDo() {
                              flexDirection: "column",
                              justifyContent: "center",
                          }}>
-                        <img src="iphone.svg" alt="Illustration 1" className="illustration" />
+                        <img src="iphone.svg" alt="Iphone Illustration" className="illustration" />
                         <p className="font-bold text-3xl">Second Hand</p>
                         <p className={"body body-centred"}>Kaufe Second-Hand-Produkte und verkaufe deine alten Sachen</p>
                     </div>
@@ -42,14 +42,14 @@ export default function WhatYouCanDo() {
                              justifyContent: "center",
                          }}>
                         <img src="illustration2.svg" alt="Illustration 2" className="illustration" />
-                        <p className="font-bold text-3xl">DIY</p>
+                        <p className="font-bold text-3xl">DIY/Upcycling</p>
                         <p className={"body body-centred"}>Mache deine eigenen Produkte und repariere kaputte Dinge</p>
                     </div>
                 </div>
 
 
-                {/*Konsumpausen Section*/}
-                <div className="konsumpausen">
+                {/*Mehrweg Section*/}
+                <div className="mehrweg">
                     <div className="relative bg-cover bg-center"
                          style={{
                              backgroundImage: "url('/Rahmen_1.svg')",
@@ -63,9 +63,9 @@ export default function WhatYouCanDo() {
                              flexDirection: "column",
                              justifyContent: "center",
                          }}>
-                        <img src="illustration3.svg" alt="Illustration 3" className="illustration" />
-                        <p className="font-bold text-3xl">Konsumpausen</p>
-                        <p className={"body body-centred"}>Gönne dir bewusste Pausen vom Konsum</p>
+                        <img src="flasche.svg" alt="Flasche Illustration" className="illustration" />
+                        <p className="font-bold text-3xl">Mehrweg</p>
+                        <p className={"body body-centred"}>Verwende langlebige und wiederverwendbare Produkte</p>
                     </div>
                 </div>
 

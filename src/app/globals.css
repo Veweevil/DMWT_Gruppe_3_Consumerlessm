@@ -206,6 +206,7 @@ body {
   display: flex;
   align-items: center;
   width: 80px;
+  height: 100px;
 }
 
 .hintergrund-relative {
@@ -219,7 +220,7 @@ body {
   width: 100%;
 }
 
-.secondHand, .diy, .konsumpausen {
+.secondHand, .diy, .mehrweg {
   position: absolute;
 }
 
@@ -233,7 +234,7 @@ body {
   left: 500px;
 }
 
-.konsumpausen {
+.mehrweg {
   top: -40px;
   right: 20px;
 }
