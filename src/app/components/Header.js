@@ -43,7 +43,7 @@ export default function Header() {
                     </li>
                 )}
                 <li>
-                    <Link href="/comments" className="text-gray-700 hover:text-black">Erfolge</Link>
+                    <Link href="/comments" className="text-gray-700 hover:text-black">Kleine Erfolge</Link>
                 </li>
             </ul>
 
