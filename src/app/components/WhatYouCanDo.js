@@ -8,7 +8,7 @@ export default function WhatYouCanDo() {
                 <div className="secondHand">
                     <div className="relative bg-cover bg-center"
                          style={{
-                             backgroundImage: "url('/Rahmen_3.svg')",
+                             backgroundImage: "url('/Rahmen6.svg')",
                              backgroundRepeat: "no-repeat",
                              backgroundSize: "500px 500px",
                              overflow: "visible",
@@ -30,7 +30,7 @@ export default function WhatYouCanDo() {
                 <div className="diy">
                     <div className="relative bg-cover bg-center"
                          style={{
-                             backgroundImage: "url('/Rahmen_2.svg')",
+                             backgroundImage: "url('/Rahmen5.svg')",
                              backgroundRepeat: "no-repeat",
                              width: "500px",
                              height: "500px",
@@ -41,7 +41,7 @@ export default function WhatYouCanDo() {
                              flexDirection: "column",
                              justifyContent: "center",
                          }}>
-                        <img src="illustration2.svg" alt="Illustration 2" className="illustration" />
+                        <img src="jacke-haengend.svg" alt="Jacke Illustration" className="illustration illustration-jacke" />
                         <p className="font-bold text-3xl">DIY/Upcycling</p>
                         <p className={"body body-centred"}>Mache deine eigenen Produkte und repariere kaputte Dinge</p>
                     </div>
@@ -52,7 +52,7 @@ export default function WhatYouCanDo() {
                 <div className="mehrweg">
                     <div className="relative bg-cover bg-center"
                          style={{
-                             backgroundImage: "url('/Rahmen_1.svg')",
+                             backgroundImage: "url('/Rahmen4.svg')",
                              backgroundRepeat: "no-repeat",
                              width: "400px",
                              height: "400px",

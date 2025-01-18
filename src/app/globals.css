@@ -205,8 +205,11 @@ body {
 .illustration {
   display: flex;
   align-items: center;
-  width: 80px;
-  height: 100px;
+  height: 120px;
+}
+
+.illustration-jacke {
+  height: 180px;
 }
 
 .hintergrund-relative {
