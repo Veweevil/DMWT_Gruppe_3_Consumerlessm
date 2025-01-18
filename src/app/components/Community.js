@@ -6,7 +6,7 @@ export default function Community() {
     <hr className="hr-mitte"/>
     <p className="mb-10 font-anonymous-pro text-center text-3xl italic">&bdquo;Entdecke die Community, die dich inspiriert&ldquo;</p>
     <img className="mx-auto mb-16 rounded" src="community.jpg" alt="Peoples holding each others" width="600" height="250"></img>
-    <p className="mb-5 font-anonymous-pro text-center text-2xl">So hilft dir consumerless, deinen Konsum zu reduzieren</p>
+    <p className="mb-5 font-anonymous-pro text-center text-2xl">So hilft dir Consumerlessm, deinen Konsum zu reduzieren</p>
     <hr className="hr-mitte1"></hr>
     <div className="container">
         {/*Feld 1*/}
