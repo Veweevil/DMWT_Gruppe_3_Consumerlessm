@@ -138,6 +138,11 @@ body {
   background: var(--background);
 }
 
+.body-centred {
+  text-align: center;
+  width: 350px;
+}
+
 .ueberschrift {
   font-family: 'Trash Hand';
   text-align: center;
@@ -195,4 +200,40 @@ body {
 .icon-img {
   width: 50px;
   height: 50px;
+}
+
+.illustration {
+  display: flex;
+  align-items: center;
+  width: 80px;
+}
+
+.hintergrund-relative {
+  position: relative;
+  width: 100%;
+  height: 100vh;
+}
+
+.container-relative {
+  position: relative;
+  width: 100%;
+}
+
+.secondHand, .diy, .konsumpausen {
+  position: absolute;
+}
+
+.secondHand {
+  top: -100px;
+  left: 0px;
+}
+
+.diy {
+  top: 100px;
+  left: 500px;
+}
+
+.konsumpausen {
+  top: -40px;
+  right: 20px;
 }
