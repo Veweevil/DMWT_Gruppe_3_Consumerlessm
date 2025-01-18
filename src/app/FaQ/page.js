@@ -1,5 +1,6 @@
 // src/app/Support/page.js
 'use client';
+import Footer from "../components/Footer";
 
 import { useState } from "react";
 import Header from "../components/Header";
@@ -107,10 +108,12 @@ export default function Supportpage() {
                             {activeIndex === index && (
                                 <p className="mt-3 text-gray-700">{item.answer}</p>
                             )}
+                
                         </div>
                     ))}
                 </section>
             </main>
+            <Footer />
         </div>
     );
 }
