@@ -1,4 +1,5 @@
 'use client';
+
 import { useState } from 'react';
 import Header from "../components/Header";
 
@@ -7,16 +8,18 @@ export default function Registrierung() {
         nutzername: '',
         email: '',
         passwort: '',
-        confirmPassword: ''
+        confirmPassword: '',
+        öffentlich: false, // Standardmäßig privat
     });
 
     const handleChange = (e) => {
-        setFormData({ ...formData, [e.target.id]: e.target.value });
+        const { id, value, type, checked } = e.target;
+        setFormData({ ...formData, [id]: type === 'checkbox' ? checked : value });
     };
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        const { nutzername, email, passwort, confirmPassword } = formData;
+        const { nutzername, email, passwort, confirmPassword, öffentlich } = formData;
 
         if (passwort !== confirmPassword) {
             alert('Passwörter stimmen nicht überein.');
@@ -27,7 +30,7 @@ export default function Registrierung() {
             const response = await fetch('/api/register', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ nutzername, email, passwort }),
+                body: JSON.stringify({ nutzername, email, passwort, öffentlich }),
             });
 
             const data = await response.json();
@@ -121,15 +124,28 @@ export default function Registrierung() {
                             />
                         </div>
 
+                        <div className="mb-6 flex items-center">
+                            <input
+                                id="öffentlich"
+                                type="checkbox"
+                                checked={formData.öffentlich}
+                                onChange={handleChange}
+                                className="mr-2"
+                            />
+                            <label htmlFor="öffentlich" className="text-gray-700 text-sm font-bold">
+                                Öffentliches Profil
+                            </label>
+                        </div>
+
                         <button
                             type="submit"
-                            className="bg-[#A9D09A] hover:bg-[#90B883] text-white font-bold py-2 px-6 rounded focus:outline-none"
+                            className="bg-[#A9D09A] hover:bg-[#90B883] text-white font-bold py-2 px-6 rounded focus:outline-none mt-[-10]"
                         >
                             Registrieren
                         </button>
                     </form>
 
-                    <div className="mt-4">
+                    <div className="mt-8">
                         <p className="text-sm text-gray-600">
                             Bereits einen Account?{' '}
                             <button

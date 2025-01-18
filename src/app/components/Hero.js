@@ -5,11 +5,11 @@ import Link from 'next/link';
 import { useAuth } from '../../context/AuthContext';
 
 export default function Hero() {
-    const [activeItem, setActiveItem] = useState(null); //Zustand aktives Element
-    const [discardingItem, setDiscardingItem] = useState(null); //Zustand verworfenes Objekt
-    const [infoVisible, setInfoVisible] = useState(false); //Zustand Info-Feld
-    const [cartItems, setCartItems] = useState(['iphone', 'chocolate', 'bottle']); //Liste Objekte im Warenkorb
-    const { isLoggedIn, logout } = useAuth(); //Zugriff auf Login-Status und Logout-Funktion
+    const [activeItem, setActiveItem] = useState(null); // Zustand aktives Element
+    const [discardingItem, setDiscardingItem] = useState(null); // Zustand verworfenes Objekt
+    const [infoVisible, setInfoVisible] = useState(false); // Zustand Info-Feld
+    const [cartItems, setCartItems] = useState(['iphone', 'chocolate', 'bottle']); // Liste Objekte im Warenkorb
+    const { isLoggedIn, logout } = useAuth(); // Zugriff auf Login-Status und Logout-Funktion
 
     const handleItemClick = (item) => {
         setActiveItem(activeItem === item ? null : item);
@@ -18,28 +18,28 @@ export default function Hero() {
     const handleDiscard = (item) => {
         setDiscardingItem(item);
         setTimeout(() => {
-            setCartItems((prevItems) => prevItems.filter((cartItem) => cartItem !== item)); //Objekt entfernen
+            setCartItems((prevItems) => prevItems.filter((cartItem) => cartItem !== item)); // Objekt entfernen
             setDiscardingItem(null);
-        }, 1000); //Animationsdauer
+        }, 1000); // Animationsdauer
     };
 
     const handleRestart = () => {
-        setCartItems(['iphone', 'chocolate', 'bottle']); //Objekte wiederherstellen
+        setCartItems(['iphone', 'chocolate', 'bottle']); // Objekte wiederherstellen
     };
 
     const toggleInfo = (e) => {
-        e.stopPropagation(); //Stoppt Eventweitergabe
+        e.stopPropagation(); // Stoppt Eventweitergabe
         setInfoVisible((prev) => !prev);
     };
 
     const handleInfoClick = (e) => {
-        e.stopPropagation(); //Stoppt Eventweitergabe
+        e.stopPropagation(); // Stoppt Eventweitergabe
     };
 
     useEffect(() => {
         const handleClickOutside = () => {
-            if (activeItem) setActiveItem(null); //Deaktiviert aktives Element
-            if (infoVisible) setInfoVisible(false); //Blendet Info aus
+            if (activeItem) setActiveItem(null); // Deaktiviert aktives Element
+            if (infoVisible) setInfoVisible(false); // Blendet Info aus
         };
 
         document.addEventListener('click', handleClickOutside);
@@ -60,9 +60,9 @@ export default function Hero() {
                 </p>
 
                 {!isLoggedIn ? (
-                    //Wenn der Nutzer NICHT eingeloggt ist
+                    // Wenn der Nutzer NICHT eingeloggt ist
                     <>
-                       <div className="flex flex-col items-center">
+                        <div className="flex flex-col items-center">
                             <p className="hero-text text-lg font-anonymous-pro text-gray-700 mb-3">
                                 Werde Teil unserer Community!
                             </p>
@@ -76,7 +76,7 @@ export default function Hero() {
                         </div>
                     </>
                 ) : (
-                    //Wenn der Nutzer EINGELOGGT ist
+                    // Wenn der Nutzer EINGELOGGT ist
                     <>
                         <div className="flex flex-col items-center">
                             <p className="hero-text text-lg font-anonymous-pro text-gray-700 mb-3">
@@ -91,16 +91,15 @@ export default function Hero() {
                             </Link>
                         </div>
                     </>
-                    
                 )}
-                
+
                 <Link href="#kaufreue-section">
                     <img src="/pfeil.svg" alt="Pfeil" className="hidden lg:block mt-20 max-w-none lg:w-[60px] lg:h[60px]" />
                 </Link>
             </div>
 
             <div className="hero-image-container relative">
-                {/*Info und Restart*/}
+                {/* Info und Restart */}
                 <div className="absolute top-4 right-4 flex space-x-4">
                     <img
                         src="/info.svg"
@@ -118,7 +117,7 @@ export default function Hero() {
                 {infoVisible && (
                     <div
                         className="absolute top-16 right-4 bg-white border border-gray-300 p-4 rounded shadow-lg text-gray-800 w-60 transform transition-all duration-500"
-                        onClick={handleInfoClick} //Verhindert Schließen des Info-Feldes
+                        onClick={handleInfoClick} // Verhindert Schließen des Info-Feldes
                     >
                         <p className="text-sm font-anonymous-pro">
                             Klicke auf die Artikel, um den Warenkorb zu leeren.
@@ -126,14 +125,14 @@ export default function Hero() {
                     </div>
                 )}
 
-                {/*Einkaufswagen*/}
+                {/* Einkaufswagen */}
                 <img
                     src="/cart.svg"
                     alt="Einkaufswagen"
                     className="wagen w-full max-w-none lg:w-[700px] lg:h-[700px]"
                 />
 
-                {/*iPhone*/}
+                {/* iPhone */}
                 {cartItems.includes('iphone') && (
                     <img
                         src="/iphone.svg"
@@ -155,7 +154,7 @@ export default function Hero() {
                     />
                 )}
 
-                {/*Textfeld iPhone*/}
+                {/* Textfeld iPhone */}
                 {activeItem === 'iphone' && (
                     <div className="absolute top-[-10px] left-[36%] bg-white border border-[#A9D09A] p-4 rounded shadow-lg text-gray-800">
                         <p className="text-sm font-anonymous-pro mb-4">
@@ -179,7 +178,7 @@ export default function Hero() {
                     </div>
                 )}
 
-                {/*Schokolade*/}
+                {/* Schokolade */}
                 {cartItems.includes('chocolate') && (
                     <img
                         src="/schokolade.svg"
@@ -201,7 +200,7 @@ export default function Hero() {
                     />
                 )}
 
-                {/*Textfeld Schokolade*/}
+                {/* Textfeld Schokolade */}
                 {activeItem === 'chocolate' && (
                     <div className="absolute top-[0px] left-[50%] bg-white border border-[#A9D09A] p-4 rounded shadow-lg text-gray-800">
                         <p className="text-sm font-anonymous-pro mb-4">
@@ -225,7 +224,7 @@ export default function Hero() {
                     </div>
                 )}
 
-                {/*Flasche*/}
+                {/* Flasche */}
                 {cartItems.includes('bottle') && (
                     <div
                         className={`absolute ${
@@ -251,7 +250,7 @@ export default function Hero() {
                     </div>
                 )}
 
-                {/*Textfeld Flasche*/}
+                {/* Textfeld Flasche */}
                 {activeItem === 'bottle' && (
                     <div className="absolute top-[0px] left-[56%] bg-white border border-[#A9D09A] p-4 rounded shadow-lg text-gray-800">
                         <p className="text-sm font-anonymous-pro mb-4">

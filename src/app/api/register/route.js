@@ -10,8 +10,8 @@ const sql = postgres({
 
 export async function POST(req) {
     try {
-        const { nutzername, email, passwort } = await req.json(); //Extrahiert die Anfrage-Daten aus dem Anfragekörper
-        console.log('Daten empfangen:', { nutzername, email, passwort });
+        const { nutzername, email, passwort, öffentlich } = await req.json(); // Extrahiert auch den Wert "öffentlich"
+        console.log('Daten empfangen:', { nutzername, email, passwort, öffentlich });
 
         if (!nutzername || !email || !passwort) {
             return new Response(
@@ -20,10 +20,10 @@ export async function POST(req) {
             );
         }
 
-        //Neuen Benutzer in die Datenbank einfügen
+        // Neuen Benutzer in die Datenbank einfügen, einschließlich des Werts "öffentlich"
         await sql`
-            INSERT INTO "LoginDaten" (nutzername, email, passwort, created_at)
-            VALUES (${nutzername}, ${email}, ${passwort}, NOW())
+            INSERT INTO "LoginDaten" (nutzername, email, passwort, öffentlich, created_at)
+            VALUES (${nutzername}, ${email}, ${passwort}, ${öffentlich}, NOW())
         `;
 
         return new Response(
@@ -31,7 +31,7 @@ export async function POST(req) {
             { status: 201 }
         );
     } catch (error) {
-        //Fehlerbehandlung
+        // Fehlerbehandlung
         console.error('Fehler bei der Registrierung:', error);
         return new Response(
             JSON.stringify({ message: 'Fehler bei der Registrierung.', error: error.message }),
