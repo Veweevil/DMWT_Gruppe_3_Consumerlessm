@@ -60,7 +60,7 @@ function CommentForm() {
                     <h2 className="text-[5rem] font-trash-hand text-black text-center mb-5">
                         Erfolge teilen
                     </h2>
-                    <p className="mb-10">Erzähle uns von deinem Weg zu weniger Konsum und inspirier andere. Gib deinen Namen ein und schreibe, was du erreicht hast oder was dich motiviert. Gemeinsam schaffen wir Veränderung!</p>
+                    <p className="mb-10">Erzähle uns von deinem Weg zu weniger Konsum und inspiriere andere. Gib deinen Namen ein und schreibe, was du erreicht hast oder was dich motiviert. Gemeinsam schaffen wir Veränderung!</p>
 
                     {/* Formular */}
                     <form onSubmit={handleSubmit} className="space-y-8">
