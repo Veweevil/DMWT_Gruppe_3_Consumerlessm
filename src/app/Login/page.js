@@ -110,10 +110,10 @@ export default function LoginPage() {
                             />
                         </div>
 
-                        <div className="flex items-center justify-between w-full">
+                        <div className="flex items-center justify-center w-full">
                             <button
                                 type="submit"
-                                className="bg-[#A9D09A] hover:bg-[#90B883] text-black font py-2 px-4 rounded focus:outline-none"
+                                className="bg-[#A9D09A] hover:bg-[#90B883] text-white font-bold py-2 px-6 rounded focus:outline-none"
                             >
                                 Einloggen
                             </button>
@@ -136,9 +136,7 @@ export default function LoginPage() {
                 {/* Nachricht unter dem Login-Fenster */}
                 {message && (
                     <div
-                        className={`mt-6 px-6 py-3 text-center shadow-md max-w-xl ${
-                            message.includes('erfolgreich') ? 'bg-[#A9D09A] border border-black-300' : 'bg-red-100 text-red-800 border border-red-300'
-                        }`}
+                        className={`mt-6 px-6 py-3 text-center shadow-md max-w-xl ${message.includes('erfolgreich') ? 'bg-[#A9D09A] border border-black-300' : 'bg-red-100 text-red-800 border border-red-300'}`}
                     >
                         {message}
                     </div>
