@@ -27,6 +27,8 @@ export default function Calendar() {
     const { isLoggedIn, user } = useAuth();
     const [notificationsEnabled, setNotificationsEnabled] = useState(false);
 
+    
+
     const handleNotificationToggle = () => {
         setNotificationsEnabled((prev) => {
             const updatedValue = !prev;
@@ -41,6 +43,7 @@ export default function Calendar() {
             setNotificationsEnabled(JSON.parse(storedNotificationPreference));
         }
     }, []);
+    
 
     const fetchEvents = async () => {
         try {
@@ -100,6 +103,8 @@ export default function Calendar() {
         if (selectedDayEvents.length === 0) {
             return <p className="text-gray-600">Keine Events für diesen Tag.</p>;
         }
+
+        
 
         return selectedDayEvents.map((event, index) => (
             <div key={`${event.id}-${index}`} className="bg-white p-4 rounded-lg shadow-md mb-4">
@@ -166,6 +171,7 @@ export default function Calendar() {
     
         return rows;
     };
+    
     const renderBookmarkedEvents = () => {
         if (bookmarkedEvents.length === 0) {
             return <p className="text-gray-600">Keine vorgemerkten Events.</p>;
@@ -202,7 +208,31 @@ export default function Calendar() {
         localStorage.setItem('bookmarkedEvents', JSON.stringify(updatedBookmarks));
         alert('Event wurde aus den vorgemerkten Events entfernt.');
     };
-
+    const handleDeleteEvent = async (eventId) => {
+        try {
+            const response = await fetch(`/api/deleteEvent`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ id: eventId }),
+            });
+    
+            const responseBody = await response.text(); // Get the response body as text
+    
+            if (!response.ok) {
+                console.error(`Error response: ${response.status} - ${responseBody}`);
+                throw new Error(responseBody || 'Error deleting the event.');
+            }
+    
+            // Update the event list after successful deletion
+            setEvents((prevEvents) => prevEvents.filter((event) => event.id !== eventId));
+            alert('Event erfolgreich abgesagt.');
+        } catch (error) {
+            console.error('Fehler beim Löschen der Veranstaltung:', error.message);
+            alert('Es gab ein Problem beim Löschen der Veranstaltung.');
+        }
+    };
+    
+    
      
     return (
         <>

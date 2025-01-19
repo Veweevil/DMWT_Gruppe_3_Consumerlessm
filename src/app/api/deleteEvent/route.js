@@ -11,12 +11,11 @@ const sql = postgres({
 export async function POST(req) {
     try {
         const { id } = await req.json();
-        
+
         if (!id) {
             throw new Error('Die ID des Events fehlt.');
         }
 
-        //delete event
         await sql`
             DELETE FROM "Veranstaltungen"
             WHERE id = ${id}
@@ -27,7 +26,6 @@ export async function POST(req) {
             { status: 200, headers: { 'Content-Type': 'application/json' } }
         );
     } catch (error) {
-        console.error('Fehler beim Löschen der Veranstaltung:', error.message);
         return new Response(
             JSON.stringify({ message: 'Fehler beim Löschen der Veranstaltung', error: error.message }),
             { status: 500, headers: { 'Content-Type': 'application/json' } }
