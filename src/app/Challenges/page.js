@@ -155,10 +155,10 @@ export default function Challenges() {
                                 <button
                                     onClick={() => toggleSavedStatus(challenge.id)} 
                                     className={`py-2 px-4 rounded text-sm font-bold text-white ${
-                                        challenge.saved ? 'bg-gray-500 hover:bg-gray-600' : 'bg-[#A9D09A] hover:bg-[#90B883]'
+                                        challenge.saved ? 'bg-gray-500 hover:bg-gray-600' : 'bg-[#A9D09A] hover:bg-[#90B883]' //change button color based on saved status
                                     }`}
                                 >
-                                    {challenge.saved ? 'Vormerkung aufheben' : 'Vormerken'}
+                                    {challenge.saved ? 'Vormerkung aufheben' : 'Vormerken'}  {/*toggle saved status*/}         
                                 </button>
                             </li>
                         ))}
@@ -180,7 +180,7 @@ export default function Challenges() {
                                 <p className="text-sm text-gray-600">{challenge.description}</p>
                                 <textarea
                                     value={challenge.notes}
-                                    onChange={(e) => handleNotesChange(challenge.id, e.target.value)}
+                                    onChange={(e) => handleNotesChange(challenge.id, e.target.value)} //update notes
                                     className="mt-2 p-2 w-full border border-gray-300 rounded-md text-sm"
                                     rows="3"
                                     placeholder="Deine Notizen hier..."
@@ -188,8 +188,8 @@ export default function Challenges() {
                                 />
                                 <div className="flex space-x-4">
                                     <button
-                                        onClick={() => toggleChallengeCompletion(challenge.id)}
-                                        className={`py-2 px-4 rounded text-sm font-bold text-white ${
+                                        onClick={() => toggleChallengeCompletion(challenge.id)}  //toggle challenge completion
+                                        className={`py-2 px-4 rounded text-sm font-bold text-white ${  
                                             challenge.completed ? 'bg-red-500 hover:bg-red-600' : 'bg-[#A9D09A] hover:bg-[#90B883]'
                                         }`}
                                     >
