@@ -125,10 +125,6 @@ export default function WhatYouCanDo() {
 
         </div>
     );
-<<<<<<< HEAD
 
 }
 
-=======
-}
->>>>>>> f9d919cd4e5738d7a1e2895f86fb295ade3fad65
