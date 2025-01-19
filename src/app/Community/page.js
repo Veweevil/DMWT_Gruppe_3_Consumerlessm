@@ -28,6 +28,9 @@ export default function Community() {
         <div>
             <Header />
             <div className="flex flex-col items-center justify-center min-h-screen p-6 bg-[#F0F7EC]">
+            <a href="/Dashboard" className="absolute top-4 left-4 mt-28 ml-20">
+                    <img src="/pfeil2.svg" alt="Zurück" style={{ width: '50px', height: '50px' }} />
+                </a>
                 <img
                     src="/communities.png"
                     alt="Communities"

@@ -3,6 +3,7 @@
 import { useEffect, useState } from 'react';
 import { useAuth } from '../../context/AuthContext'; 
 import Header from '../components/Header';
+import Link from 'next/link';
 
 export default function Profile() {
     const { user } = useAuth(); //actual user
@@ -73,7 +74,13 @@ export default function Profile() {
     return (
         <div>
             <Header />
+            
+
             <div className="flex flex-col items-center justify-center min-h-screen bg-[#F0F7EC]"> 
+                <a href="/Dashboard" className="absolute top-4 left-4 mt-28 ml-20">
+                    <img src="/pfeil2.svg" alt="Zurück" style={{ width: '50px', height: '50px' }} />
+                </a>
+
             <h1 className="text-[8rem] font-trash-hand text-black text-center mb-6"> {/*Profile title*/}
                     DEIN PROFIL
                 </h1>
@@ -111,11 +118,13 @@ export default function Profile() {
                     <div className="mt-8">
                         <h2 className="text-2xl font-bold text-gray-800">Aktionen</h2>
                         <p className="mt-4 text-gray-600">
-                            Möchtest du dein Profil aktualisieren oder weitere Informationen hinzufügen? {/*Update profile message*/}
+                            Möchtest du dein Profil aktualisieren? {/*Update profile message*/}
                         </p>
+                        <Link href="/Settings">
                         <button className="mt-4 px-4 py-2 bg-[#A9D09A] text-white font-bold rounded hover:bg-[#a5d393]">
                             Profil bearbeiten {/*Edit profile button*/}
                         </button>
+                        </Link>
                     </div>
                 </div>
             </div>

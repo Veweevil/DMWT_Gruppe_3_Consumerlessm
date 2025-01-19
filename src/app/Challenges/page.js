@@ -124,6 +124,9 @@ export default function Challenges() {//questions for the user
         <div id="challengeSite">
             <Header />
             <div className="flex flex-col items-center justify-center min-h-screen p-6 bg-[#F0F7EC]">
+            <a href="/Dashboard" className="absolute top-4 left-4 mt-28 ml-20">
+                    <img src="/pfeil2.svg" alt="Zurück" style={{ width: '50px', height: '50px' }} />
+                </a>
                 {/*Konfetti-Effect */}
                 {showConfetti && <Confetti width={confettiDimensions.width} height={confettiDimensions.height} />}
 
