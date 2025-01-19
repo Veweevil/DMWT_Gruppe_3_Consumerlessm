@@ -4,14 +4,13 @@ import { useEffect, useState } from 'react';
 import Header from '../components/Header';
 
 export default function Community() {
-    const [users, setUsers] = useState([]); //Zustand für öffentliche Benutzer
-    const [loading, setLoading] = useState(true); //Zustand für Ladeanzeige
+    const [users, setUsers] = useState([]); 
+    const [loading, setLoading] = useState(true); 
 
     useEffect(() => {
-        // Daten von der API abrufen
         const fetchUsers = async () => {
             try {
-                const response = await fetch('/api/getPublicUser');
+                const response = await fetch('/api/getPublicUser'); //fetch public users
                 const data = await response.json();
                 setUsers(data.users || []);
             } catch (error) {
@@ -27,9 +26,9 @@ export default function Community() {
     return (
         <div>
             <Header />
-            <div className="flex flex-col items-center justify-center min-h-screen p-6 bg-[#F0F7EC]">
-            <a href="/Dashboard" className="absolute top-4 left-4 mt-28 ml-20">
-                    <img src="/pfeil2.svg" alt="Zurück" style={{ width: '50px', height: '50px' }} />
+            <div className="flex flex-col items-center justify-center min-h-screen p-6 bg-[#F0F7EC]"> 
+                <a href="/Dashboard" className="absolute top-4 left-4 mt-28 ml-20">
+                    <img src="/pfeil2.svg" alt="Zurück" style={{ width: '50px', height: '50px' }} /> {/*goback-Button*/}
                 </a>
                 <img
                     src="/communities.png"
@@ -48,16 +47,16 @@ export default function Community() {
                 </h1>
 
                 {loading ? (
-                    <p className="text-2xl font-anonymous-pro text-gray-700 mt-8">Lade öffentliche Benutzer:innen...</p>
+                    <p className="text-2xl font-anonymous-pro text-gray-700 mt-8">Lade öffentliche Benutzer:innen...</p> 
                 ) : users.length > 0 ? (
                     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 w-full max-w-6xl mt-24">
-                        {users.map((user) => (
+                        {users.map((user) => ( //show public users
                             <div
                                 key={user.id}
                                 className="p-6 bg-white rounded-lg shadow-lg border border-gray-200 flex flex-col items-center space-y-3"
                             >
                                 <h2 className="text-2xl font-bold text-gray-800 font-anonymous-pro">
-                                    {user.nutzername}
+                                    {user.nutzername} 
                                 </h2>
                                 <p className="text-lg text-gray-600 font-anonymous-pro">{user.email}</p>
                                 <a
@@ -70,7 +69,7 @@ export default function Community() {
                         ))}
                     </div>
                 ) : (
-                    <p className="text-2xl font-anonymous-pro text-gray-700 mt-8">Es gibt keine öffentlichen Benutzer:innen.</p>
+                    <p className="text-2xl font-anonymous-pro text-gray-700 mt-8">Es gibt keine öffentlichen Benutzer:innen.</p> //if no public users
                 )}
             </div>
         </div>

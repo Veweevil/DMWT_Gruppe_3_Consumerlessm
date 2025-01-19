@@ -32,13 +32,13 @@ export default function Calendar() {
     const handleNotificationToggle = () => {
         setNotificationsEnabled((prev) => {
             const updatedValue = !prev;
-            localStorage.setItem('notificationsEnabled', JSON.stringify(updatedValue));
-            return updatedValue;
+            localStorage.setItem('notificationsEnabled', JSON.stringify(updatedValue)); //save the notification preference in local storage
+            return updatedValue; 
         });
     };
 
     useEffect(() => {
-        const storedNotificationPreference = localStorage.getItem('notificationsEnabled');
+        const storedNotificationPreference = localStorage.getItem('notificationsEnabled'); //get notification preference from local storage
         if (storedNotificationPreference) {
             setNotificationsEnabled(JSON.parse(storedNotificationPreference));
         }
@@ -47,8 +47,8 @@ export default function Calendar() {
 
     const fetchEvents = async () => {
         try {
-            const response = await fetch('/api/getEvents');
-            if (!response.ok) throw new Error('Fehler beim Abrufen der Veranstaltungen');
+            const response = await fetch('/api/getEvents'); //fetch events
+            if (!response.ok) throw new Error('Fehler beim Abrufen der Veranstaltungen'); 
             const data = await response.json();
             setEvents(data.events || []);
         } catch (error) {
@@ -58,7 +58,7 @@ export default function Calendar() {
 
     useEffect(() => {
         fetchEvents();
-        const storedBookmarks = localStorage.getItem('bookmarkedEvents');
+        const storedBookmarks = localStorage.getItem('bookmarkedEvents'); //get bookmarked events from local storage
         if (storedBookmarks) {
             setBookmarkedEvents(JSON.parse(storedBookmarks));
         }
@@ -71,9 +71,9 @@ export default function Calendar() {
         }
 
         try {
-            const formattedEvent = {
+            const formattedEvent = { //format event data
                 datum: newEvent.date,
-                uhrzeit: `${newEvent.time}:00+01:00`,
+                uhrzeit: `${newEvent.time}:00+01:00`, 
                 titel: newEvent.title,
                 beschreibung: newEvent.description,
                 ort: newEvent.location,
@@ -95,7 +95,7 @@ export default function Calendar() {
         }
     };
 
-    const renderEvents = () => {
+    const renderEvents = () => {   
         const selectedDayEvents = events.filter((event) =>
             event.datum && isSameDay(parseISO(event.datum), selectedDate)
         );
@@ -106,8 +106,8 @@ export default function Calendar() {
 
         
 
-        return selectedDayEvents.map((event, index) => (
-            <div key={`${event.id}-${index}`} className="bg-white p-4 rounded-lg shadow-md mb-4">
+        return selectedDayEvents.map((event, index) => ( //render events
+            <div key={`${event.id}-${index}`} className="bg-white p-4 rounded-lg shadow-md mb-4"> {/*show eventcard*/}
                 <h2 className="font-anonymous-pro text-lg text-gray-800">{event.titel}</h2>
                 <p className="text-sm text-gray-500">🗓 {format(parseISO(event.datum), 'dd.MM.yyyy')}</p>
                 <p className="text-sm text-gray-500">⏰ {event.uhrzeit.slice(0, 5)}</p>

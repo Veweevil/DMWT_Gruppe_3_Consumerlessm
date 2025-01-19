@@ -3,16 +3,15 @@ import Link from 'next/link';
 import { useAuth } from '../../context/AuthContext';
 
 export default function Header() {
-    const { isLoggedIn, logout } = useAuth(); // Zugriff auf Login-Status und Logout-Funktion
-
+    const { isLoggedIn, logout } = useAuth(); //use auth context for login status
     return (
         <div className="navbar flex items-center justify-between bg-white px-6 py-2 border-b border-gray-200 fixed top-0 left-0 w-full z-50">
-            {/* Logo */}
+            {/*Logo*/}
             <Link href="/">
                 <img className="logo h-6 w-auto" src="/logo.ico" alt="logo" />
             </Link>
 
-            {/* Navigation */}
+            {/*Navigation*/}
             <ul className="menu flex space-x-6">
                 <li>
                     <Link href="/" className="text-gray-700 hover:text-black">Home</Link>
@@ -40,11 +39,11 @@ export default function Header() {
                 </li>
             </ul>
 
-            {/* Auth-Bereich */}
+            {/*Authentification*/}
             <div className="auth-buttons flex items-center space-x-4">
                 {isLoggedIn && (
                     <>
-                    {/* Settings-Icon */}
+                    {/*Settings-Icon*/}
                     <Link href="/Settings">
                             <img
                                 src="/settings.png"
@@ -52,7 +51,7 @@ export default function Header() {
                                 className="h-6 w-6 cursor-pointer"
                             />
                         </Link>
-                        {/* Logout-Button */}
+                        {/*Logout-Button*/}
                         <button
                             onClick={logout}
                             className="bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded"
