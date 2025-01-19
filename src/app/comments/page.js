@@ -198,7 +198,7 @@ function CommentForm() {
     <div className="flex justify-center mt-6 mb-6">
         <button
             onClick={loadMoreComments}
-            className="bg-[#A9D09A] hover:bg-[#90B883] text-gray-800 py-3 px-6 rounded-lg text-xl font-bold shadow-lg"
+            className="mt-2 bg-white text-black border-2 border-[#A9D09A] px-6 py-2 rounded hover:bg-[#A9D09A] hover:text-white"
         >
             Mehr anzeigen
         </button>

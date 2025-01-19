@@ -70,7 +70,7 @@ export default function WhatYouCanDo() {
             </div>
 
             {/* Der Text ganz unten */}
-            <p className="absolute bottom-0 left-1/2 transform -translate-x-1/2 mb-6 text-center">
+            <p className="absolute bottom-0 left-1/2 transform -translate-x-1/2 mb-6  mt-6 text-center">
                 All das und viel mehr findest du in unserer Community. Werde aktiv durch Consumerlessm!
             </p>
         </div>

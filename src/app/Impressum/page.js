@@ -13,39 +13,28 @@ export default function Impressum() {
         <div className="text-gray-800 space-y-4">
           <div>
             <h2 className="font-semibold text-lg">Verantwortlich für den Inhalt:</h2>
+            <p className = "mb-10">Dieses Projekt wurde im Rahmen einer universitären Lehrveranstaltung an der Hochschule Reutlingen, Fakultät Informatik entwickelt.</p>
             <p className="mb-10">
-              Max Mustermann<br />
-              Musterstraße 1<br />
-              12345 Musterstadt<br />
+              Verantwortlich gemäß §5 TMG:<br />
+              Verena Schelling, Babur Berivan, Efe Özkan und Aaron Ahammed<br />
+              Hochschule Reutlingen<br />
+              Alteburgstraße 150<br />
+              72762 Reutlingen<br />
               Deutschland
             </p>
           </div>
           <div>
-            <h2 className="font-semibold text-lg">Kontakt:</h2>
+            <h2 className="font-semibold text-lg">Hinweis:</h2>
             <p className="mb-5">
-              Telefon: +49 (0)123 456 789<br />
-              E-Mail: <a href="mailto:kontakt@musterwebsite.de" className="text-green-600 hover:underline">kontakt@musterwebsite.de</a>
+            Diese Website dient ausschließlich zu Studien- und Lernzwecken und verfolgt keine kommerziellen Interessen.
             </p>
           </div>
-          <div>
-            <h2 className="font-semibold text-lg">Umsatzsteuer-Identifikationsnummer:</h2>
-            <p className="mb-5">DE123456789</p>
-          </div>
-          <div>
-            <h2 className="font-semibold text-lg">Handelsregister:</h2>
-            <p className="mb-5">Amtsgericht Musterstadt, HRB 12345</p>
-          </div>
-          <div>
-            <h2 className="font-semibold text-lg">Haftungsausschluss:</h2>
-            <p className="mb-5">
-              Trotz sorgfältiger Kontrolle übernehmen wir keine Haftung für die Inhalte externer Links. Für den Inhalt
-              der verlinkten Seiten sind ausschließlich deren Betreiber verantwortlich.
-            </p>
-          </div>
+          
+        
           <div>
             <h2 className="font-semibold text-lg">Urheberrecht:</h2>
             <p>
-              Alle Inhalte und Grafiken auf dieser Website unterliegen dem deutschen Urheberrecht. Die unautorisierte
+              Alle Inhalte und Grafiken auf dieser Website unterliegen dem deutschen Urheberrecht oder sind selber erstellt von Verena Schelling. Die unautorisierte
               Nutzung, Reproduktion oder Weitergabe ist untersagt.
             </p>
           </div>
