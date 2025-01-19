@@ -22,7 +22,7 @@ export default function Registrierung() {
 
         //Check if passwords match
         if (passwort !== confirmPassword) {
-            setMessage('Passwords do not match.');
+            setMessage('Passwörter stimmen nicht überein.');
             return;
         }
 
@@ -37,16 +37,16 @@ export default function Registrierung() {
             const data = await response.json(); //Parse response
 
             if (response.ok) {
-                setMessage('Registration successful!');
+                setMessage('Registrierung erfolgreich!');
                 setTimeout(() => {
                     window.location.href = '/Login'; //Redirect to login page after 2 seconds
                 }, 2000);
             } else {
-                setMessage(data.error || 'Registration failed.');
+                setMessage(data.error || 'Fehler bei der Registrierung.');
             }
         } catch (err) {
-            console.error('Registration error:', err);
-            setMessage('Server error. Please try again later.');
+            console.error('Fehler bei der Registrierung:', err);
+            setMessage('Serverfehler. Bitte später erneut versuchen.');
         }
     };
 
@@ -69,16 +69,16 @@ export default function Registrierung() {
                         paddingTop: '100px',
                     }}
                 >
-                    <h1 className="text-5xl font-trash-hand text-black mb-6 text-center">Register</h1> {/*Register title*/}
+                    <h1 className="text-5xl font-trash-hand text-black mb-6 text-center">Registrieren</h1> {/*Register title*/}
                     <form onSubmit={handleSubmit} className="w-full flex flex-col items-center">
                         <div className="mb-4">
                             <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="nutzername"> {/*Username label*/}
-                                Username
+                                Nutzername
                             </label>
                             <input
                                 id="nutzername"
                                 type="text"
-                                placeholder="Username"
+                                placeholder="Nutzername"
                                 value={formData.nutzername}
                                 onChange={handleChange}
                                 className="appearance-none border border-gray-300 rounded w-full max-w-[300px] py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:border-green-500"
@@ -87,12 +87,12 @@ export default function Registrierung() {
 
                         <div className="mb-4">
                             <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="email"> {/*Email label*/}
-                                Email Address
+                                E-Mail-Adresse
                             </label>
                             <input
                                 id="email"
                                 type="email"
-                                placeholder="Email Address"
+                                placeholder="E-Mail-Adresse"
                                 value={formData.email}
                                 onChange={handleChange}
                                 className="appearance-none border border-gray-300 rounded w-full max-w-[300px] py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:border-green-500"
@@ -101,12 +101,12 @@ export default function Registrierung() {
 
                         <div className="mb-4">
                             <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="passwort"> {/*Password label*/}
-                                Password
+                                Passwort
                             </label>
                             <input
                                 id="passwort"
                                 type="password"
-                                placeholder="Password"
+                                placeholder="Passwort"
                                 value={formData.passwort}
                                 onChange={handleChange}
                                 className="appearance-none border border-gray-300 rounded w-full max-w-[300px] py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:border-green-500"
@@ -115,12 +115,12 @@ export default function Registrierung() {
 
                         <div className="mb-6">
                             <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="confirmPassword"> {/*Confirm password label*/}
-                                Confirm Password
+                                Passwort bestätigen
                             </label>
                             <input
                                 id="confirmPassword"
                                 type="password"
-                                placeholder="Confirm Password"
+                                placeholder="Passwort bestätigen"
                                 value={formData.confirmPassword}
                                 onChange={handleChange}
                                 className="appearance-none border border-gray-300 rounded w-full max-w-[300px] py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:border-green-500"
@@ -131,18 +131,18 @@ export default function Registrierung() {
                             type="submit"
                             className="bg-[#A9D09A] hover:bg-[#90B883] text-white font-bold py-2 px-6 rounded focus:outline-none"
                         >
-                            Register
+                            Registrieren
                         </button>
                     </form>
 
                     <div className="mt-4">
                         <p className="text-sm text-gray-600"> {/*Login link, if user already have account*/}
-                            Already have an account?{' '}
+                            Bereits einen Account?{' '}
                             <button
                                 className="text-[#A9D09A] hover:underline font-bold"
                                 onClick={() => (window.location.href = '/Login')}
                             >
-                                Login
+                                Einloggen
                             </button>
                         </p>
                     </div>

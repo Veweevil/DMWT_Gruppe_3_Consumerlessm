@@ -20,7 +20,7 @@ export default function LoginPage() {
     
         //Check if any field is empty
         if (!username || !password) {
-            setMessage('Please fill in all fields.');
+            setMessage('Bitte alle Felder ausfüllen.');
             return;
         }
     
@@ -36,16 +36,16 @@ export default function LoginPage() {
     
             if (response.ok) {
                 login(data); //Pass data to AuthContext
-                setMessage('Login successful!');
+                setMessage('Login erfolgreich!');
                 setTimeout(() => {
                     window.location.href = '/Dashboard'; //Redirect after 2 seconds
                 }, 2000);
             } else {
-                setMessage(data.message || 'Login failed.');
+                setMessage(data.message || 'Login fehlgeschlagen.');
             }
         } catch (error) {
-            console.error('Login error:', error);
-            setMessage('Server error. Please try again later.');
+            console.error('Fehler beim Login:', error);
+            setMessage('Serverfehler. Bitte später erneut versuchen.');
         }
     };
     
@@ -56,7 +56,7 @@ export default function LoginPage() {
                 <div
                     className="relative bg-cover bg-center"
                     style={{
-                        backgroundImage: "url('/Rahmen.svg')", //import frame
+                        backgroundImage: "url('/Rahmen.svg')",//import frame
                         width: "400px",
                         height: "600px",
                         backgroundSize: "contain",
@@ -68,7 +68,7 @@ export default function LoginPage() {
                         paddingTop: "120px",
                     }}
                 >
-                    <h1 className="text-5xl font-trash-hand text-black mb-6">Login</h1> 
+                    <h1 className="text-5xl font-trash-hand text-black mb-6">Einloggen</h1>
                     <form
                         onSubmit={handleSubmit}
                         className="px-6 pt-4 pb-6"
@@ -79,15 +79,15 @@ export default function LoginPage() {
                     >
                         <div className="mb-4 w-full">
                             <label
-                                className="block text-gray-700 text-sm font-bold mb-2" //email/user label
+                                className="block text-gray-700 text-sm font-bold mb-2"//email/user label
                                 htmlFor="username"
                             >
-                                Email / Username 
+                                E-Mail-Adresse / Nutzername
                             </label>
                             <input
                                 id="username"
                                 type="text"
-                                placeholder="Email / Username"
+                                placeholder="E-Mail-Adresse / Nutzername"
                                 value={formData.username}
                                 onChange={handleChange}
                                 className="appearance-none border border-gray-300 rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:border-green-500"
@@ -97,38 +97,38 @@ export default function LoginPage() {
                         <div className="mb-6 w-full">
                             <label
                                 className="block text-gray-700 text-sm font-bold mb-2"
-                                htmlFor="password" //password label 
+                                htmlFor="password"//password labe
                             >
-                                Password
+                                Passwort
                             </label>
                             <input
                                 id="password"
                                 type="password"
-                                placeholder="Password"
+                                placeholder="Passwort"
                                 value={formData.password}
                                 onChange={handleChange}
                                 className="appearance-none border border-gray-300 rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:border-green-500"
                             />
                         </div>
 
-                        <div className="flex items-center justify-center w-full"> 
+                        <div className="flex items-center justify-center w-full">
                             <button //login button
                                 type="submit"
                                 className="bg-[#A9D09A] hover:bg-[#90B883] text-white font-bold py-2 px-6 rounded focus:outline-none"
                             >
-                                Login
+                                Einloggen
                             </button>
                         </div>
                     </form>
 
                     <div className="mt-4">
                         <p className="text-sm text-gray-600"> {/*Register link, if user don`t have accounnt*/}
-                            Don't have an account?{' '} 
+                            Noch keinen Account?{' '}
                             <button
                                 className="text-[#A9D09A] hover:underline font-bold"
                                 onClick={() => window.location.href = '/Register'}
                             >
-                                Register
+                                Registrieren
                             </button>
                         </p>
                     </div>
@@ -137,7 +137,7 @@ export default function LoginPage() {
                 {/*Display message below the form*/}
                 {message && (
                     <div
-                        className={`mt-6 px-6 py-3 text-center shadow-md max-w-xl ${message.includes('successful') ? 'bg-[#A9D09A] border border-black-300' : 'bg-red-100 text-red-800 border border-red-300'}`}
+                        className={`mt-6 px-6 py-3 text-center shadow-md max-w-xl ${message.includes('erfolgreich') ? 'bg-[#A9D09A] border border-black-300' : 'bg-red-100 text-red-800 border border-red-300'}`}
                     >
                         {message}
                     </div>
