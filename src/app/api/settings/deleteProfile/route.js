@@ -16,6 +16,7 @@ export async function DELETE(req) {
             return new Response(JSON.stringify({ error: 'E-Mail erforderlich' }), { status: 400 });
         }
 
+        //delete user by email
         const result = await sql`
             DELETE FROM "LoginDaten"
             WHERE email = ${email}
@@ -27,7 +28,6 @@ export async function DELETE(req) {
 
         return new Response(JSON.stringify({ message: 'Konto erfolgreich gelöscht' }), { status: 200 });
     } catch (error) {
-        console.error('Fehler beim Löschen des Kontos:', error);
         return new Response(JSON.stringify({ error: 'Serverfehler' }), { status: 500 });
     }
 }

@@ -10,12 +10,12 @@ const sql = postgres({
 
 export async function GET(req) {
     try {
-        const email = req.headers.get('Authorization'); // Email aus Token oder Header
+        const email = req.headers.get('Authorization'); //get email from header
         if (!email) {
             return new Response(JSON.stringify({ error: 'E-Mail erforderlich' }), { status: 400 });
             
         }
-
+        //get userdata by email
         const user = await sql`SELECT email, öffentlich FROM "LoginDaten" WHERE email = ${email}`;
         if (!user.length) {
             return new Response(JSON.stringify({ error: 'Benutzer nicht gefunden' }), { status: 404 });
@@ -23,7 +23,6 @@ export async function GET(req) {
 
         return new Response(JSON.stringify(user[0]), { status: 200 });
     } catch (error) {
-        console.error('Fehler:', error);
         return new Response(JSON.stringify({ error: 'Serverfehler' }), { status: 500 });
     }
 }

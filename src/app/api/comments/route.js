@@ -53,6 +53,7 @@ export async function GET(req) {
     }
 }
 
+//only allow GET and POST requests
 export async function OPTIONS(req) {
     return new Response(
         JSON.stringify({ message: `Methode ${req.method} nicht erlaubt` }),

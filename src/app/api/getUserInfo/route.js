@@ -16,7 +16,7 @@ export async function GET(req) {
         if (!email) {
             return new Response(JSON.stringify({ error: 'Email ist erforderlich' }), { status: 400 });
         }
-
+        //get username by email
         const user = await sql`
             SELECT nutzername FROM "LoginDaten" WHERE email = ${email}
         `;

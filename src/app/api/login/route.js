@@ -10,16 +10,16 @@ const sql = postgres({
 
 export async function POST(req) {
     try {
-        const { username, password } = await req.json(); //Daten aus der Anfrage entpacken
+        const { username, password } = await req.json();
 
-        if (!username || !password) { //Eingabefelder prüfen
+        if (!username || !password) { 
             return new Response(
                 JSON.stringify({ message: 'Alle Felder sind erforderlich.' }),
                 { status: 400 }
             );
         }
 
-        //Nutzer mit Nutzername oder Email suchen
+        //Search for user in database
         const user = await sql`
             SELECT * FROM "LoginDaten"
             WHERE nutzername = ${username} OR email = ${username}
@@ -32,7 +32,7 @@ export async function POST(req) {
             );
         }
 
-        //Passwort prüfen
+        //password validation
         const isPasswordValid = password === user[0].passwort;
         if (!isPasswordValid) {
             return new Response(
@@ -41,7 +41,7 @@ export async function POST(req) {
             );
         }
 
-        //Benutzer-Daten zurückgeben (ohne Passwort)
+        //return user data
         const { nutzername, email } = user[0];
         return new Response(
             JSON.stringify({

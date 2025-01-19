@@ -14,7 +14,7 @@ export async function PUT(req) {
         if (!email || !oldPassword || !newPassword) {
             return new Response(JSON.stringify({ error: 'Alle Felder sind erforderlich' }), { status: 400 });
         }
-
+        //check if old password is correct
         const user = await sql`
             SELECT * FROM "LoginDaten" WHERE email = ${email} AND passwort = ${oldPassword}
         `;
@@ -22,6 +22,7 @@ export async function PUT(req) {
             return new Response(JSON.stringify({ error: 'Altes Passwort ist falsch' }), { status: 401 });
         }
 
+        //update password
         await sql`
             UPDATE "LoginDaten"
             SET passwort = ${newPassword}
@@ -30,7 +31,6 @@ export async function PUT(req) {
 
         return new Response(JSON.stringify({ message: 'Passwort erfolgreich geändert' }), { status: 200 });
     } catch (error) {
-        console.error('Fehler:', error);
         return new Response(JSON.stringify({ error: 'Serverfehler' }), { status: 500 });
     }
 }

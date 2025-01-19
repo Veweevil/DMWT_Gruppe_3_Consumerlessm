@@ -13,10 +13,10 @@ export async function PUT(req) {
         const { email, newEmail } = await req.json();
 
         if (!email || !newEmail) {
-            console.error('Fehlende Eingaben:', { email, newEmail });
             return new Response(JSON.stringify({ error: 'E-Mail erforderlich' }), { status: 400 });
         }
 
+        //update email by email
         const result = await sql`
             UPDATE "LoginDaten"
             SET email = ${newEmail}
@@ -24,13 +24,11 @@ export async function PUT(req) {
         `;
 
         if (result.count === 0) {
-            console.error('Benutzer nicht gefunden:', email);
+            console.error('Benutzer nicht gefunden:', email); //user not found
             return new Response(JSON.stringify({ error: 'Benutzer nicht gefunden' }), { status: 404 });
         }
-
         return new Response(JSON.stringify({ message: 'E-Mail erfolgreich aktualisiert' }), { status: 200 });
     } catch (error) {
-        console.error('Serverfehler beim Aktualisieren der E-Mail:', error);
         return new Response(JSON.stringify({ error: 'Serverfehler' }), { status: 500 });
     }
 }

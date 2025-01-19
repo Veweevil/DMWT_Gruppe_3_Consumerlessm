@@ -1,6 +1,5 @@
 import postgres from 'postgres';
 
-// Datenbankverbindung herstellen
 const sql = postgres({
     host: 'aws-0-eu-central-1.pooler.supabase.com',
     port: 6543,
@@ -12,13 +11,13 @@ const sql = postgres({
 export async function GET(req) {
     try {
         const { searchParams } = new URL(req.url);
-        const email = searchParams.get('email'); // Abruf der E-Mail aus der Query
+        const email = searchParams.get('email');  //get parameter 'email' from req-url
 
         if (!email) {
             return new Response(JSON.stringify({ error: 'E-Mail ist erforderlich' }), { status: 400 });
         }
-
-        // Datenbankabfrage, um den Benutzer mit der angegebenen E-Mail zu finden
+    
+        //get userdata by email
         const user = await sql`
             SELECT nutzername, email, öffentlich
             FROM "LoginDaten"
@@ -31,8 +30,7 @@ export async function GET(req) {
                 { status: 404 }
             );
         }
-
-        // Benutzerinformationen zurückgeben
+        
         return new Response(
             JSON.stringify({
                 name: user[0].nutzername,
@@ -42,7 +40,6 @@ export async function GET(req) {
             { status: 200 }
         );
     } catch (error) {
-        console.error('Fehler beim Abrufen der Benutzerdaten:', error.message);
         return new Response(
             JSON.stringify({ error: 'Serverfehler', details: error.message }),
             { status: 500 }
