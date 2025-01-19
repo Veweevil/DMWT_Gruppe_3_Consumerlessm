@@ -6,14 +6,14 @@ import Footer from '../components/Footer';
 import { useAuth } from "../../context/AuthContext";
 
 function CommentForm() {
-    const [name, setName] = useState(''); //Name des Nutzers
-    const [content, setContent] = useState(''); //Erfolgstext
-    const [message, setMessage] = useState(''); //Erfolg/Fehler-Nachricht
-    const [comments, setComments] = useState([]); //Liste der Erfolge (intern)
+    const [name, setName] = useState(''); 
+    const [content, setContent] = useState(''); 
+    const [message, setMessage] = useState(''); 
+    const [comments, setComments] = useState([]); 
     const {isLoggedIn, logout} = useAuth();
     const [nutzername, setNutzername] = useState('');
     const { user } = useAuth();
-    const [visibleComments, setVisibleComments] = useState(5); // Anzahl der sichtbaren Kommentare
+    const [visibleComments, setVisibleComments] = useState(5); 
 
     useEffect(() => {
         const fetchNutzername = async () => {
@@ -44,39 +44,38 @@ function CommentForm() {
             fetchNutzername();
         }
     }, [user]);
-    //Erfolge laden
+    //success load
     const fetchComments = async () => {
         try {
             const response = await axios.get('/api/comments');
-            setComments(response.data.comments); //Erfolge speichern
+            setComments(response.data.comments); //safe success
         } catch (error) {
             console.error('Fehler beim Laden der Erfolge:', error);
         }
     };
 
-    // Mehr Erfolge laden
+    //load more success
     const loadMoreComments = () => {
-        setVisibleComments(visibleComments + 5); // Weitere 5 Kommentare laden
+        setVisibleComments(visibleComments + 5); 
     };
 
-    // Nur 5 Erfolge anzeigen
+    //only show 5 successes
     const loadLessComments = () => {
-        setVisibleComments(5); // Auf 5 Kommentare zurücksetzen
+        setVisibleComments(5); 
     };
 
 
-    //Erfolge beim ersten Laden abrufen
+    //success load
     useEffect(() => {
         fetchComments();
     }, []);
 
-    //Formular absenden
+    //send success
     const handleSubmit = async (e) => {
         e.preventDefault();
 
         try {
             const commentName = isLoggedIn ? nutzername : name;
-            //Erfolg absenden
             await axios.post('/api/comments', {
                 name: commentName,
                 content: content,
@@ -86,7 +85,7 @@ function CommentForm() {
             setName('');
             setContent('');
 
-            //Erfolge erneut abrufen
+            //reload success
             fetchComments();
         } catch (error) {
             setMessage('Fehler beim Teilen des Erfolgs.');
@@ -96,24 +95,21 @@ function CommentForm() {
 
     return (
         <div className="bg-[#F0F7EC] min-h-screen">
-            {/* Header */}
             <Header/>
 
-            {/* Erfolg teilen Formular */}
+            {/* success share to formular*/}
             <div className="flex flex-col items-center pt-24">
                 <div className="max-w-3xl w-full bg-white p-8 rounded-lg shadow-lg">
-                    {/* Überschrift */}
+                    
                     <h2 className="text-[5rem] font-trash-hand text-black text-center mb-5">
                         Kleine Erfolge teilen
                     </h2>
                     <p className="mb-10">Erzähle uns von deinem Weg zu weniger Konsum und inspiriere andere. Gib deinen Namen ein und schreibe, was du erreicht hast oder was dich motiviert. Erfahre außerdem, wie Personen durch Consumerlessm ihren Konsum reduziert haben. <br/><br/>Gemeinsam schaffen wir Veränderung!</p>
-
-                    {/* Formular */}
+                    
                     <form onSubmit={handleSubmit} className="space-y-8">
-                        {/* Name */}
                         {isLoggedIn && (<div>
                             <label className="block text-xl font-anonymous-pro text-gray-700 mb-3">
-                                Dein Name:
+                                Dein Name: {/*your name label*/}
                             </label>
                             <input
                                 type="text"
@@ -126,7 +122,7 @@ function CommentForm() {
                         {!isLoggedIn && (
                         <div>
                             <label className="block text-xl font-anonymous-pro text-gray-700 mb-3">
-                                Dein Name:
+                                Dein Name: 
                             </label>
                             <input
                                 type="text"
@@ -137,7 +133,7 @@ function CommentForm() {
                             />
                         </div>
                         )}
-                        {/* Erfolg */}
+                        {/*label to ask which success made them proud*/}
                         <div>
                             <label className="block text-xl font-anonymous-pro text-gray-700 mb-3">
                                 Auf welchen Erfolg bist du stolz?
@@ -151,7 +147,7 @@ function CommentForm() {
                             />
                         </div>
 
-                        {/* Absenden-Button */}
+                        {/*success send button*/}
                         <button
                             type="submit"
                             className="w-full bg-[#A9D09A] hover:bg-[#90B883] text-white py-3 rounded-lg text-xl shadow-lg"
@@ -160,7 +156,7 @@ function CommentForm() {
                         </button>
                     </form>
 
-                    {/* Nachricht */}
+                    {/*write message*/}
                     {message && (
                         <p className="text-center text-lg font-anonymous-pro text-gray-700 mt-6">
                             {message}
@@ -168,13 +164,13 @@ function CommentForm() {
                     )}
                 </div>
 
-                {/* Erfolge anzeigen */}
+                {/*show successes from others*/}
                 <div className="max-w-3xl w-full mt-12">
                     <h3 className="text-3xl font-anonymous-pro text-gray-800 mb-6">
                         Geteilte Erfolge:
                     </h3>
 
-                    {/* Erfolgsliste */}
+                    {/*success list*/}
                     {comments.length > 0 ? (
                         <ul className="space-y-6 mb-6">
                             {comments.slice(0, visibleComments).map((comment, index) => (
@@ -193,7 +189,7 @@ function CommentForm() {
                         <p className="text-gray-700 mb-8">Noch keine Erfolge geteilt.</p>
                     )}
 
-    {/* Mehr anzeigen Button */}
+    {/*load more successes button*/}
 {comments.length > visibleComments && (
     <div className="flex justify-center mt-6 mb-6">
         <button

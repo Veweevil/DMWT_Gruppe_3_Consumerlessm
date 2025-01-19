@@ -11,23 +11,23 @@ export default function Dashboard() {
         const fetchNutzername = async () => {
             try {
                 if (!user || !user.email) {
-                    console.warn('Kein Benutzer angemeldet');
+                    console.warn('Kein Benutzer angemeldet'); //warning no user
                     setNutzername('Gast');
                     return;
                 }
 
-                const email = user.email;
-                const response = await fetch(`/api/getUserInfo?email=${email}`);
+                const email = user.email; //get email
+                const response = await fetch(`/api/getUserInfo?email=${email}`); 
                 const data = await response.json();
 
                 if (response.ok) {
-                    setNutzername(data.nutzername || 'Gast');
+                    setNutzername(data.nutzername || 'Gast'); 
                 } else {
-                    console.error(data.error || 'Fehler beim Abrufen des Benutzers');
+                    console.error(data.error || 'Fehler beim Abrufen des Benutzers'); //error get user
                     setNutzername('Gast');
                 }
             } catch (error) {
-                console.error('Fehler beim Abrufen des Benutzers:', error);
+                console.error('Fehler beim Abrufen des Benutzers:', error);//error get user
                 setNutzername('Gast');
             }
         };
@@ -41,7 +41,7 @@ export default function Dashboard() {
         <div>
             <Header />
             <div className="flex flex-col items-center justify-center min-h-screen p-6 bg-[#F0F7EC]">
-                {/* Begrüßung */}
+                
                 <h1
                     className="text-7xl font-trash-hand text-black"
                     style={{
@@ -52,12 +52,12 @@ export default function Dashboard() {
                     Hallo {nutzername}!
                 </h1>
                 <p className="text-center font-anonymous-pro text-lg text-gray-600 mt-4">
-                    Willkommen in deinem Dashboard! Entdecke alle Tools, um bewusster zu leben.
+                    Willkommen in deinem Dashboard! Entdecke alle Tools, um bewusster zu leben. {/*Welcome message for the dashboard*/}
                 </p>
 
-                {/* Dashboard Cards */}
+                {/*Dashboard Cards*/}
                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mt-16 w-full max-w-6xl">
-                    {/* Card 1 */}
+                    {/*Your Profile*/}
                     <Link href="/Dein_Profil">
                     <div className="bg-white border-2 border-[#A9D09A] rounded-lg shadow-lg p-6 flex flex-col items-center hover:scale-105 transition-transform">
                         <img src="/profile.png" alt="Profil" className="w-16 h-16 mb-4" />
@@ -70,7 +70,7 @@ export default function Dashboard() {
                     </div>
                     </Link>
 
-                    {/* Card 2 */}
+                    {/*Card-Challenges and link*/}
                     <Link href="/Challenges">
                     <div className="bg-white border-2 border-[#A9D09A] rounded-lg shadow-lg p-6 flex flex-col items-center hover:scale-105 transition-transform">
                         <img src="/award.png" alt="Challenges" className="w-16 h-16 mb-4" />
@@ -81,7 +81,7 @@ export default function Dashboard() {
                     </div>
                     </Link>
 
-                    {/* Card 3 */}
+                    {/*Card-ConsumeTracker and link*/}
                     <Link href="/Konsum">
                     <div className="bg-white border-2 border-[#A9D09A] rounded-lg shadow-lg p-6 flex flex-col items-center hover:scale-105 transition-transform">
                         <img src="/analysis.png" alt="Konsumtracker" className="w-16 h-16 mb-4" />
@@ -94,7 +94,7 @@ export default function Dashboard() {
                     </div>
                     </Link>
 
-                    {/* Card 4 */}
+                    {/*Card-Community and link*/}
                     <Link href="/Community">                                    
                     <div className="bg-white border-2 border-[#A9D09A] rounded-lg shadow-lg p-6 flex flex-col items-center hover:scale-105 transition-transform">
                         <img src="/communities.png" alt="Community" className="w-16 h-16 mb-4" />

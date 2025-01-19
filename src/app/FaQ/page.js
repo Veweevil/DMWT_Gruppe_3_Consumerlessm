@@ -15,7 +15,10 @@ export default function Supportpage() {
     };
 
     const faqItems = [ //array with questions and answers
-        
+            {
+                question: "Was ist Consumerlessm",
+                answer: "Consumerlessm ist eine Community, die Menschen dabei unterstützt, minimalistischer und nachhaltiger zu leben. Die Mitglieder motivieren sich gegenseitig, bewusster mit Ressourcen umzugehen, weniger zu konsumieren und einen positiven Einfluss auf die Umwelt zu haben."
+            },
             {
                 question: "Was bedeutet minimalistisches Leben?",
                 answer: "Minimalismus bedeutet, sich auf das Wesentliche zu konzentrieren und unnötige Dinge aus dem Leben zu entfernen, um mehr Raum für das zu schaffen, was wirklich zählt."
