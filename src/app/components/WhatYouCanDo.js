@@ -41,7 +41,7 @@ export default function WhatYouCanDo() {
                              justifyContent: "center",
                          }}>
                         <img src="iphone.svg" alt="Iphone Illustration" className="illustration" />
-                        <p className="font-bold text-3xl">Second Hand</p>
+                        <p className="font-bold text-3xl text-[#A9D09A]">Second Hand</p>
                         <p className={"body body-centred"}>Kaufe Second-Hand-Produkte und verkaufe Dinge, die du nicht mehr brauchst.</p>
                     </div>
                 </div>
@@ -70,7 +70,7 @@ export default function WhatYouCanDo() {
                              justifyContent: "center",
                          }}>
                         <img src="jacke-haengend.svg" alt="Jacke Illustration" className="illustration illustration-jacke" />
-                        <p className="font-bold text-3xl">DIY/Upcycling</p>
+                        <p className="font-bold text-3xl text-[#A9D09A]">DIY/Upcycling</p>
                         <p className={"body body-centred"}>Repariere Dinge, anstatt diese zu entsorgen oder mache etwas ganz neues daraus.</p>
                     </div>
                 </div>
@@ -99,7 +99,7 @@ export default function WhatYouCanDo() {
                              justifyContent: "center",
                          }}>
                         <img src="flasche.svg" alt="Flasche Illustration" className="illustration" />
-                        <p className="font-bold text-3xl">Mehrweg</p>
+                        <p className="font-bold text-3xl text-[#A9D09A]">Mehrweg</p>
                         <p className={"body body-centred"}>Verwende langlebige und wiederverwendbare Produkte.</p>
                     </div>
                 </div>
@@ -110,7 +110,7 @@ export default function WhatYouCanDo() {
             {popupInfo && (
                 <div className="popup-container" onClick={closePopup}>
                     <div className="popup-content">
-                        <p className="font-bold text-3xl">{popupInfo.title}</p>
+                        <p className="font-bold text-3xl text-[#A9D09A]">{popupInfo.title}</p>
                         <img src={popupInfo.svg} alt={`${popupInfo.title} Illustration`} className="illustration" />
                         <p style={{ maxWidth: '600px' }}>{popupInfo.content}</p>
                         <button onClick={closePopup} className="bg-[#A9D09A] hover:bg-[#90B883] text-gray-800 px-4 py-2 rounded mt-4">Schließen</button>
