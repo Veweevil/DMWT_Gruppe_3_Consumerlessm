@@ -6,14 +6,13 @@ import Kaufreue from './components/Kaufreue';
 import WhatYouCanDo from './components/WhatYouCanDo';
 import Footer from './components/Footer';
 import { useAuth } from '../context/AuthContext';
-import Dashboard from './components/Calendar';
 import Calendar from './components/Calendar';
 
 
 export default function Home() {
   
   const { isLoggedIn, logout } = useAuth(); //Zugriff auf Login-Status und Logout-Funktion
-  
+
   return (
     <div className="body">
         <div className="Header"> <Header/> </div>

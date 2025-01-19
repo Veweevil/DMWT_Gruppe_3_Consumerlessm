@@ -23,7 +23,25 @@ export default function Calendar() {
     const [bookmarkedEvents, setBookmarkedEvents] = useState([]);
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [newEvent, setNewEvent] = useState({ date: '', time: '', title: '', description: '', location: '' });
-    const { isLoggedIn, user } = useAuth();
+    const { isLoggedIn, user } = useAuth();const [notificationsEnabled, setNotificationsEnabled] = useState(false);
+
+    // Funktion zum Umschalten des Benachrichtigungsstatus
+    const handleNotificationToggle = () => {
+        setNotificationsEnabled((prev) => {
+            const updatedValue = !prev;
+            localStorage.setItem('notificationsEnabled', JSON.stringify(updatedValue));
+            return updatedValue;
+        });
+    };
+    
+    // Beim Laden des Components vorher gespeicherten Status abrufen
+    useEffect(() => {
+        const storedNotificationPreference = localStorage.getItem('notificationsEnabled');
+        if (storedNotificationPreference) {
+            setNotificationsEnabled(JSON.parse(storedNotificationPreference));
+        }
+    }, []);
+    
 
     // **Zentralisierte Funktion zum Abrufen von Events**
     const fetchEvents = async () => {
@@ -394,8 +412,8 @@ export default function Calendar() {
                                         {renderEvents()}
                                         {isLoggedIn && (
                                             <button
-                                                className="mt-4 bg-[#A9D09A] text-white px-4 py-2 rounded hover:bg-[#90B883]"
-                                                onClick={() => setIsModalOpen(true)}
+                                            className="mt-2 bg-white text-black border-2 border-[#A9D09A] px-6 py-2 rounded hover:bg-[#A9D09A] hover:text-white"
+                                            onClick={() => setIsModalOpen(true)}
                                             >
                                                 Neue Veranstaltung hinzufügen
                                             </button>
@@ -403,13 +421,29 @@ export default function Calendar() {
                                     </div>
                                 </div>
                                 {isLoggedIn && (
-                                    <div className="bg-gray-50 mt-8 p-6 rounded-lg shadow-lg">
-                                        <h3 className="font-anonymous-pro text-xl text-gray-800 mb-4">
-                                            Vorgemerkte Events
-                                        </h3>
-                                        {renderBookmarkedEvents()}
-                                    </div>
-                                )}
+    <div className="bg-gray-50 mt-8 p-6 rounded-lg shadow-lg">
+        <h3 className="font-anonymous-pro text-xl text-gray-800 mb-4 flex justify-between items-center">
+            Vorgemerkte Events
+            <div className="flex items-center">
+                <label
+                    htmlFor="notificationToggle"
+                    className="mr-2 text-sm font-medium text-gray-800"
+                >
+                    Erinnerung per Mail an <strong>{user?.email || 'unbekannt'}</strong>
+                </label>
+                <input
+                    id="notificationToggle"
+                    type="checkbox"
+                    className="toggle-switch"
+                    checked={notificationsEnabled}
+                    onChange={handleNotificationToggle}
+                />
+            </div>
+        </h3>
+        {renderBookmarkedEvents()}
+    </div>
+)}
+
                             </div>
                             {isModalOpen && (
                                 <div className="fixed inset-0 bg-gray-800 bg-opacity-50 flex items-center justify-center">

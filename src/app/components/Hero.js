@@ -8,8 +8,9 @@ export default function Hero() {
     const [activeItem, setActiveItem] = useState(null); //Zustand aktives Element
     const [discardingItem, setDiscardingItem] = useState(null); //Zustand verworfenes Objekt
     const [infoVisible, setInfoVisible] = useState(false); //Zustand Info-Feld
-    const [cartItems, setCartItems] = useState(['iphone', 'chocolate', 'bottle']); //Liste Objekte im Warenkorb
+    const [cartItems, setCartItems] = useState(['iphone', 'chocolate', 'bottle', 'jacket']); //Liste Objekte im Warenkorb
     const { isLoggedIn, logout } = useAuth(); //Zugriff auf Login-Status und Logout-Funktion
+
 
     const handleItemClick = (item) => {
         setActiveItem(activeItem === item ? null : item);
@@ -24,7 +25,7 @@ export default function Hero() {
     };
 
     const handleRestart = () => {
-        setCartItems(['iphone', 'chocolate', 'bottle']); //Objekte wiederherstellen
+        setCartItems(['iphone', 'chocolate', 'bottle', 'jacket']); //Objekte wiederherstellen
     };
 
     const toggleInfo = (e) => {
@@ -93,10 +94,21 @@ export default function Hero() {
                     </>
                     
                 )}
-                
-                <Link href="#kaufreue-section">
-                    <img src="/pfeil.svg" alt="Pfeil" className="hidden lg:block mt-20 max-w-none lg:w-[60px] lg:h[60px]" />
-                </Link>
+                 <div className="relative group">
+          <a href="#kaufreue-section">
+            <img
+              src="/pfeil.svg"
+              alt="Pfeil"
+              className="hidden lg:block mt-20 max-w-none lg:w-[60px] lg:h[60px]"
+            />
+          </a>
+          {/* Tooltip */}
+          <div
+            className="absolute left-[70px] top-[10px] opacity-0 group-hover:opacity-100 bg-white text-black border-2 border-[#A9D09A] text-sm font-anonymous-pro px-3 py-1 rounded-md shadow-lg transform scale-95 group-hover:scale-100 transition-all duration-300"
+          >
+            Scrolle dich durch die Seite!
+          </div>
+          </div>
             </div>
 
             <div className="hero-image-container relative">
@@ -132,52 +144,52 @@ export default function Hero() {
                     alt="Einkaufswagen"
                     className="wagen w-full max-w-none lg:w-[700px] lg:h-[700px]"
                 />
-
-                {/*iPhone*/}
-                {cartItems.includes('iphone') && (
-                    <img
-                        src="/iphone.svg"
-                        alt="iPhone"
-                        className={`absolute transition-all duration-500 animate-float ${
-                            discardingItem === 'iphone'
-                                ? 'animate-discard-iphone'
-                                : activeItem === 'iphone'
-                                ? 'top-[-30px] left-[20%] transform -translate-x-[50%]'
-                                : 'top-[28%] left-[20%] transform -translate-x-[50%] -translate-y-[50%]'
-                        } lg:w-[120px] lg:h-[240px] cursor-pointer`}
-                        style={{
-                            filter: 'drop-shadow(0 0 5px #A9D09A)',
-                        }}
-                        onClick={(e) => {
-                            e.stopPropagation();
-                            handleItemClick('iphone');
-                        }}
-                    />
-                )}
-
-                {/*Textfeld iPhone*/}
-                {activeItem === 'iphone' && (
-                    <div className="absolute top-[-10px] left-[36%] bg-white border border-[#A9D09A] p-4 rounded shadow-lg text-gray-800">
-                        <p className="text-sm font-anonymous-pro mb-4">
-                            Auch kaputte Smartphones lassen sich noch reparieren. Überleg dir ob du wirklich ein neues
-                            brauchst!
-                        </p>
-                        <div className="flex justify-end space-x-2">
-                            <button
-                                className="bg-red-500 text-white px-3 py-1 rounded"
-                                onClick={() => setActiveItem(null)}
-                            >
-                                Behalten
-                            </button>
-                            <button
-                                className="bg-[#A9D09A] text-white px-3 py-1 rounded"
-                                onClick={() => handleDiscard('iphone')}
-                            >
-                                Verwerfen
-                            </button>
-                        </div>
-                    </div>
-                )}
+{cartItems.includes('jacket') && (
+    <img
+        src="/jacke.png"
+        alt="Jacke"
+        className={`absolute transition-all duration-500 animate-float-slow ${
+            discardingItem === 'jacket'
+                ? 'animate-discard-jacket'
+                : activeItem === 'jacket'
+                ? 'top-[-10px] left-[20%] transform -translate-x-[50%]'
+                : 'top-[28%] left-[20%] transform -translate-x-[50%] -translate-y-[50%]'
+        } cursor-pointer`}
+        style={{
+            width: 'auto', // Behalte die Breite dynamisch
+            height: 'auto', // Behalte die Höhe dynamisch
+            maxWidth: '150px', // Begrenze die maximale Breite
+            maxHeight: '300px', // Begrenze die maximale Höhe
+            filter: 'drop-shadow(0 0 5px #A9D09A)', // Schatten hinzufügen
+        }}
+        onClick={(e) => {
+            e.stopPropagation();
+            handleItemClick('jacket');
+        }}
+    />
+)}
+{/*Textfeld Jacke*/}
+{activeItem === 'jacket' && (
+    <div className="absolute top-[-10px] left-[42%] bg-white border border-[#A9D09A] p-4 rounded shadow-lg text-gray-800">
+        <p className="text-sm font-anonymous-pro mb-4">
+            Bei Kleidungsstücken wie Jacken lohnt sich ein Blick in Second-Hand-Läden. Brauchst du wirklich eine neue Jacke?
+        </p>
+        <div className="flex justify-end space-x-2">
+            <button
+                className="bg-red-500 text-white px-3 py-1 rounded"
+                onClick={() => setActiveItem(null)}
+            >
+                Behalten
+            </button>
+            <button
+                className="bg-[#A9D09A] text-white px-3 py-1 rounded"
+                onClick={() => handleDiscard('jacket')}
+            >
+                Verwerfen
+            </button>
+        </div>
+    </div>
+)}
 
                 {/*Schokolade*/}
                 {cartItems.includes('chocolate') && (
@@ -188,8 +200,8 @@ export default function Hero() {
                             discardingItem === 'chocolate'
                                 ? 'animate-discard-chocolate'
                                 : activeItem === 'chocolate'
-                                ? 'top-[-50px] left-[32%] transform -translate-x-[50%]'
-                                : 'top-[15%] left-[32%] transform -translate-x-[50%] -translate-y-[50%]'
+                                ? 'top-[-50px] left-[38%] transform -translate-x-[50%]'
+                                : 'top-[15%] left-[38%] transform -translate-x-[50%] -translate-y-[50%]'
                         } lg:w-[120px] lg:h-[240px] cursor-pointer`}
                         style={{
                             filter: 'drop-shadow(0 0 5px #A9D09A)',
@@ -201,29 +213,33 @@ export default function Hero() {
                     />
                 )}
 
-                {/*Textfeld Schokolade*/}
-                {activeItem === 'chocolate' && (
-                    <div className="absolute top-[0px] left-[50%] bg-white border border-[#A9D09A] p-4 rounded shadow-lg text-gray-800">
-                        <p className="text-sm font-anonymous-pro mb-4">
-                            Noch ein Essenstrend? Überleg dir ob du wirklich so viel Geld für Schokolade ausgeben
-                            möchtest!
-                        </p>
-                        <div className="flex justify-end space-x-2">
-                            <button
-                                className="bg-red-500 text-white px-3 py-1 rounded"
-                                onClick={() => setActiveItem(null)}
-                            >
-                                Behalten
-                            </button>
-                            <button
-                                className="bg-[#A9D09A] text-white px-3 py-1 rounded"
-                                onClick={() => handleDiscard('chocolate')}
-                            >
-                                Verwerfen
-                            </button>
-                        </div>
-                    </div>
-                )}
+               {/*Textfeld Schokolade*/}
+{activeItem === 'chocolate' && (
+    <div
+        className="absolute top-[0px] left-[38%] bg-white border border-[#A9D09A] p-4 rounded shadow-lg text-gray-800"
+        style={{
+            transform: 'translateX(-100%)', // Positioniert das Textfeld links von der Schokolade
+        }}
+    >
+        <p className="text-sm font-anonymous-pro mb-4">
+            Noch ein Essenstrend? Überleg dir, ob du wirklich so viel Geld für Schokolade ausgeben möchtest!
+        </p>
+        <div className="flex justify-end space-x-2">
+            <button
+                className="bg-red-500 text-white px-3 py-1 rounded"
+                onClick={() => setActiveItem(null)}
+            >
+                Behalten
+            </button>
+            <button
+                className="bg-[#A9D09A] text-white px-3 py-1 rounded"
+                onClick={() => handleDiscard('chocolate')}
+            >
+                Verwerfen
+            </button>
+        </div>
+    </div>
+)}
 
                 {/*Flasche*/}
                 {cartItems.includes('bottle') && (
@@ -252,28 +268,84 @@ export default function Hero() {
                 )}
 
                 {/*Textfeld Flasche*/}
-                {activeItem === 'bottle' && (
-                    <div className="absolute top-[0px] left-[56%] bg-white border border-[#A9D09A] p-4 rounded shadow-lg text-gray-800">
-                        <p className="text-sm font-anonymous-pro mb-4">
-                            Überleg dir, ob du wirklich jedes Mal Flaschen kaufen musst, oder ob du nicht lieber eine
-                            wiederverwendbare Flasche benutzen möchtest!
-                        </p>
-                        <div className="flex justify-end space-x-2">
-                            <button
-                                className="bg-red-500 text-white px-3 py-1 rounded"
-                                onClick={() => setActiveItem(null)}
-                            >
-                                Behalten
-                            </button>
-                            <button
-                                className="bg-[#A9D09A] text-white px-3 py-1 rounded"
-                                onClick={() => handleDiscard('bottle')}
-                            >
-                                Verwerfen
-                            </button>
-                        </div>
-                    </div>
-                )}
+{activeItem === 'bottle' && (
+    <div
+        className="absolute top-[-12px] left-[43%] bg-white border border-[#A9D09A] p-4 rounded shadow-lg text-gray-800"
+        style={{
+            transform: 'translateX(-100%)', // Positioniert das Textfeld links von der Flasche
+        }}
+    >
+        <p className="text-sm font-anonymous-pro mb-4">
+            Überleg dir, ob du wirklich jedes Mal Flaschen kaufen musst, oder ob du nicht lieber eine
+            wiederverwendbare Flasche benutzen möchtest!
+        </p>
+        <div className="flex justify-end space-x-2">
+            <button
+                className="bg-red-500 text-white px-3 py-1 rounded"
+                onClick={() => setActiveItem(null)}
+            >
+                Behalten
+            </button>
+            <button
+                className="bg-[#A9D09A] text-white px-3 py-1 rounded"
+                onClick={() => handleDiscard('bottle')}
+            >
+                Verwerfen
+            </button>
+        </div>
+    </div>
+)}
+
+                
+           {/*iPhone*/}
+{cartItems.includes('iphone') && (
+    <img
+        src="/iphone.svg"
+        alt="iPhone"
+        className={`absolute transition-all duration-500 animate-float ${
+            discardingItem === 'iphone'
+                ? 'animate-discard-iphone'
+                : activeItem === 'iphone'
+                ? 'top-[0px] left-[52%] transform -translate-x-[50%]'
+                : 'top-[20%] left-[52%]'
+        } cursor-pointer`}
+        style={{
+            width: 'auto', // Behalte die Proportionen bei
+            height: 'auto',
+            maxWidth: '90px', // Maximale Breite
+            maxHeight: '210px', // Maximale Höhe
+            filter: 'drop-shadow(0 0 5px #A9D09A)',
+        }}
+        onClick={(e) => {
+            e.stopPropagation();
+            handleItemClick('iphone');
+        }}
+    />
+)}
+
+{/*Textfeld iPhone*/}
+{activeItem === 'iphone' && (
+    <div className="absolute top-[0px] left-[64%] bg-white border border-[#A9D09A] p-4 rounded shadow-lg text-gray-800">
+        <p className="text-sm font-anonymous-pro mb-4">
+            Auch kaputte Smartphones lassen sich noch reparieren. Überleg dir ob du wirklich ein neues brauchst!
+        </p>
+        <div className="flex justify-end space-x-2">
+            <button
+                className="bg-red-500 text-white px-3 py-1 rounded"
+                onClick={() => setActiveItem(null)}
+            >
+                Behalten
+            </button>
+            <button
+                className="bg-[#A9D09A] text-white px-3 py-1 rounded"
+                onClick={() => handleDiscard('iphone')}
+            >
+                Verwerfen
+            </button>
+        </div>
+    </div>
+)}
+
             </div>
         </div>
     );

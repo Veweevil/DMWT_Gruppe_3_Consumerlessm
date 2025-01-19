@@ -74,6 +74,17 @@
   }
 }
 
+@keyframes discard-jacket {
+  0% {
+    transform: translateX(0) translateY(-500%) scale(1); /* Startet bei der Jacken-Position */
+    opacity: 1; /* Voll sichtbar */
+  }
+  100% {
+    transform: translateX(100vw) translateY(0%) scale(0.5); /* Bewegt nach rechts */
+    opacity: 0; /* Unsichtbar */
+  }
+}
+
 /* Klassen für die spezifischen Animationen */
 .animate-discard-iphone {
   animation: discard-iphone 1s ease-out forwards;
@@ -85,6 +96,9 @@
 
 .animate-discard-bottle {
   animation: discard-bottle 1s ease-out forwards;
+}
+.animate-discard-jacket {
+  animation: discard-jacket 1s ease-out forwards;
 }
 
 
@@ -240,4 +254,7 @@ body {
 .mehrweg {
   top: -40px;
   right: 20px;
+}
+html {
+  scroll-behavior: smooth;
 }

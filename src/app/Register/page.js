@@ -9,6 +9,7 @@ export default function Registrierung() {
         passwort: '',
         confirmPassword: ''
     });
+    const [message, setMessage] = useState(''); // Zustand für die Nachricht
 
     const handleChange = (e) => {
         setFormData({ ...formData, [e.target.id]: e.target.value });
@@ -19,7 +20,7 @@ export default function Registrierung() {
         const { nutzername, email, passwort, confirmPassword } = formData;
 
         if (passwort !== confirmPassword) {
-            alert('Passwörter stimmen nicht überein.');
+            setMessage('Passwörter stimmen nicht überein.');
             return;
         }
 
@@ -33,14 +34,16 @@ export default function Registrierung() {
             const data = await response.json();
 
             if (response.ok) {
-                alert('Registrierung erfolgreich!');
-                window.location.href = '/Login'; // Weiterleitung zur Login-Seite
+                setMessage('Registrierung erfolgreich!');
+                setTimeout(() => {
+                    window.location.href = '/Login'; // Weiterleitung zur Login-Seite
+                }, 2000);
             } else {
-                alert(data.error || 'Fehler bei der Registrierung.');
+                setMessage(data.error || 'Fehler bei der Registrierung.');
             }
         } catch (err) {
             console.error('Fehler bei der Registrierung:', err);
-            alert('Serverfehler. Bitte später erneut versuchen.');
+            setMessage('Serverfehler. Bitte später erneut versuchen.');
         }
     };
 
@@ -141,6 +144,17 @@ export default function Registrierung() {
                         </p>
                     </div>
                 </div>
+
+                {/* Nachricht unter dem Formular */}
+                {message && (
+                    <div
+                        className={`mt-6 px-6 py-3 text-center shadow-md max-w-xl ${
+                            message.includes('erfolgreich') ? 'bg-[#A9D09A] border border-black-300' : 'bg-red-100 text-red-800 border border-red-300'
+                        }`}
+                    >
+                        {message}
+                    </div>
+                )}
             </div>
         </div>
     );

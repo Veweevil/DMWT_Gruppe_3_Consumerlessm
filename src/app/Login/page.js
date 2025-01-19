@@ -5,6 +5,7 @@ import Header from "../components/Header";
 
 export default function LoginPage() {
     const [formData, setFormData] = useState({ username: '', password: '' });
+    const [message, setMessage] = useState(''); // Zustand für die Nachricht
     const { login } = useAuth(); 
     
     const handleChange = (e) => {
@@ -12,13 +13,13 @@ export default function LoginPage() {
     };
 
     const handleSubmit = async (e) => {
-        e.preventDefault(); //verhindert Standardformular-Submit
+        e.preventDefault(); // verhindert Standardformular-Submit
     
         const { username, password } = formData; // Entpacke `formData`
     
         // Überprüfen, ob Felder leer sind
         if (!username || !password) {
-            alert('Bitte alle Felder ausfüllen.');
+            setMessage('Bitte alle Felder ausfüllen.');
             return;
         }
     
@@ -27,25 +28,26 @@ export default function LoginPage() {
             const response = await fetch('/api/login', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ username, password }), // Sende NUR Strings/JSON
+                body: JSON.stringify({ username, password }),
             });
     
             const data = await response.json(); // Antwort parsen
     
             if (response.ok) {
                 login(data); // Daten an AuthContext übergeben
-                alert('Login erfolgreich!');
-                window.location.href = '/Dashboard'; // Weiterleitung
+                setMessage('Login erfolgreich!');
+                setTimeout(() => {
+                    window.location.href = '/Dashboard'; // Weiterleitung nach 2 Sekunden
+                }, 2000);
             } else {
-                alert(data.message || 'Login fehlgeschlagen.');
+                setMessage(data.message || 'Login fehlgeschlagen.');
             }
         } catch (error) {
             console.error('Fehler beim Login:', error);
-            alert('Serverfehler. Bitte später erneut versuchen.');
+            setMessage('Serverfehler. Bitte später erneut versuchen.');
         }
     };
     
-
     return (
         <div>
             <Header />
@@ -130,6 +132,17 @@ export default function LoginPage() {
                         </p>
                     </div>
                 </div>
+
+                {/* Nachricht unter dem Login-Fenster */}
+                {message && (
+                    <div
+                        className={`mt-6 px-6 py-3 text-center shadow-md max-w-xl ${
+                            message.includes('erfolgreich') ? 'bg-[#A9D09A] border border-black-300' : 'bg-red-100 text-red-800 border border-red-300'
+                        }`}
+                    >
+                        {message}
+                    </div>
+                )}
             </div>
         </div>
     );

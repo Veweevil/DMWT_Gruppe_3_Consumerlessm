@@ -10,9 +10,10 @@ const sql = postgres({
 
 export async function POST(req) {
     try {
-        const { nutzername, email, passwort } = await req.json(); //Extrahiert die Anfrage-Daten aus dem Anfragekörper
+        const { nutzername, email, passwort } = await req.json(); // Extrahiert die Anfrage-Daten aus dem Anfragekörper
         console.log('Daten empfangen:', { nutzername, email, passwort });
 
+        // Überprüfen, ob alle Felder ausgefüllt sind
         if (!nutzername || !email || !passwort) {
             return new Response(
                 JSON.stringify({ message: 'Alle Felder sind erforderlich.' }),
@@ -20,18 +21,48 @@ export async function POST(req) {
             );
         }
 
-        //Neuen Benutzer in die Datenbank einfügen
-        await sql`
-            INSERT INTO "LoginDaten" (nutzername, email, passwort, created_at)
-            VALUES (${nutzername}, ${email}, ${passwort}, NOW())
-        `;
+        try {
+            // Neuen Benutzer in die Datenbank einfügen
+            await sql`
+                INSERT INTO "LoginDaten" (nutzername, email, passwort, created_at)
+                VALUES (${nutzername}, ${email}, ${passwort}, NOW())
+            `;
 
-        return new Response(
-            JSON.stringify({ message: 'Benutzer erfolgreich registriert.' }),
-            { status: 201 }
-        );
+            return new Response(
+                JSON.stringify({ message: 'Benutzer erfolgreich registriert.' }),
+                { status: 201 }
+            );
+        } catch (dbError) {
+            // Spezifische Datenbankfehler behandeln
+            console.error('Datenbankfehler:', dbError);
+
+            if (dbError.code === '23505') {
+                // Unique Constraint Verletzung
+                const field = dbError.detail.includes('email') ? 'E-Mail-Adresse' : 'Nutzername';
+                return new Response(
+                    JSON.stringify({ message: `${field} ist bereits registriert.` }),
+                    { status: 400 }
+                );
+            }
+
+            if (dbError.code === '23514') {
+                // Check Constraint Verletzung
+                return new Response(
+                    JSON.stringify({
+                        message: 'Das Passwort erfüllt nicht die Sicherheitsanforderungen.',
+                    }),
+                    { status: 400 }
+                );
+            }
+
+            // Allgemeiner Fehler
+            return new Response(
+                JSON.stringify({ message: 'Fehler beim Speichern in der Datenbank.', error: dbError.detail }),
+                { status: 500 }
+            );
+        }
     } catch (error) {
-        //Fehlerbehandlung
+        // Allgemeine Fehlerbehandlung
         console.error('Fehler bei der Registrierung:', error);
         return new Response(
             JSON.stringify({ message: 'Fehler bei der Registrierung.', error: error.message }),
@@ -42,7 +73,7 @@ export async function POST(req) {
 
 export async function GET(req) {
     try {
-        //Abrufen aller Benutzer aus der Datenbank
+        // Abrufen aller Benutzer aus der Datenbank
         const users = await sql`
             SELECT id, nutzername, email, created_at
             FROM "LoginDaten"
@@ -56,7 +87,10 @@ export async function GET(req) {
     } catch (error) {
         console.error('Fehler beim Abrufen der Benutzer:', error);
         return new Response(
-            JSON.stringify({ message: 'Fehler beim Abrufen der Benutzer.', error: error.message }),
+            JSON.stringify({
+                message: 'Fehler beim Abrufen der Benutzer.',
+                error: error.message,
+            }),
             { status: 500 }
         );
     }

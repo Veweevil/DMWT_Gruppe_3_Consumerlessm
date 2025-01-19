@@ -121,7 +121,7 @@ export default function KaufreuePage() {
                     ref={chartRef} // Referenz für das Scrollen
                     className="flex flex-col items-center justify-center bg-white min-h-screen p-0"
                 >
-                    <h2 className="text-4xl sm:text-3xl font-bold mb-0 text-center">
+                    <h2 style={{marginTop: '0px'}} className="text-4xl sm:text-3xl font-bold mb-0 text-center mt-0">
                         Konsum und Emotionen
                     </h2>
                     <p className="text-lg sm:text-base text-gray-600 text-center mb-6 max-w-xl">
