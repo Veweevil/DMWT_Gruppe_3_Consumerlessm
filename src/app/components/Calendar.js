@@ -219,7 +219,7 @@ export default function Calendar() {
         <div className="bg-[#F0F7EC] p-6">
             <div className="max-w-7xl mx-auto">
                 <h1 className="ueberschrift text-center mt-8">Eventkalender</h1>
-                <p className="text-center">Aus unserem Eventkalender kannst du tolle Veranstaltungen rund um das Thema Konsum-Reduktion entdecken.</p>
+                <p className="text-center">Auf unserem Eventkalender kannst du tolle Veranstaltungen rund um das Thema Konsum-Reduktion entdecken.</p>
                 <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mt-8">
                     <div className="col-span-1 bg-gray-100 p-6 rounded-lg shadow-lg">
                         <div className="flex justify-between items-center mb-4">
