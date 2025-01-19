@@ -24,8 +24,8 @@ export default function Challenges() {
         },
         { 
             id: 3, 
-            title: 'Autofreier Tag', 
-            description: 'Verzichte einen Tag lang auf dein Auto.',
+            title: 'Ein Monat ohne Klammoten', 
+            description: 'Gehe für einen Monat nicht shoppen',
             notes: '', 
             completed: false,
             saved: false 
@@ -38,6 +38,7 @@ export default function Challenges() {
         width: 0,
         height: 0,
     });
+    const [animateAward, setAnimateAward] = useState(false); // State für die Animation
 
     // Lade Daten aus localStorage oder initialisiere mit Standardwerten
     useEffect(() => {
@@ -72,16 +73,35 @@ export default function Challenges() {
     }, []);
 
     const toggleChallengeCompletion = (id) => {
-        setChallenges((prevChallenges) =>
-            prevChallenges.map((challenge) =>
-                challenge.id === id ? { ...challenge, completed: !challenge.completed } : challenge
-            )
-        );
-
         const challenge = challenges.find((c) => c.id === id);
+
         if (challenge && !challenge.completed) {
-            setShowConfetti(true);
-            setTimeout(() => setShowConfetti(false), 3000);
+            // Wenn die Challenge abgeschlossen wird
+            setChallenges((prevChallenges) =>
+                prevChallenges.map((c) =>
+                    c.id === id ? { ...c, completed: true } : c
+                )
+            );
+
+            // Hochscrollen und Konfetti anzeigen
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+            setTimeout(() => {
+                setShowConfetti(true);
+                setAnimateAward(true); // Animation starten
+                setTimeout(() => {
+                    setShowConfetti(false);
+                    setAnimateAward(false); // Animation zurücksetzen
+                    // Weiterleitung zu #challengeSite
+                    window.location.href = '#challengeSite';
+                }, 3000);
+            }, 500); // Zeit für das Scrollen (anpassbar)
+        } else if (challenge && challenge.completed) {
+            // Wenn die Challenge zurückgesetzt wird
+            setChallenges((prevChallenges) =>
+                prevChallenges.map((c) =>
+                    c.id === id ? { ...c, completed: false } : c
+                )
+            );
         }
     };
 
@@ -102,20 +122,25 @@ export default function Challenges() {
     };
 
     return (
-        <div>
+        <div id="challengeSite">
             <Header />
             <div className="flex flex-col items-center justify-center min-h-screen p-6 bg-[#F0F7EC]">
                 {/* Konfetti-Effekt */}
                 {showConfetti && <Confetti width={confettiDimensions.width} height={confettiDimensions.height} />}
 
-                {/* Award-Bild */}
-                <div className="mb-5 mt-8">
+                {/* Award-Bild mit Animation */}
+                <div className={`mb-[-14] mt-14 ${animateAward ? 'animate-award' : ''}`}>
                     <img src="/award.png" alt="Award" className="w-32 h-auto" />
                 </div>
 
                 <h1 className="text-[8rem] font-trash-hand text-black mb-0 text-center">
                     CHALLENGES
                 </h1>
+
+                {/* Zwischenüberschrift für die vorgeschlagenen Herausforderungen */}
+                <p className="text-xl text-gray-700 mb-6 text-center">
+                    Entdecke eine Auswahl an Herausforderungen, die du für einen minimalistischen Lebensstil ausprobieren kannst.
+                </p>
 
                 {/* Vorgeschlagene Challenges */}
                 <div className="w-full max-w-4xl mb-12">
@@ -201,6 +226,24 @@ export default function Challenges() {
                     </ul>
                 </div>
             </div>
-        </div>
+
+            <style jsx>{`
+                .animate-award {
+                    animation: scaleAward 1s ease-in-out;
+                }
+
+                @keyframes scaleAward {
+                    0% {
+                        transform: scale(1);
+                    }
+                    50% {
+                        transform: scale(1.5);
+                    }
+                    100% {
+                        transform: scale(1);
+                    }
+                }
+            `}</style>
+        </div>  
     );
 }
