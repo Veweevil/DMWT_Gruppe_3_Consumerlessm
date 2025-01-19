@@ -27,11 +27,11 @@ export default function Header() {
                 </li>
                 {!isLoggedIn ? (
                     <li>
-                        <Link href="/#community-section" className="text-gray-700 hover:text-black">Community</Link>
+                        <Link href="/#community-section" className="text-gray-700 hover:text-black">Community</Link> {/*if isnt logged in*/}
                     </li>
                 ) : (
                     <li>
-                        <Link href="/Dashboard" className="text-gray-700 hover:text-black">Dashboard</Link>
+                        <Link href="/Dashboard" className="text-gray-700 hover:text-black">Dashboard</Link> {/*if is logged in*/}
                     </li>
                 )}
                 <li>
