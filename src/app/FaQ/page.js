@@ -14,7 +14,7 @@ export default function Supportpage() {
         setActiveIndex(activeIndex === index ? null : index);
     };
 
-    const faqItems = [
+    const faqItems = [ //array with questions and answers
         
             {
                 question: "Was bedeutet minimalistisches Leben?",
@@ -60,32 +60,29 @@ export default function Supportpage() {
 
     return (
         <div className="bg-gray-100 min-h-screen">
-            {/* Header */}
             <Header />
-
-            {/* Main Content */}
             <main className="max-w-7xl mx-auto px-4 py-16">
                 <h1 className="text-6xl font-trash-hand text-gray-800 mb-8 text-center">
                     FAQ
                 </h1>
 
-                {/* FAQ Section */}
+                {/*FAQ Section*/}
                 <section className="space-y-6">
                     {faqItems.map((item, index) => (
                         <div
                             key={index}
                             className="bg-white rounded-lg p-4 cursor-pointer transition-transform hover:scale-105"
                             style={{
-                                filter: 'drop-shadow(-10px 0 3px #A9D09A)', // Schatten nur auf der linken Seite
+                                filter: 'drop-shadow(-10px 0 3px #A9D09A)', //shadow on the left side
                             }}
                             onClick={() => toggleAccordion(index)}
                         >
-                            {/* Question */}
+                            {/*Question*/}
                             <div className="flex items-center justify-between">
                                 <h2 className="text-lg font-bold text-gray-900">
                                     {item.question}
                                 </h2>
-                                {/* Arrow Icon */}
+                                {/*Arrow Icon*/}
                                 <svg
                                     className={`w-5 h-5 text-gray-600 transform transition-transform ${
                                         activeIndex === index ? "rotate-180" : ""
@@ -104,7 +101,7 @@ export default function Supportpage() {
                                 </svg>
                             </div>
 
-                            {/* Answer */}
+                            {/*Answer*/}
                             {activeIndex === index && (
                                 <p className="mt-3 text-gray-700">{item.answer}</p>
                             )}

@@ -16,6 +16,7 @@ import {
 } from 'date-fns';
 import { de } from 'date-fns/locale';
 import { useAuth } from '../../context/AuthContext';
+
 export default function Calendar() {
     const [currentMonth, setCurrentMonth] = useState(new Date());
     const [selectedDate, setSelectedDate] = useState(new Date());
@@ -23,9 +24,9 @@ export default function Calendar() {
     const [bookmarkedEvents, setBookmarkedEvents] = useState([]);
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [newEvent, setNewEvent] = useState({ date: '', time: '', title: '', description: '', location: '' });
-    const { isLoggedIn, user } = useAuth();const [notificationsEnabled, setNotificationsEnabled] = useState(false);
+    const { isLoggedIn, user } = useAuth();
+    const [notificationsEnabled, setNotificationsEnabled] = useState(false);
 
-    // Funktion zum Umschalten des Benachrichtigungsstatus
     const handleNotificationToggle = () => {
         setNotificationsEnabled((prev) => {
             const updatedValue = !prev;
@@ -33,40 +34,33 @@ export default function Calendar() {
             return updatedValue;
         });
     };
-    
-    // Beim Laden des Components vorher gespeicherten Status abrufen
+
     useEffect(() => {
         const storedNotificationPreference = localStorage.getItem('notificationsEnabled');
         if (storedNotificationPreference) {
             setNotificationsEnabled(JSON.parse(storedNotificationPreference));
         }
     }, []);
-    
 
-    // **Zentralisierte Funktion zum Abrufen von Events**
     const fetchEvents = async () => {
         try {
             const response = await fetch('/api/getEvents');
             if (!response.ok) throw new Error('Fehler beim Abrufen der Veranstaltungen');
             const data = await response.json();
-            console.log('Events geladen:', data.events);
             setEvents(data.events || []);
         } catch (error) {
             console.error('Fehler beim Abrufen der Veranstaltungen:', error.message);
         }
     };
 
-    // Initiales Abrufen der Events beim Laden der Komponente
     useEffect(() => {
         fetchEvents();
-    
-        // Vorgemerkte Events aus LocalStorage laden
         const storedBookmarks = localStorage.getItem('bookmarkedEvents');
         if (storedBookmarks) {
             setBookmarkedEvents(JSON.parse(storedBookmarks));
         }
     }, []);
-    
+
     const handleAddEvent = async () => {
         if (!newEvent.date || !newEvent.time || !newEvent.title || !newEvent.description || !newEvent.location) {
             alert('Bitte fülle alle Felder aus.');
@@ -91,28 +85,10 @@ export default function Calendar() {
 
             if (!response.ok) throw new Error('Fehler beim Hinzufügen der Veranstaltung.');
 
-            console.log('Neues Event hinzugefügt');
             setIsModalOpen(false);
-            fetchEvents(); // Events nach dem Hinzufügen neu abrufen
+            fetchEvents();
         } catch (error) {
             console.error('Fehler beim Hinzufügen der Veranstaltung:', error.message);
-        }
-    };
-
-    const handleDeleteEvent = async (eventId) => {
-        try {
-            const response = await fetch('/api/deleteEvent', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ id: eventId }),
-            });
-
-            if (!response.ok) throw new Error('Fehler beim Löschen der Veranstaltung.');
-
-            console.log('Event erfolgreich gelöscht');
-            fetchEvents(); // Events nach dem Löschen neu abrufen
-        } catch (error) {
-            console.error('Fehler beim Löschen der Veranstaltung:', error.message);
         }
     };
 
@@ -120,20 +96,19 @@ export default function Calendar() {
         const selectedDayEvents = events.filter((event) =>
             event.datum && isSameDay(parseISO(event.datum), selectedDate)
         );
-    
+
         if (selectedDayEvents.length === 0) {
             return <p className="text-gray-600">Keine Events für diesen Tag.</p>;
         }
-    
-        return selectedDayEvents.map((event) => (
-            <div key={event.id} className="bg-white p-4 rounded-lg shadow-md mb-4">
+
+        return selectedDayEvents.map((event, index) => (
+            <div key={`${event.id}-${index}`} className="bg-white p-4 rounded-lg shadow-md mb-4">
                 <h2 className="font-anonymous-pro text-lg text-gray-800">{event.titel}</h2>
                 <p className="text-sm text-gray-500">🗓 {format(parseISO(event.datum), 'dd.MM.yyyy')}</p>
-                <p className="text-sm text-gray-500">⏰ {event.uhrzeit.split('+')[0]}</p>
+                <p className="text-sm text-gray-500">⏰ {event.uhrzeit.slice(0, 5)}</p>
                 <p className="text-sm text-gray-700">{event.beschreibung}</p>
                 <p className="text-sm text-gray-500">📍 {event.ort}</p>
                 <p className="text-sm text-gray-500">👤 Autor: {event.autor}</p>
-                {/* Absagen-Button nur für den Autor sichtbar */}
                 {isLoggedIn && user?.nutzername === event.autor && (
                     <button
                         className="mt-2 bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600"
@@ -142,11 +117,10 @@ export default function Calendar() {
                         Absagen
                     </button>
                 )}
-                {/* Vormerken-Button nur sichtbar, wenn der Benutzer nicht der Autor ist */}
                 {isLoggedIn && user?.nutzername !== event.autor && (
                     <button
-                    className="mt-2 bg-transparent border-2 border-[#A9D09A] text- black px-4 py-2 rounded hover:bg-[#A9D09A] hover:text-white hover:border-[#90B883]"
-                    onClick={() => handleBookmarkEvent(event)}
+                        className="mt-2 bg-transparent border-2 border-[#A9D09A] text-black px-4 py-2 rounded hover:bg-[#A9D09A] hover:text-white"
+                        onClick={() => handleBookmarkEvent(event)}
                     >
                         Vormerken
                     </button>
@@ -154,16 +128,6 @@ export default function Calendar() {
             </div>
         ));
     };
-    const handleRemoveBookmark = (eventId) => {
-        const updatedBookmarks = bookmarkedEvents.filter((event) => event.id !== eventId);
-        setBookmarkedEvents(updatedBookmarks);
-    
-        // Aktualisiere den LocalStorage
-        localStorage.setItem('bookmarkedEvents', JSON.stringify(updatedBookmarks));
-    };
-    
-    
-    
     const renderCalendar = () => {
         const startMonth = startOfMonth(currentMonth);
         const endMonth = endOfMonth(currentMonth);
@@ -202,22 +166,13 @@ export default function Calendar() {
     
         return rows;
     };
-    const handleBookmarkEvent = (event) => {
-        const updatedBookmarks = [...bookmarkedEvents, event];
-        setBookmarkedEvents(updatedBookmarks);
-    
-        // Speichere die vorgemerkten Events im LocalStorage
-        localStorage.setItem('bookmarkedEvents', JSON.stringify(updatedBookmarks));
-    };
-    
-    
     const renderBookmarkedEvents = () => {
         if (bookmarkedEvents.length === 0) {
             return <p className="text-gray-600">Keine vorgemerkten Events.</p>;
         }
-
-        return bookmarkedEvents.map((event) => (
-            <div key={event.id} className="bg-white p-4 rounded-lg shadow-md mb-4">
+    
+        return bookmarkedEvents.map((event, index) => (
+            <div key={`${event.id}-${index}`} className="bg-white p-4 rounded-lg shadow-md mb-4">        
                 <h2 className="font-anonymous-pro text-lg text-gray-800">{event.titel}</h2>
                 <p className="text-sm text-gray-500">🗓 {event.datum}</p>
                 <p className="text-sm text-gray-500">📍 {event.ort}</p>
@@ -230,7 +185,25 @@ export default function Calendar() {
             </div>
         ));
     };
+    const handleBookmarkEvent = (event) => {
+        if (bookmarkedEvents.some((e) => e.id === event.id)) {
+            alert('Dieses Event ist bereits vorgemerkt.');
+            return;
+        }
 
+        const updatedBookmarks = [...bookmarkedEvents, event];
+        setBookmarkedEvents(updatedBookmarks);
+        localStorage.setItem('bookmarkedEvents', JSON.stringify(updatedBookmarks));
+        alert('Event wurde vorgemerkt!');
+    };
+    const handleRemoveBookmark = (eventId) => {
+        const updatedBookmarks = bookmarkedEvents.filter((event) => event.id !== eventId);
+        setBookmarkedEvents(updatedBookmarks);
+        localStorage.setItem('bookmarkedEvents', JSON.stringify(updatedBookmarks));
+        alert('Event wurde aus den vorgemerkten Events entfernt.');
+    };
+
+     
     return (
         <>
         {!isLoggedIn && (

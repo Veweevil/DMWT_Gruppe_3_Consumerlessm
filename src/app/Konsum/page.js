@@ -96,6 +96,9 @@ export default function Konsumtracker() {
         <div>
             <Header />
             <div className="flex flex-col items-center justify-center min-h-screen bg-[#F0F7EC] py-12">
+            <a href="/Dashboard" className="absolute top-4 left-4 mt-28 ml-20">
+                    <img src="/pfeil2.svg" alt="Zurück" style={{ width: '50px', height: '50px' }} />
+                </a>
                 
             <div className="flex flex-col items-center justify-center">
     <img
