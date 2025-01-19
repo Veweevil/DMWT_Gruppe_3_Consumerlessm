@@ -219,6 +219,7 @@ export default function Calendar() {
         <div className="bg-[#F0F7EC] p-6">
             <div className="max-w-7xl mx-auto">
                 <h1 className="ueberschrift text-center mt-8">Eventkalender</h1>
+                <p className="text-center">Aus unserem Eventkalender kannst du tolle Veranstaltungen rund um das Thema Konsum-Reduktion entdecken.</p>
                 <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mt-8">
                     <div className="col-span-1 bg-gray-100 p-6 rounded-lg shadow-lg">
                         <div className="flex justify-between items-center mb-4">
@@ -254,24 +255,10 @@ export default function Calendar() {
                             Events am {format(selectedDate, 'dd.MM.yyyy')}
                         </h2>
                         {renderEvents()}
-                        {isLoggedIn && (
-                            <button
-                                className="mt-4 bg-[#A9D09A] text-white px-4 py-2 rounded hover:bg-[#90B883]"
-                                onClick={() => setIsModalOpen(true)}
-                            >
-                                Neue Veranstaltung hinzufügen
-                            </button>
-                        )}
+                        
                     </div>
                 </div>
-                {isLoggedIn && (
-                    <div className="bg-gray-50 mt-8 p-6 rounded-lg shadow-lg">
-                        <h3 className="font-anonymous-pro text-xl text-gray-800 mb-4">
-                            Vorgemerkte Events
-                        </h3>
-                        {renderBookmarkedEvents()}
-                    </div>
-                )}
+                
             </div>
             {isModalOpen && (
                 <div className="fixed inset-0 bg-gray-800 bg-opacity-50 flex items-center justify-center">

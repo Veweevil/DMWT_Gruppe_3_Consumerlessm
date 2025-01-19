@@ -13,6 +13,7 @@ function CommentForm() {
     const {isLoggedIn, logout} = useAuth();
     const [nutzername, setNutzername] = useState('');
     const { user } = useAuth();
+    const [visibleComments, setVisibleComments] = useState(5); // Anzahl der sichtbaren Kommentare
 
     useEffect(() => {
         const fetchNutzername = async () => {
@@ -53,6 +54,17 @@ function CommentForm() {
         }
     };
 
+    // Mehr Erfolge laden
+    const loadMoreComments = () => {
+        setVisibleComments(visibleComments + 5); // Weitere 5 Kommentare laden
+    };
+
+    // Nur 5 Erfolge anzeigen
+    const loadLessComments = () => {
+        setVisibleComments(5); // Auf 5 Kommentare zurücksetzen
+    };
+
+
     //Erfolge beim ersten Laden abrufen
     useEffect(() => {
         fetchComments();
@@ -63,9 +75,10 @@ function CommentForm() {
         e.preventDefault();
 
         try {
+            const commentName = isLoggedIn ? nutzername : name;
             //Erfolg absenden
             await axios.post('/api/comments', {
-                name: name,
+                name: commentName,
                 content: content,
             });
 
@@ -164,7 +177,7 @@ function CommentForm() {
                     {/* Erfolgsliste */}
                     {comments.length > 0 ? (
                         <ul className="space-y-6 mb-6">
-                            {comments.map((comment, index) => (
+                            {comments.slice(0, visibleComments).map((comment, index) => (
                                 <li
                                     key={index}
                                     className="bg-white p-6 rounded-lg shadow flex flex-col"
@@ -179,6 +192,20 @@ function CommentForm() {
                     ) : (
                         <p className="text-gray-700">Noch keine Erfolge geteilt.</p>
                     )}
+
+    {/* Mehr anzeigen Button */}
+{comments.length > visibleComments && (
+    <div className="flex justify-center mt-6 mb-6">
+        <button
+            onClick={loadMoreComments}
+            className="bg-[#A9D09A] hover:bg-[#90B883] text-gray-800 py-3 px-6 rounded-lg text-xl font-bold shadow-lg"
+        >
+            Mehr anzeigen
+        </button>
+    </div>
+)}
+
+                    
                 </div>
             </div>
             <Footer />
