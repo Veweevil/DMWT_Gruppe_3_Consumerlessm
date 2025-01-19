@@ -4,17 +4,17 @@ import { Doughnut } from "react-chartjs-2";
 import { Chart as ChartJS, ArcElement, Tooltip, Legend } from "chart.js";
 import { useState, useRef } from "react";
 
-// Registrierung der Chart-Komponenten
+//register plugins
 ChartJS.register(ArcElement, Tooltip, Legend);
 
 export default function KaufreuePage() {
-    const [showChart, setShowChart] = useState(false); // Zustand für Diagramm
-    const chartRef = useRef(null); // Referenz für das Diagramm
+    const [showChart, setShowChart] = useState(false); //state for toggling chart
+    const chartRef = useRef(null);
 
     const handleToggleChart = () => {
         setShowChart(!showChart);
         if (!showChart) {
-            // Nur beim Anzeigen wird gescrollt
+            //only scroll to chart when showing it
             setTimeout(() => {
                 chartRef.current.scrollIntoView({ behavior: "smooth" });
             }, 100);
@@ -22,7 +22,7 @@ export default function KaufreuePage() {
     };
     const data = {
         labels: [
-            "Zu hoher Preis im Nachhinein",
+            "Zu hoher Preis im Nachhinein", //labels for the chart
             "Fehlender Nutzen oder Zweck",
             "Spontankäufe ohne Überlegung",
             "Qualitätsprobleme oder Defekte",
@@ -30,26 +30,26 @@ export default function KaufreuePage() {
         ],
         datasets: [
             {
-                data: [30, 25, 20, 15, 10], // Prozentwerte
+                data: [30, 25, 20, 15, 10], //data values for the chart
                 backgroundColor: [
-                    "#FF6F61", // Pastellrot
-                    "#6BAED6", // Pastellblau
-                    "#FFD966", // Pastellgelb
-                    "#88D498", // Pastellgrün
-                    "#C299FC", // Pastelllila
+                    "#FF6F61", 
+                    "#6BAED6", 
+                    "#FFD966", 
+                    "#88D498", 
+                    "#C299FC", 
                 ],
                 hoverBackgroundColor: [
-                    "#FF5A4F", // Etwas dunkleres Pastellrot
-                    "#5B9CC6", // Etwas dunkleres Pastellblau
-                    "#FFC84D", // Etwas dunkleres Pastellgelb
-                    "#76C488", // Etwas dunkleres Pastellgrün
-                    "#B58CEB", // Etwas dunkleres Pastelllila
+                    "#FF5A4F", 
+                    "#5B9CC6", 
+                    "#FFC84D", 
+                    "#76C488", 
+                    "#B58CEB", 
                 ],
             },
         ],
     };
 
-    const options = {
+    const options = { //options for the chart
         responsive: true,
         plugins: {
             legend: {
@@ -75,17 +75,14 @@ export default function KaufreuePage() {
 
     return (
         <div>
-            {/* Header-Komponente */}
             <Header />
-
-            {/* Hauptinhalt */}
             <div className="flex flex-col items-center justify-center bg-white min-h-screen p-10">
-                {/* Prozentanzeige */}
+                {/*percent display*/}
                 <div className="flex items-baseline mb-4">
                 <h1
                     className="text-[8rem] font-trash-hand text-black leading-none relative"
                     style={{
-                        textShadow: "4px 4px 0 #A9D09A", // Fester grüner Schatten mit 100% Deckkraft
+                        textShadow: "4px 4px 0 #A9D09A", 
                     }}
                 >
                     82
@@ -96,17 +93,16 @@ export default function KaufreuePage() {
                 </div>
                 <hr className="hr-mitte" />
 
-                {/* Haupttext */}
+                {/*Main-text*/}
                 <p className="text-3xl font-anonymous-pro text-center text-black mb-6">
                     der Verbraucher:innen erleben negative Gefühle nach unnötigen Käufen.
                 </p>
 
-                {/* Beschreibungstext */}
                 <p className="text-lg font-anonymous-pro text-center text-gray-600 max-w-3xl mb-8">
                     Impulsives Verhalten beim Einkaufen ist keine Seltenheit. Häufig führen spontane Entscheidungen, der Wunsch nach Belohnung oder äußere Einflüsse dazu, dass Konsument:innen Produkte erwerben, die später als unnötig wahrgenommen werden. Solche Käufe können nicht nur zu Reuegefühlen führen, sondern auch finanzielle und emotionale Belastungen verursachen. Reflektieren Sie Ihre Entscheidungen, um bewusster zu konsumieren.
                 </p>
 
-                {/* Button */}
+                {/*settings to change button from show more to show less and reverse*/}
                 <button
                     className="mt-2 bg-white text-black border-2 border-[#A9D09A] px-6 py-2 rounded hover:bg-[#A9D09A] hover:text-white"
                     onClick={handleToggleChart}
@@ -115,10 +111,10 @@ export default function KaufreuePage() {
                 </button>
             </div>
 
-            {/* Diagramm-Bereich */}
+            {/*show the Kaufreue chart*/}
             {showChart && (
                 <div
-                    ref={chartRef} // Referenz für das Scrollen
+                    ref={chartRef} 
                     className="flex flex-col items-center justify-center bg-white min-h-screen p-0"
                 >
                     <h2 style={{marginTop: '0px'}} className="text-4xl sm:text-3xl font-bold mb-0 text-center mt-0">
@@ -129,9 +125,9 @@ export default function KaufreuePage() {
                         die nach unnötigen Käufen negative Gefühle erleben.
                     </p>
                     <div className="relative w-full max-w-[450px]">
-                        {/* Diagramm */}
+                        {/*Doughnut chart imported from react*/}
                         <Doughnut data={data} options={options} />
-                        {/* 82 Beschriftung */}
+                        
                         <div
                             className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 flex items-center justify-center"
                         >
