@@ -5,46 +5,47 @@ import Header from "../components/Header";
 
 export default function LoginPage() {
     const [formData, setFormData] = useState({ username: '', password: '' });
-    const [message, setMessage] = useState(''); // Zustand für die Nachricht
-    const { login } = useAuth(); 
+    const [message, setMessage] = useState(''); //State for the message
+    const { login } = useAuth(); //Get login function from context
     
     const handleChange = (e) => {
+        //Update form data on input change
         setFormData({ ...formData, [e.target.id]: e.target.value });
     };
 
     const handleSubmit = async (e) => {
-        e.preventDefault(); // verhindert Standardformular-Submit
+        e.preventDefault(); //Prevent default form submit
     
-        const { username, password } = formData; // Entpacke `formData`
+        const { username, password } = formData; //Destructure form data
     
-        // Überprüfen, ob Felder leer sind
+        //Check if any field is empty
         if (!username || !password) {
-            setMessage('Bitte alle Felder ausfüllen.');
+            setMessage('Please fill in all fields.');
             return;
         }
     
         try {
-            // API-Request
+            //API request to login
             const response = await fetch('/api/login', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ username, password }),
             });
     
-            const data = await response.json(); // Antwort parsen
+            const data = await response.json(); //Parse response
     
             if (response.ok) {
-                login(data); // Daten an AuthContext übergeben
-                setMessage('Login erfolgreich!');
+                login(data); //Pass data to AuthContext
+                setMessage('Login successful!');
                 setTimeout(() => {
-                    window.location.href = '/Dashboard'; // Weiterleitung nach 2 Sekunden
+                    window.location.href = '/Dashboard'; //Redirect after 2 seconds
                 }, 2000);
             } else {
-                setMessage(data.message || 'Login fehlgeschlagen.');
+                setMessage(data.message || 'Login failed.');
             }
         } catch (error) {
-            console.error('Fehler beim Login:', error);
-            setMessage('Serverfehler. Bitte später erneut versuchen.');
+            console.error('Login error:', error);
+            setMessage('Server error. Please try again later.');
         }
     };
     
@@ -55,7 +56,7 @@ export default function LoginPage() {
                 <div
                     className="relative bg-cover bg-center"
                     style={{
-                        backgroundImage: "url('/Rahmen.svg')",
+                        backgroundImage: "url('/Rahmen.svg')", //import frame
                         width: "400px",
                         height: "600px",
                         backgroundSize: "contain",
@@ -67,7 +68,7 @@ export default function LoginPage() {
                         paddingTop: "120px",
                     }}
                 >
-                    <h1 className="text-5xl font-trash-hand text-black mb-6">Einloggen</h1>
+                    <h1 className="text-5xl font-trash-hand text-black mb-6">Login</h1> 
                     <form
                         onSubmit={handleSubmit}
                         className="px-6 pt-4 pb-6"
@@ -78,15 +79,15 @@ export default function LoginPage() {
                     >
                         <div className="mb-4 w-full">
                             <label
-                                className="block text-gray-700 text-sm font-bold mb-2"
+                                className="block text-gray-700 text-sm font-bold mb-2" //email/user label
                                 htmlFor="username"
                             >
-                                E-Mail-Adresse / Nutzername
+                                Email / Username 
                             </label>
                             <input
                                 id="username"
                                 type="text"
-                                placeholder="E-Mail-Adresse / Nutzername"
+                                placeholder="Email / Username"
                                 value={formData.username}
                                 onChange={handleChange}
                                 className="appearance-none border border-gray-300 rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:border-green-500"
@@ -96,47 +97,47 @@ export default function LoginPage() {
                         <div className="mb-6 w-full">
                             <label
                                 className="block text-gray-700 text-sm font-bold mb-2"
-                                htmlFor="password"
+                                htmlFor="password" //password label 
                             >
-                                Passwort
+                                Password
                             </label>
                             <input
                                 id="password"
                                 type="password"
-                                placeholder="Passwort"
+                                placeholder="Password"
                                 value={formData.password}
                                 onChange={handleChange}
                                 className="appearance-none border border-gray-300 rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:border-green-500"
                             />
                         </div>
 
-                        <div className="flex items-center justify-center w-full">
-                            <button
+                        <div className="flex items-center justify-center w-full"> 
+                            <button //login button
                                 type="submit"
                                 className="bg-[#A9D09A] hover:bg-[#90B883] text-white font-bold py-2 px-6 rounded focus:outline-none"
                             >
-                                Einloggen
+                                Login
                             </button>
                         </div>
                     </form>
 
                     <div className="mt-4">
-                        <p className="text-sm text-gray-600">
-                            Noch keinen Account?{' '}
+                        <p className="text-sm text-gray-600"> {/*Register link, if user don`t have accounnt*/}
+                            Don't have an account?{' '} 
                             <button
                                 className="text-[#A9D09A] hover:underline font-bold"
                                 onClick={() => window.location.href = '/Register'}
                             >
-                                Registrieren
+                                Register
                             </button>
                         </p>
                     </div>
                 </div>
 
-                {/* Nachricht unter dem Login-Fenster */}
+                {/*Display message below the form*/}
                 {message && (
                     <div
-                        className={`mt-6 px-6 py-3 text-center shadow-md max-w-xl ${message.includes('erfolgreich') ? 'bg-[#A9D09A] border border-black-300' : 'bg-red-100 text-red-800 border border-red-300'}`}
+                        className={`mt-6 px-6 py-3 text-center shadow-md max-w-xl ${message.includes('successful') ? 'bg-[#A9D09A] border border-black-300' : 'bg-red-100 text-red-800 border border-red-300'}`}
                     >
                         {message}
                     </div>

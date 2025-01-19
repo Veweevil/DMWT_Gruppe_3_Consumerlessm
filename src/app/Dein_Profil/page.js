@@ -1,11 +1,11 @@
 'use client';
 
 import { useEffect, useState } from 'react';
-import { useAuth } from '../../context/AuthContext'; // AuthContext verwenden
+import { useAuth } from '../../context/AuthContext'; 
 import Header from '../components/Header';
 
 export default function Profile() {
-    const { user } = useAuth(); // Aktuell angemeldeter Benutzer
+    const { user } = useAuth(); //actual user
     const [userData, setUserData] = useState({
         name: '',
         email: '',
@@ -22,7 +22,7 @@ export default function Profile() {
                 method: 'GET',
                 headers: {
                     'Content-Type': 'application/json',
-                    Authorization: `Bearer ${user.token}`, // Falls Authentifizierung benötigt wird
+                    Authorization: `Bearer ${user.token}`, //if user is logged in, token is passed
                 },
             });
     
@@ -32,7 +32,7 @@ export default function Profile() {
     
             const data = await response.json();
             setUserData({
-                name: data.name || 'Nutzer',
+                name: data.name || 'Nutzer', //if no name is provided, default is 'Nutzer'
                 email: data.email || 'Nicht verfügbar',
                 isPublic: data.isPublic || false,
             });
@@ -73,13 +73,12 @@ export default function Profile() {
     return (
         <div>
             <Header />
-            <div className="flex flex-col items-center justify-center min-h-screen bg-[#F0F7EC]">
-            <h1 className="text-[8rem] font-trash-hand text-black text-center mb-6">
+            <div className="flex flex-col items-center justify-center min-h-screen bg-[#F0F7EC]"> 
+            <h1 className="text-[8rem] font-trash-hand text-black text-center mb-6"> {/*Profile title*/}
                     DEIN PROFIL
                 </h1>
 
                 <div className="w-full max-w-4xl p-6 bg-white rounded-lg shadow-md">
-                    {/* Profilkopf */}
                     <div className="flex items-center space-x-6">
                         <img
                             src="/profile.png"
@@ -90,15 +89,14 @@ export default function Profile() {
                             <h1 className="text-3xl font-bold text-gray-800">
                                 {userData.name || 'Nutzer'}
                             </h1>
-                            <p className="text-gray-600">
+                            <p className="text-gray-600"> {/*Welcome message*/}
                                 Willkommen auf deinem Profil!
                             </p>
                         </div>
                     </div>
 
-                    {/* Benutzerinformationen */}
                     <div className="mt-8">
-                        <h2 className="text-2xl font-bold text-gray-800">Deine Informationen</h2>
+                        <h2 className="text-2xl font-bold text-gray-800">Deine Informationen</h2> {/*User information*/}
                         <ul className="mt-4 text-gray-600 space-y-2">
                             <li>
                                 <strong>E-Mail:</strong> {userData.email}
@@ -110,14 +108,13 @@ export default function Profile() {
                         </ul>
                     </div>
 
-                    {/* Aktionen */}
                     <div className="mt-8">
                         <h2 className="text-2xl font-bold text-gray-800">Aktionen</h2>
                         <p className="mt-4 text-gray-600">
-                            Möchtest du dein Profil aktualisieren oder weitere Informationen hinzufügen?
+                            Möchtest du dein Profil aktualisieren oder weitere Informationen hinzufügen? {/*Update profile message*/}
                         </p>
                         <button className="mt-4 px-4 py-2 bg-[#A9D09A] text-white font-bold rounded hover:bg-[#a5d393]">
-                            Profil bearbeiten
+                            Profil bearbeiten {/*Edit profile button*/}
                         </button>
                     </div>
                 </div>

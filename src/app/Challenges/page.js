@@ -4,7 +4,7 @@ import { useState, useEffect } from 'react';
 import Header from '../components/Header';
 import Confetti from 'react-confetti';
 
-export default function Challenges() {
+export default function Challenges() {//questions for the user
     const defaultChallenges = [
         { 
             id: 1, 
@@ -38,9 +38,9 @@ export default function Challenges() {
         width: 0,
         height: 0,
     });
-    const [animateAward, setAnimateAward] = useState(false); // State für die Animation
+    const [animateAward, setAnimateAward] = useState(false); //State for the Animation
 
-    // Lade Daten aus localStorage oder initialisiere mit Standardwerten
+    //Load data from localStorage or initialize with default values
     useEffect(() => {
         const savedChallenges = JSON.parse(localStorage.getItem('challenges'));
         if (savedChallenges && savedChallenges.length > 0) {
@@ -51,14 +51,14 @@ export default function Challenges() {
         }
     }, []);
 
-    // Synchronisiere Änderungen an Herausforderungen mit localStorage
+    //Synchronize changes to challenges with localStorage
     useEffect(() => {
         if (challenges.length > 0) {
             localStorage.setItem('challenges', JSON.stringify(challenges));
         }
     }, [challenges]);
 
-    // Aktualisiere die Dimensionen für Konfetti
+    //Update the dimensions for confetti
     useEffect(() => {
         const updateConfettiDimensions = () => {
             setConfettiDimensions({
@@ -67,7 +67,7 @@ export default function Challenges() {
             });
         };
 
-        updateConfettiDimensions(); // Initiale Dimensionen setzen
+        updateConfettiDimensions(); 
         window.addEventListener('resize', updateConfettiDimensions);
         return () => window.removeEventListener('resize', updateConfettiDimensions);
     }, []);
@@ -76,27 +76,25 @@ export default function Challenges() {
         const challenge = challenges.find((c) => c.id === id);
 
         if (challenge && !challenge.completed) {
-            // Wenn die Challenge abgeschlossen wird
+            //if the challenge is completed
             setChallenges((prevChallenges) =>
                 prevChallenges.map((c) =>
                     c.id === id ? { ...c, completed: true } : c
                 )
             );
 
-            // Hochscrollen und Konfetti anzeigen
+            //scroll to top of the page
             window.scrollTo({ top: 0, behavior: 'smooth' });
             setTimeout(() => {
                 setShowConfetti(true);
-                setAnimateAward(true); // Animation starten
+                setAnimateAward(true); //start the animation
                 setTimeout(() => {
                     setShowConfetti(false);
-                    setAnimateAward(false); // Animation zurücksetzen
-                    // Weiterleitung zu #challengeSite
+                    setAnimateAward(false); //animation ends
                     window.location.href = '#challengeSite';
                 }, 3000);
-            }, 500); // Zeit für das Scrollen (anpassbar)
+            }, 500);
         } else if (challenge && challenge.completed) {
-            // Wenn die Challenge zurückgesetzt wird
             setChallenges((prevChallenges) =>
                 prevChallenges.map((c) =>
                     c.id === id ? { ...c, completed: false } : c
@@ -104,7 +102,7 @@ export default function Challenges() {
             );
         }
     };
-
+    //Handle the change in notes for a specific challenge
     const handleNotesChange = (id, value) => {
         setChallenges((prevChallenges) =>
             prevChallenges.map((challenge) =>
@@ -113,6 +111,7 @@ export default function Challenges() {
         );
     };
 
+    //Toggle the saved status of a specific challenge
     const toggleSavedStatus = (id) => {
         setChallenges((prevChallenges) =>
             prevChallenges.map((challenge) =>
@@ -125,10 +124,10 @@ export default function Challenges() {
         <div id="challengeSite">
             <Header />
             <div className="flex flex-col items-center justify-center min-h-screen p-6 bg-[#F0F7EC]">
-                {/* Konfetti-Effekt */}
+                {/*Konfetti-Effect */}
                 {showConfetti && <Confetti width={confettiDimensions.width} height={confettiDimensions.height} />}
 
-                {/* Award-Bild mit Animation */}
+                {/*Award pic with animation*/}
                 <div className={`mb-[-14] mt-14 ${animateAward ? 'animate-award' : ''}`}>
                     <img src="/award.png" alt="Award" className="w-32 h-auto" />
                 </div>
@@ -137,14 +136,14 @@ export default function Challenges() {
                     CHALLENGES
                 </h1>
 
-                {/* Zwischenüberschrift für die vorgeschlagenen Herausforderungen */}
                 <p className="text-xl text-gray-700 mb-6 text-center">
                     Entdecke eine Auswahl an Herausforderungen, die du für einen minimalistischen Lebensstil ausprobieren kannst.
                 </p>
 
-                {/* Vorgeschlagene Challenges */}
                 <div className="w-full max-w-4xl mb-12">
+                    {/*Section heading for suggested challenges*/}
                     <h2 className="text-3xl font-bold mb-6 text-gray-800">Vorgeschlagene Herausforderungen</h2>
+                    {/*List of challenges that are not saved*/}
                     <ul className="space-y-4">
                         {challenges.filter((challenge) => !challenge.saved).map((challenge) => (
                             <li
@@ -179,7 +178,7 @@ export default function Challenges() {
                     </ul>
                 </div>
 
-                {/* Vorgemerkte Challenges */}
+                {/*Vorgemerkte Challenges*/}
                 <div className="w-full max-w-4xl">
                     <h2 className="text-3xl font-bold mb-6 text-gray-800">Vormerkungen</h2>
                     <ul className="space-y-4">
@@ -205,8 +204,8 @@ export default function Challenges() {
 
                                 <div className="flex space-x-4">
                                     <button
-                                        onClick={() => toggleChallengeCompletion(challenge.id)}
-                                        className={`py-2 px-4 rounded font-bold text-white ${
+                                        onClick={() => toggleChallengeCompletion(challenge.id)} 
+                                        className={`py-2 px-4 rounded font-bold text-white ${ //button to complete the challenge
                                             challenge.completed ? 'bg-red-500 hover:bg-red-600' : 'bg-[#A9D09A] hover:bg-[#90B883]'
                                         }`}
                                     >
@@ -214,7 +213,7 @@ export default function Challenges() {
                                     </button>
                                     <button
                                         onClick={() => toggleSavedStatus(challenge.id)}
-                                        className={`py-2 px-4 rounded font-bold text-white ${
+                                        className={`py-2 px-4 rounded font-bold text-white ${ //button to save the challenge
                                             challenge.saved ? 'bg-gray-500 hover:bg-gray-600' : 'bg-[#A9D09A] hover:bg-[#90B883]'
                                         }`}
                                     >
