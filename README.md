@@ -1,39 +1,79 @@
+# *Consumerlessm*
 
-# DMWT-Consumerlessm
+*Projektbeschreibung:*  
+Bei dem Projekt handelt es sich um eine Website von Studierenden der Hochschule Reutlingen, das im Rahmen des Moduls Digital Media und Webtechnologien entwickelt wurde. Die Plattform Consumerlessm wurde mit dem Ziel erstellt, Konsument:innen über bewussteren Konsum zu informieren und zu sensibilisieren. Die Website wurde mit Next.js und React entwickelt und über Vercel gehostet.
 
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+---
 
-## Getting Started
+## *Features:*
+*Eventkalender:*
+- Nutzer:innen können Veranstaltungen erstellen, absagen und vormerken
+- Vormerkungen werden lokal im Browser gespeichert (LocalStorage)
+- Für komplexe Kalenderlogik wurde Unterstützung durch KI (ChatGPT) genutzt
 
-First, run the development server:
+*Benutzer-Authentifizierung:*
+- Registrieren und Login mit Validierung
+- Passwortsicherheit durch Vergleich von Eingaben
+- API-Routen für Authentifizierung wurden anfangs mithilfe von KI implementiert
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+*Kaufreue-Sektion:*
+- Dynamische Visualisierung von Warenkorbinhalten
+- Interaktive Nachrichten fördern bewussten Konsum
+- Bei der Integration der interaktiven Elemente wurde anfangs auf Unterstützung durch KI zurückgegriffen
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+*Interaktive Animationen:*
+- Design-Elemente wie Hover-Effekte und Animationen wurden zur Benutzerfreundlichkeit hinzugefügt
+- Smooth Scrolling und Tooltip-Animationen (z. B. für Scroll-Pfeile)
 
-You can start editing the page by modifying `app/page.js`. The page auto-updates as you edit the file.
+*Datenbank-Anbindung:*
+- Benutzerinformationen und Events werden in einer PostgreSQL-Datenbank gespeichert
+- Datenbankabfragen und Fehlerbehandlung wurden unter Anleitung der KI erstellt
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+---
 
-## Learn More
+## *Technologien die benutzt wurden:*
+- Frameworks: React, Next.js,
+- Hosting: Vercel
+- Datenbank: PostgreSQL
+- Programmiersprachen: JavaScript, HTML, CSS
+- Versionierung: GitHub
 
-To learn more about Next.js, take a look at the following resources:
+---
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## *Setup und Installation:*
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+### *Entwicklungsserver starten:*
+1. Repository klonen:  
+   https://github.com/Veweevil/DMWT_Gruppe_3_Consumerlessm.git
 
-## Deploy on Vercel
+2. Abhängigkeiten installieren:
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+   npm install
+3. Entwicklungsserver starten:
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+   npm run dev
+4. Öffne http://localhost:3000, um die Anwendung im Browser zu sehen
+
+---
+
+Anmerkungen:
+
+KI-Unterstützung:
+
+Bei der Entwicklung komplexer Komponenten wie API-Routen, Datenbankabfragen,
+und der Integration dynamischer UI-Elemente wurde (anfangs) ChatGPT genutzt,
+um die besten und einfachen Lösungen zu finden.
+
+Durch wiederholte Abfragen konnte der Ansatz verstanden und eigenständig von uns umgesetzt werden.
+
+---
+
+Eckdaten:
+
+MKIB3 Digital Media und Webtechnologien
+WiSe 2024/2025 // Abgabe 20.01.2025
+
+Aaron Ahammed (Matrikelnr.: 813034)
+Berivan Babur (Matrikelnr.: 810288)
+Verena Schelling (Matrikelnr.: 810288)
+Efe Özkan (Matrikelnr.: 8132669)
