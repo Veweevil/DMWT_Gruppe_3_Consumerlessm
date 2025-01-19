@@ -1,15 +1,48 @@
 'use client';
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, use } from 'react';
 import axios from 'axios';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
+import { useAuth } from "../../context/AuthContext";
 
 function CommentForm() {
     const [name, setName] = useState(''); //Name des Nutzers
     const [content, setContent] = useState(''); //Erfolgstext
     const [message, setMessage] = useState(''); //Erfolg/Fehler-Nachricht
     const [comments, setComments] = useState([]); //Liste der Erfolge (intern)
+    const {isLoggedIn, logout} = useAuth();
+    const [nutzername, setNutzername] = useState('');
+    const { user } = useAuth();
 
+    useEffect(() => {
+        const fetchNutzername = async () => {
+            try {
+                if (!user || !user.email) {
+                    console.warn('Kein Benutzer angemeldet');
+                    setNutzername('Gast');
+                    return;
+                }
+
+                const email = user.email;
+                const response = await fetch(`/api/getUserInfo?email=${email}`);
+                const data = await response.json();
+
+                if (response.ok) {
+                    setNutzername(data.nutzername || 'Gast');
+                } else {
+                    console.error(data.error || 'Fehler beim Abrufen des Benutzers');
+                    setNutzername('Gast');
+                }
+            } catch (error) {
+                console.error('Fehler beim Abrufen des Benutzers:', error);
+                setNutzername('Gast');
+            }
+        };
+
+        if (user) {
+            fetchNutzername();
+        }
+    }, [user]);
     //Erfolge laden
     const fetchComments = async () => {
         try {
@@ -65,6 +98,19 @@ function CommentForm() {
                     {/* Formular */}
                     <form onSubmit={handleSubmit} className="space-y-8">
                         {/* Name */}
+                        {isLoggedIn && (<div>
+                            <label className="block text-xl font-anonymous-pro text-gray-700 mb-3">
+                                Dein Name:
+                            </label>
+                            <input
+                                type="text"
+                                value={nutzername}
+                                readOnly
+                                className="w-full px-4 py-3 bg-[#A9D09A] text-gray-800 rounded focus:outline-none focus:ring focus:ring-[#90B883] shadow"
+                            />
+                        </div>
+                        )}
+                        {!isLoggedIn && (
                         <div>
                             <label className="block text-xl font-anonymous-pro text-gray-700 mb-3">
                                 Dein Name:
@@ -77,7 +123,7 @@ function CommentForm() {
                                 className="w-full px-4 py-3 bg-[#A9D09A] text-gray-800 rounded focus:outline-none focus:ring focus:ring-[#90B883] shadow"
                             />
                         </div>
-
+                        )}
                         {/* Erfolg */}
                         <div>
                             <label className="block text-xl font-anonymous-pro text-gray-700 mb-3">
