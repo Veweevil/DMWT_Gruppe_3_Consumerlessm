@@ -106,7 +106,7 @@ function CommentForm() {
                     <h2 className="text-[5rem] font-trash-hand text-black text-center mb-5">
                         Kleine Erfolge teilen
                     </h2>
-                    <p className="mb-10">Erzähle uns von deinem Weg zu weniger Konsum und inspiriere andere. Gib deinen Namen ein und schreibe, was du erreicht hast oder was dich motiviert. Erfahre außerdem, wie Personen durch Consumerlessm ihren Konsum reduziert haben. Gemeinsam schaffen wir Veränderung!</p>
+                    <p className="mb-10">Erzähle uns von deinem Weg zu weniger Konsum und inspiriere andere. Gib deinen Namen ein und schreibe, was du erreicht hast oder was dich motiviert. Erfahre außerdem, wie Personen durch Consumerlessm ihren Konsum reduziert haben. <br/><br/>Gemeinsam schaffen wir Veränderung!</p>
 
                     {/* Formular */}
                     <form onSubmit={handleSubmit} className="space-y-8">
@@ -154,7 +154,7 @@ function CommentForm() {
                         {/* Absenden-Button */}
                         <button
                             type="submit"
-                            className="w-full bg-[#A9D09A] hover:bg-[#90B883] text-gray-800 py-3 rounded-lg text-xl font-bold shadow-lg"
+                            className="w-full bg-[#A9D09A] hover:bg-[#90B883] text-white py-3 rounded-lg text-xl shadow-lg"
                         >
                             Erfolg teilen
                         </button>
@@ -190,7 +190,7 @@ function CommentForm() {
                             ))}
                         </ul>
                     ) : (
-                        <p className="text-gray-700">Noch keine Erfolge geteilt.</p>
+                        <p className="text-gray-700 mb-8">Noch keine Erfolge geteilt.</p>
                     )}
 
     {/* Mehr anzeigen Button */}

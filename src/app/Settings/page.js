@@ -142,6 +142,7 @@ export default function Settings() {
             <div className="flex flex-col items-center justify-center min-h-screen bg-[#F0F7EC] py-12">
                 <div className="w-full max-w-4xl bg-white p-8 rounded-lg shadow-md border border-gray-200">
                     <h1 className="text-4xl font-bold text-gray-800 mb-6">Einstellungen</h1>
+                    <p className="text-gray-600 mb-6"> Drücke auf den Stift (rechts) um etwas zu ändern.</p>
                     <form onSubmit={handleSave} className="space-y-6">
                         {/* E-Mail-Adresse */}
                         <div>

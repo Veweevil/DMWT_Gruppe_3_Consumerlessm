@@ -15,7 +15,7 @@ export async function PUT(req) {
         if (!email) {
             return new Response(JSON.stringify({ error: 'E-Mail erforderlich' }), { status: 400 });
         }
-
+        //update visibility by email
         await sql`
             UPDATE "LoginDaten"
             SET öffentlich = ${isPublic}
@@ -24,7 +24,6 @@ export async function PUT(req) {
 
         return new Response(JSON.stringify({ message: 'Status erfolgreich geändert' }), { status: 200 });
     } catch (error) {
-        console.error('Fehler beim Ändern des Status:', error);
         return new Response(JSON.stringify({ error: 'Serverfehler' }), { status: 500 });
     }
 }
