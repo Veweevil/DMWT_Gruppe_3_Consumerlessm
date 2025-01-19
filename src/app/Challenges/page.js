@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import Header from '../components/Header';
 import Confetti from 'react-confetti';
 
@@ -47,6 +47,8 @@ export default function Challenges() {
     }, [challenges]);
 
     const [showConfetti, setShowConfetti] = useState(false); // Zustand für Konfetti
+    const headerRef = useRef(null); // Ref für die Überschrift
+
 
     // Berechnungen für die Höhe und Breite der Seite
     const [confettiDimensions, setConfettiDimensions] = useState({
@@ -66,6 +68,10 @@ export default function Challenges() {
         window.addEventListener('resize', handleResize);
         return () => window.removeEventListener('resize', handleResize);
     }, []);
+    const scrollToHeader = () => {
+        headerRef.current.scrollIntoView({ behavior: 'smooth' });
+    };
+    
 
     const toggleChallengeCompletion = (id) => {
         setChallenges((prevChallenges) =>
@@ -79,8 +85,10 @@ export default function Challenges() {
         if (!updatedChallenge.completed) {
             setShowConfetti(true);
 
+
             // Konfetti nach 3 Sekunden wieder ausblenden
             setTimeout(() => setShowConfetti(false), 3000);
+            scrollToHeader
         }
     };
 
@@ -100,6 +108,7 @@ export default function Challenges() {
         );
     };
 
+
     return (
         <div>
             <Header />
@@ -112,7 +121,7 @@ export default function Challenges() {
                     <img src="/award.png" alt="Award" className="w-32 h-auto mb-[-60]" />
                 </div>
 
-                <h1 className="text-[8rem] font-trash-hand text-black mb-0 text-center">
+                <h1 ref={headerRef} className="text-[8rem] font-trash-hand text-black mb-0 text-center">
                     CHALLENGES
                 </h1>
 

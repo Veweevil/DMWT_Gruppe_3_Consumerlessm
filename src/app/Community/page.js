@@ -45,7 +45,7 @@ export default function Community() {
                 </h1>
 
                 {loading ? (
-                    <p className="text-2xl font-anonymous-pro text-gray-700">Lade öffentliche Benutzer...</p>
+                    <p className="text-2xl font-anonymous-pro text-gray-700 mt-8">Lade öffentliche Benutzer:innen...</p>
                 ) : users.length > 0 ? (
                     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 w-full max-w-6xl mt-24">
                         {users.map((user) => (
@@ -67,7 +67,7 @@ export default function Community() {
                         ))}
                     </div>
                 ) : (
-                    <p className="text-2xl font-anonymous-pro text-gray-700">Es gibt keine öffentlichen Benutzer.</p>
+                    <p className="text-2xl font-anonymous-pro text-gray-700 mt-8">Es gibt keine öffentlichen Benutzer:innen.</p>
                 )}
             </div>
         </div>
