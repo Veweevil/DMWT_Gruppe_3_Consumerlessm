@@ -81,7 +81,7 @@ export default function Profile() {
                     <img src="/pfeil2.svg" alt="Zurück" style={{ width: '50px', height: '50px' }} />
                 </a>
 
-            <h1 className="text-[8rem] font-trash-hand text-black text-center mb-6"> {/*Profile title*/}
+            <h1 className="text-[6rem] font-trash-hand text-black text-center mb-6"> {/*Profile title*/}
                     DEIN PROFIL
                 </h1>
 

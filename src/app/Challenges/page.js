@@ -4,7 +4,7 @@ import { useState, useEffect } from 'react';
 import Header from '../components/Header';
 import Confetti from 'react-confetti';
 
-export default function Challenges() {//questions for the user
+export default function Challenges() {
     const defaultChallenges = [
         { 
             id: 1, 
@@ -38,9 +38,8 @@ export default function Challenges() {//questions for the user
         width: 0,
         height: 0,
     });
-    const [animateAward, setAnimateAward] = useState(false); //State for the Animation
+    const [animateAward, setAnimateAward] = useState(false);
 
-    //Load data from localStorage or initialize with default values
     useEffect(() => {
         const savedChallenges = JSON.parse(localStorage.getItem('challenges'));
         if (savedChallenges && savedChallenges.length > 0) {
@@ -51,14 +50,12 @@ export default function Challenges() {//questions for the user
         }
     }, []);
 
-    //Synchronize changes to challenges with localStorage
     useEffect(() => {
         if (challenges.length > 0) {
             localStorage.setItem('challenges', JSON.stringify(challenges));
         }
     }, [challenges]);
 
-    //Update the dimensions for confetti
     useEffect(() => {
         const updateConfettiDimensions = () => {
             setConfettiDimensions({
@@ -71,38 +68,34 @@ export default function Challenges() {//questions for the user
         window.addEventListener('resize', updateConfettiDimensions);
         return () => window.removeEventListener('resize', updateConfettiDimensions);
     }, []);
-
     const toggleChallengeCompletion = (id) => {
         const challenge = challenges.find((c) => c.id === id);
-
-        if (challenge && !challenge.completed) {
-            //if the challenge is completed
+    
+        if (challenge) {
+            // Aktualisiere den Status
             setChallenges((prevChallenges) =>
                 prevChallenges.map((c) =>
-                    c.id === id ? { ...c, completed: true } : c
+                    c.id === id ? { ...c, completed: !c.completed } : c
                 )
             );
-
-            //scroll to top of the page
-            window.scrollTo({ top: 0, behavior: 'smooth' });
-            setTimeout(() => {
-                setShowConfetti(true);
-                setAnimateAward(true); //start the animation
+    
+            // Überprüfe, ob die Challenge abgeschlossen wurde
+            if (!challenge.completed) {
+                window.scrollTo({ top: 0, behavior: 'smooth' });
                 setTimeout(() => {
-                    setShowConfetti(false);
-                    setAnimateAward(false); //animation ends
-                    window.location.href = '#challengeSite';
-                }, 3000);
-            }, 500);
-        } else if (challenge && challenge.completed) {
-            setChallenges((prevChallenges) =>
-                prevChallenges.map((c) =>
-                    c.id === id ? { ...c, completed: false } : c
-                )
-            );
+                    setShowConfetti(true);
+                    setAnimateAward(true);
+                    setTimeout(() => {
+                        setShowConfetti(false);
+                        setAnimateAward(false);
+                        window.location.href = '#challengeSite';
+                    }, 3000);
+                }, 500);
+            }
         }
     };
-    //Handle the change in notes for a specific challenge
+    
+
     const handleNotesChange = (id, value) => {
         setChallenges((prevChallenges) =>
             prevChallenges.map((challenge) =>
@@ -111,7 +104,6 @@ export default function Challenges() {//questions for the user
         );
     };
 
-    //Toggle the saved status of a specific challenge
     const toggleSavedStatus = (id) => {
         setChallenges((prevChallenges) =>
             prevChallenges.map((challenge) =>
@@ -123,54 +115,44 @@ export default function Challenges() {//questions for the user
     return (
         <div id="challengeSite">
             <Header />
-            <div className="flex flex-col items-center justify-center min-h-screen p-6 bg-[#F0F7EC]">
+            <div className="flex flex-col items-center justify-center min-h-screen p-4 bg-[#F0F7EC]">
             <a href="/Dashboard" className="absolute top-4 left-4 mt-28 ml-20">
                     <img src="/pfeil2.svg" alt="Zurück" style={{ width: '50px', height: '50px' }} />
                 </a>
-                {/*Konfetti-Effect */}
                 {showConfetti && <Confetti width={confettiDimensions.width} height={confettiDimensions.height} />}
-
-                {/*Award pic with animation*/}
-                <div className={`mb-[-14] mt-14 ${animateAward ? 'animate-award' : ''}`}>
-                    <img src="/award.png" alt="Award" className="w-32 h-auto" />
+                <div className={`mb-0 mt-9 ${animateAward ? 'animate-award' : ''}`}>
+                    <img src="/award.png" alt="Award" className="w-60 h-auto" />
                 </div>
 
-                <h1 className="text-[8rem] font-trash-hand text-black mb-0 text-center">
-                    CHALLENGES
-                </h1>
+                <h1 className="text-8xl font-trash-hand text-black mb-2 text-center">CHALLENGES</h1>
 
-                <p className="text-xl text-gray-700 mb-6 text-center">
+                <p className="text-md text-gray-700 mb-4 text-center max-w-xl">
                     Entdecke eine Auswahl an Herausforderungen, die du für einen minimalistischen Lebensstil ausprobieren kannst.
                 </p>
 
-                <div className="w-full max-w-4xl mb-12">
-                    {/*Section heading for suggested challenges*/}
-                    <h2 className="text-3xl font-bold mb-6 text-gray-800">Vorgeschlagene Herausforderungen</h2>
-                    {/*List of challenges that are not saved*/}
+                <div className="w-full max-w-3xl mb-8">
+                    <h2 className="text-2xl font-bold mb-4 text-gray-800">Vorgeschlagene Herausforderungen</h2>
                     <ul className="space-y-4">
                         {challenges.filter((challenge) => !challenge.saved).map((challenge) => (
                             <li
                                 key={challenge.id}
                                 className={`p-4 rounded-lg shadow-md border border-gray-200 flex flex-col items-start space-y-4 ${
-                                    challenge.completed ? 'bg-[#A9D09A]' : 'bg-white'
+                                    challenge.completed ? 'bg-white' : 'bg-white'
                                 }`}
                             >
-                                <h3 className="text-xl font-bold text-gray-800">{challenge.title}</h3>
-                                <p className="text-gray-600">{challenge.description}</p>
-
+                                <h3 className="text-lg font-bold text-gray-800">{challenge.title}</h3>
+                                <p className="text-sm text-gray-600">{challenge.description}</p>
                                 <textarea
                                     value={challenge.notes}
                                     onChange={(e) => handleNotesChange(challenge.id, e.target.value)}
-                                    className="mt-2 p-2 w-full border border-gray-300 rounded-md"
-                                    rows="4"
+                                    className="mt-2 p-2 w-full border border-gray-300 rounded-md text-sm"
+                                    rows="3"
                                     placeholder="Deine Notizen hier..."
                                     maxLength={200}
                                 />
-                                <p className="mt-2 text-gray-500">Maximale Zeichenzahl: 200</p>
-
                                 <button
                                     onClick={() => toggleSavedStatus(challenge.id)}
-                                    className={`py-2 px-4 rounded font-bold text-white ${
+                                    className={`py-2 px-4 rounded text-sm font-bold text-white ${
                                         challenge.saved ? 'bg-gray-500 hover:bg-gray-600' : 'bg-[#A9D09A] hover:bg-[#90B883]'
                                     }`}
                                 >
@@ -181,9 +163,8 @@ export default function Challenges() {//questions for the user
                     </ul>
                 </div>
 
-                {/*Vorgemerkte Challenges*/}
-                <div className="w-full max-w-4xl">
-                    <h2 className="text-3xl font-bold mb-6 text-gray-800">Vormerkungen</h2>
+                <div className="w-full max-w-3xl">
+                    <h2 className="text-2xl font-bold mb-4 text-gray-800">Vormerkungen</h2>
                     <ul className="space-y-4">
                         {challenges.filter((challenge) => challenge.saved).map((challenge) => (
                             <li
@@ -192,23 +173,20 @@ export default function Challenges() {//questions for the user
                                     challenge.completed ? 'bg-[#A9D09A]' : 'bg-white'
                                 }`}
                             >
-                                <h3 className="text-xl font-bold text-gray-800">{challenge.title}</h3>
-                                <p className="text-gray-600">{challenge.description}</p>
-
+                                <h3 className="text-lg font-bold text-gray-800">{challenge.title}</h3>
+                                <p className="text-sm text-gray-600">{challenge.description}</p>
                                 <textarea
                                     value={challenge.notes}
                                     onChange={(e) => handleNotesChange(challenge.id, e.target.value)}
-                                    className="mt-2 p-2 w-full border border-gray-300 rounded-md"
-                                    rows="4"
+                                    className="mt-2 p-2 w-full border border-gray-300 rounded-md text-sm"
+                                    rows="3"
                                     placeholder="Deine Notizen hier..."
                                     maxLength={200}
                                 />
-                                <p className="mt-2 text-gray-500">Maximale Zeichenzahl: 200</p>
-
                                 <div className="flex space-x-4">
                                     <button
-                                        onClick={() => toggleChallengeCompletion(challenge.id)} 
-                                        className={`py-2 px-4 rounded font-bold text-white ${ //button to complete the challenge
+                                        onClick={() => toggleChallengeCompletion(challenge.id)}
+                                        className={`py-2 px-4 rounded text-sm font-bold text-white ${
                                             challenge.completed ? 'bg-red-500 hover:bg-red-600' : 'bg-[#A9D09A] hover:bg-[#90B883]'
                                         }`}
                                     >
@@ -216,7 +194,7 @@ export default function Challenges() {//questions for the user
                                     </button>
                                     <button
                                         onClick={() => toggleSavedStatus(challenge.id)}
-                                        className={`py-2 px-4 rounded font-bold text-white ${ //button to save the challenge
+                                        className={`py-2 px-4 rounded text-sm font-bold text-white ${
                                             challenge.saved ? 'bg-gray-500 hover:bg-gray-600' : 'bg-[#A9D09A] hover:bg-[#90B883]'
                                         }`}
                                     >
