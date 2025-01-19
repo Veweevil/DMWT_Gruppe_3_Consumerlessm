@@ -10,7 +10,7 @@ const sql = postgres({
 
 export async function GET(req) {
     try {
-        // Abrufen aller öffentlichen Benutzer aus der Datenbank
+        //get all public users from db
         const publicUsers = await sql`
             SELECT id, nutzername, email FROM "LoginDaten" WHERE öffentlich = TRUE
         `;
@@ -21,7 +21,6 @@ export async function GET(req) {
 
         return new Response(JSON.stringify({ users: publicUsers }), { status: 200 });
     } catch (error) {
-        console.error('Fehler beim Abrufen der öffentlichen Benutzer:', error);
         return new Response(
             JSON.stringify({ error: 'Fehler beim Abrufen der öffentlichen Benutzer', detail: error.message }),
             { status: 500 }

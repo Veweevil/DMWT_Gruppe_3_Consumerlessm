@@ -28,6 +28,7 @@ Bei dem Projekt handelt es sich um eine Website von Studierenden der Hochschule 
 *Datenbank-Anbindung:*
 - Benutzerinformationen und Events werden in einer PostgreSQL-Datenbank gespeichert
 - Datenbankabfragen und Fehlerbehandlung wurden unter Anleitung der KI erstellt
+- Probleme mit Verbindung, Resultat: redunanter Code (Verbindung zur Datenbank)
 
 ---
 

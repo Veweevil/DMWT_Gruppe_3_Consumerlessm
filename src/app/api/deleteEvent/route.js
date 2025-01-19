@@ -1,6 +1,5 @@
 import postgres from 'postgres';
 
-// Verbindung zur Datenbank
 const sql = postgres({
     host: 'aws-0-eu-central-1.pooler.supabase.com',
     port: 6543,
@@ -12,13 +11,12 @@ const sql = postgres({
 export async function POST(req) {
     try {
         const { id } = await req.json();
-        console.log('Empfangene Event-ID zum Löschen:', id);
-
+        
         if (!id) {
             throw new Error('Die ID des Events fehlt.');
         }
 
-        // Lösche das Event anhand der ID
+        //delete event
         await sql`
             DELETE FROM "Veranstaltungen"
             WHERE id = ${id}

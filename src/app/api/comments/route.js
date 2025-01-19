@@ -1,6 +1,5 @@
 import postgres from 'postgres';
 
-// Verbindung zur Datenbank
 const sql = postgres({
     host: 'aws-0-eu-central-1.pooler.supabase.com',
     port: 6543,
@@ -9,14 +8,12 @@ const sql = postgres({
     password: 'Consumerlessm1!',
 });
 
-// POST-Methode: Kommentar hinzufügen
 export async function POST(req) {
     try {
-        // Parse die Anfrage-Daten
-        const { name, content } = await req.json();
-        console.log('Daten empfangen:', { name, content }); // Prüfen, ob die Daten richtig empfangen wurden
 
-        // Füge den Kommentar in die Datenbank ein
+        const { name, content } = await req.json(); //read comment-data from Request-Body
+        
+        //insert new comment into database
         await sql`
             INSERT INTO "Kommentare" (name, kommentar)
             VALUES (${name}, ${content})
@@ -27,8 +24,6 @@ export async function POST(req) {
             { status: 201 }
         );
     } catch (error) {
-        // Fehlerprotokollierung
-        console.error('Fehler beim Speichern des Kommentars:', error);
         return new Response(
             JSON.stringify({ message: 'Fehler beim Speichern des Kommentars', error: error.message }),
             { status: 500 }
@@ -36,10 +31,9 @@ export async function POST(req) {
     }
 }
 
-// GET-Methode: Alle Kommentare abrufen
 export async function GET(req) {
     try {
-        // Abrufen aller Kommentare aus der Datenbank
+        //read all comments from database and sort them by id
         const comments = await sql`
             SELECT name, kommentar AS content
             FROM "Kommentare"
@@ -51,8 +45,7 @@ export async function GET(req) {
             { status: 200 }
         );
     } catch (error) {
-        // Fehlerprotokollierung
-        console.error('Fehler beim Abrufen der Kommentare:', error);
+        //error handling fetching comments
         return new Response(
             JSON.stringify({ message: 'Fehler beim Abrufen der Kommentare', error: error.message }),
             { status: 500 }
@@ -60,7 +53,6 @@ export async function GET(req) {
     }
 }
 
-// Fehlerbehandlung für nicht unterstützte HTTP-Methoden (405)
 export async function OPTIONS(req) {
     return new Response(
         JSON.stringify({ message: `Methode ${req.method} nicht erlaubt` }),

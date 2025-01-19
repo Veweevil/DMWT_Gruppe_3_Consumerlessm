@@ -8,7 +8,6 @@ const sql = postgres({
     password: 'Consumerlessm1!',
 });
 
-// GET-Methode: Veranstaltungen abrufen
 export async function GET(req) {
     try {
         const events = await sql`
