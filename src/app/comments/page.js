@@ -1,15 +1,49 @@
 'use client';
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, use } from 'react';
 import axios from 'axios';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
+import { useAuth } from "../../context/AuthContext";
 
 function CommentForm() {
     const [name, setName] = useState(''); //Name des Nutzers
     const [content, setContent] = useState(''); //Erfolgstext
     const [message, setMessage] = useState(''); //Erfolg/Fehler-Nachricht
     const [comments, setComments] = useState([]); //Liste der Erfolge (intern)
+    const {isLoggedIn, logout} = useAuth();
+    const [nutzername, setNutzername] = useState('');
+    const { user } = useAuth();
+    const [visibleComments, setVisibleComments] = useState(5); // Anzahl der sichtbaren Kommentare
 
+    useEffect(() => {
+        const fetchNutzername = async () => {
+            try {
+                if (!user || !user.email) {
+                    console.warn('Kein Benutzer angemeldet');
+                    setNutzername('Gast');
+                    return;
+                }
+
+                const email = user.email;
+                const response = await fetch(`/api/getUserInfo?email=${email}`);
+                const data = await response.json();
+
+                if (response.ok) {
+                    setNutzername(data.nutzername || 'Gast');
+                } else {
+                    console.error(data.error || 'Fehler beim Abrufen des Benutzers');
+                    setNutzername('Gast');
+                }
+            } catch (error) {
+                console.error('Fehler beim Abrufen des Benutzers:', error);
+                setNutzername('Gast');
+            }
+        };
+
+        if (user) {
+            fetchNutzername();
+        }
+    }, [user]);
     //Erfolge laden
     const fetchComments = async () => {
         try {
@@ -19,6 +53,17 @@ function CommentForm() {
             console.error('Fehler beim Laden der Erfolge:', error);
         }
     };
+
+    // Mehr Erfolge laden
+    const loadMoreComments = () => {
+        setVisibleComments(visibleComments + 5); // Weitere 5 Kommentare laden
+    };
+
+    // Nur 5 Erfolge anzeigen
+    const loadLessComments = () => {
+        setVisibleComments(5); // Auf 5 Kommentare zurücksetzen
+    };
+
 
     //Erfolge beim ersten Laden abrufen
     useEffect(() => {
@@ -30,9 +75,10 @@ function CommentForm() {
         e.preventDefault();
 
         try {
+            const commentName = isLoggedIn ? nutzername : name;
             //Erfolg absenden
             await axios.post('/api/comments', {
-                name: name,
+                name: commentName,
                 content: content,
             });
 
@@ -65,6 +111,19 @@ function CommentForm() {
                     {/* Formular */}
                     <form onSubmit={handleSubmit} className="space-y-8">
                         {/* Name */}
+                        {isLoggedIn && (<div>
+                            <label className="block text-xl font-anonymous-pro text-gray-700 mb-3">
+                                Dein Name:
+                            </label>
+                            <input
+                                type="text"
+                                value={nutzername}
+                                readOnly
+                                className="w-full px-4 py-3 bg-[#A9D09A] text-gray-800 rounded focus:outline-none focus:ring focus:ring-[#90B883] shadow"
+                            />
+                        </div>
+                        )}
+                        {!isLoggedIn && (
                         <div>
                             <label className="block text-xl font-anonymous-pro text-gray-700 mb-3">
                                 Dein Name:
@@ -77,7 +136,7 @@ function CommentForm() {
                                 className="w-full px-4 py-3 bg-[#A9D09A] text-gray-800 rounded focus:outline-none focus:ring focus:ring-[#90B883] shadow"
                             />
                         </div>
-
+                        )}
                         {/* Erfolg */}
                         <div>
                             <label className="block text-xl font-anonymous-pro text-gray-700 mb-3">
@@ -118,7 +177,7 @@ function CommentForm() {
                     {/* Erfolgsliste */}
                     {comments.length > 0 ? (
                         <ul className="space-y-6 mb-6">
-                            {comments.map((comment, index) => (
+                            {comments.slice(0, visibleComments).map((comment, index) => (
                                 <li
                                     key={index}
                                     className="bg-white p-6 rounded-lg shadow flex flex-col"
@@ -133,6 +192,20 @@ function CommentForm() {
                     ) : (
                         <p className="text-gray-700">Noch keine Erfolge geteilt.</p>
                     )}
+
+    {/* Mehr anzeigen Button */}
+{comments.length > visibleComments && (
+    <div className="flex justify-center mt-6 mb-6">
+        <button
+            onClick={loadMoreComments}
+            className="bg-[#A9D09A] hover:bg-[#90B883] text-gray-800 py-3 px-6 rounded-lg text-xl font-bold shadow-lg"
+        >
+            Mehr anzeigen
+        </button>
+    </div>
+)}
+
+                    
                 </div>
             </div>
             <Footer />

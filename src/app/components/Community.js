@@ -52,7 +52,7 @@ export default function Community() {
             </div>
         </div>
     </div>
-    <p className="mb-5 mt-10 font-anonymous-pro text-center text-3xl italic">Entdecke die Community, die dich inspiriert</p>
+    <p className="mb-5 mt-10 font-anonymous-pro text-center">Neugierig geworden? Starte direkt und werde Teil der Community!</p>
     <Link href="/Register">
     <button className="mt-2 bg-white text-black border-2 border-[#A9D09A] px-6 py-2 rounded hover:bg-[#A9D09A] hover:text-white"    >
                 Jetzt registrieren!
