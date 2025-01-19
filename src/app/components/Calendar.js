@@ -392,19 +392,21 @@ export default function Calendar() {
                                         </div>
                                         {renderCalendar()}
                                     </div>
+                                    
                                     <div className="bg-gray-100 p-6 rounded-lg shadow-lg">
-                                        <h2 className="font-anonymous-pro text-xl text-gray-800 mb-4">
-                                            Events am {format(selectedDate, 'dd.MM.yyyy')}
-                                        </h2>
-                                        {renderEvents()}
-                                        {isLoggedIn && (
+                                    {isLoggedIn && (
                                             <button
-                                            className="mt-2 bg-white text-black border-2 border-[#A9D09A] px-6 py-2 rounded hover:bg-[#A9D09A] hover:text-white"
+                                            className="mb-4 bg-white text-black border-2 border-[#A9D09A] px-6 py-2 rounded hover:bg-[#A9D09A] hover:text-white"
                                             onClick={() => setIsModalOpen(true)}
                                             >
                                                 Neue Veranstaltung hinzufügen
                                             </button>
                                         )}
+                                        <h2 className="font-anonymous-pro text-xl text-gray-800 mb-4">
+                                            Events am {format(selectedDate, 'dd.MM.yyyy')}
+                                        </h2>
+                                        {renderEvents()}
+                                       
                                     </div>
                                 </div>
                                 {isLoggedIn && (
