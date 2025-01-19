@@ -13,25 +13,23 @@ import {
     BarElement,
 } from 'chart.js';
 
-// Chart.js registrieren
-ChartJS.register(ArcElement, Tooltip, Legend, CategoryScale, LinearScale, BarElement);
+ChartJS.register(ArcElement, Tooltip, Legend, CategoryScale, LinearScale, BarElement); //register chart elements
 
-export default function Konsumtracker() {
+export default function Konsumtracker() { 
     const [answers, setAnswers] = useState({});
     const [showResult, setShowResult] = useState(false);
 
-    const handleAnswerChange = (question, value) => {
+    const handleAnswerChange = (question, value) => { //handle answer change
         setAnswers({ ...answers, [question]: value });
     };
 
-    const handleSubmit = (e) => {
+    const handleSubmit = (e) => { //handle submit
         e.preventDefault();
         setShowResult(true);
     };
 
-    // Daten für das Kreisdiagramm
     const pieChartData = {
-        labels: ['Umweltbewusst', 'Praktisch', 'Spontan'],
+        labels: ['Umweltbewusst', 'Praktisch', 'Spontan'], //Pie chart labels
         datasets: [
             {
                 data: [
@@ -46,7 +44,6 @@ export default function Konsumtracker() {
         ],
     };
 
-    // Daten für das Balkendiagramm
     const barChartData = {
         labels: ['Lebensmittel', 'Kleidung', 'Mobilität'],
         datasets: [
@@ -64,7 +61,7 @@ export default function Konsumtracker() {
         ],
     };
 
-    // Dynamischer Text basierend auf den Antworten
+    //dynamic result text based on total score
     const getResultText = () => {
         const scores = {
             Regional: 10,
@@ -101,16 +98,16 @@ export default function Konsumtracker() {
                 </a>
                 
             <div className="flex flex-col items-center justify-center">
-    <img
-        src="/analysis.png"
-        alt="Analysis Icon"
-        className="w-[7rem] h-[7rem] object-contain mt-8"
-    />
-    <h1 className="text-[6rem] font-trash-hand text-black">Konsumtracker</h1>
-    <p className="text-lg font-anonymous-pro text-gray-700 max-w-3xl text-center">
-        Finde heraus, wie nachhaltig dein Konsumverhalten ist und entdecke Potenziale für Verbesserungen!
-    </p>
-</div>
+            <img
+                src="/analysis.png"
+                alt="Analysis Icon"
+                className="w-[7rem] h-[7rem] object-contain mt-8"
+            />
+                <h1 className="text-[6rem] font-trash-hand text-black">Konsumtracker</h1>
+                <p className="text-lg font-anonymous-pro text-gray-700 max-w-3xl text-center">
+                    Finde heraus, wie nachhaltig dein Konsumverhalten ist und entdecke Potenziale für Verbesserungen!
+                </p>
+            </div>
 
                 {!showResult ? (
                     <form
@@ -119,7 +116,7 @@ export default function Konsumtracker() {
                     >
                         <h2 className="text-2xl font-bold text-gray-800 mb-6">Beantworte die folgenden Fragen:</h2>
 
-                        {/* Frage 1 */}
+                        {/*Question 1*/}
                         <div className="mb-6">
                             <p className="text-lg font-semibold text-gray-800 mb-4">
                                 Wie gestaltest du deinen Lebensmitteleinkauf?
@@ -158,7 +155,7 @@ export default function Konsumtracker() {
                             </div>
                         </div>
 
-                        {/* Frage 2 */}
+                        {/*Question 2*/}
                         <div className="mb-6">
                             <p className="text-lg font-semibold text-gray-800 mb-4">
                                 Wie oft kaufst du neue Kleidung, und wie entscheidest du dich dabei?
@@ -197,7 +194,7 @@ export default function Konsumtracker() {
                             </div>
                         </div>
 
-                        {/* Frage 3 */}
+                        {/*Question 3*/}
                         <div className="mb-6">
                             <p className="text-lg font-semibold text-gray-800 mb-4">
                                 Wie bewegst du dich hauptsächlich im Alltag fort?

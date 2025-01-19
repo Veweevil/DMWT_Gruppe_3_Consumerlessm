@@ -1,26 +1,26 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { FiEdit2 } from 'react-icons/fi'; // Icon-Bibliothek für den Stift
-import { useAuth } from '../../context/AuthContext'; // Authentifizierungskontext
+import { FiEdit2 } from 'react-icons/fi'; //Icon-Import for edit symbol
+import { useAuth } from '../../context/AuthContext'; 
 import Header from '../components/Header';
 
 export default function Settings() {
-    const { user, logout } = useAuth(); // Benutzerinformationen aus AuthContext
-    const [settings, setSettings] = useState({
+    const { user, logout } = useAuth(); //use auth context for user and logout
+    const [settings, setSettings] = useState({ //State for settings
         email: '',
         password: '',
         confirmPassword: '',
         isPublic: false,
     });
 
-    const [editMode, setEditMode] = useState({
+    const [editMode, setEditMode] = useState({ //State for edit mode
         email: false,
         password: false,
         isPublic: false,
     });
 
-    useEffect(() => {
+    useEffect(() => { //fetch user data
         const fetchUserData = async () => {
             try {
                 const response = await fetch(`/api/settings/getUserInfos`, {
@@ -48,24 +48,24 @@ export default function Settings() {
         if (user?.email) fetchUserData();
     }, [user]);
 
-    const toggleEditMode = (field) => {
+    const toggleEditMode = (field) => { 
         setEditMode({
             ...editMode,
             [field]: !editMode[field],
         });
     };
 
-    const handleSave = async (e) => {
+    const handleSave = async (e) => { //save settings
         e.preventDefault();
 
-        // Passwort validieren
+        //Check if passwords match
         if (settings.password && settings.password !== settings.confirmPassword) {
             alert('Passwörter stimmen nicht überein.');
             return;
         }
 
         try {
-            // E-Mail aktualisieren
+            //Update emailadress
             if (editMode.email) {
                 const response = await fetch('/api/settings/updateEmail', {
                     method: 'PUT',
@@ -76,7 +76,7 @@ export default function Settings() {
                 if (!response.ok) throw new Error(data.error);
             }
 
-            // Passwort aktualisieren
+            //Update password
             if (editMode.password) {
                 const response = await fetch('/api/settings/updatePassword', {
                     method: 'PUT',
@@ -91,7 +91,7 @@ export default function Settings() {
                 if (!response.ok) throw new Error(data.error);
             }
 
-            // Öffentlich-Status aktualisieren
+            //Update public status
             if (editMode.isPublic) {
                 const response = await fetch('/api/settings/updateVisibility', {
                     method: 'PUT',
@@ -110,9 +110,9 @@ export default function Settings() {
         }
     };
 
-    const handleDeleteAccount = async () => {
+    const handleDeleteAccount = async () => { //delete account
         const confirmed = window.confirm(
-            'Möchten Sie Ihr Konto wirklich löschen? Diese Aktion kann nicht rückgängig gemacht werden.'
+            'Möchtest Du dein Konto wirklich löschen? Diese Aktion kann nicht rückgängig gemacht werden.'  //Confirmation dialog
         );
         if (!confirmed) return;
 
@@ -129,10 +129,10 @@ export default function Settings() {
             }
 
             alert('Ihr Konto wurde erfolgreich gelöscht.');
-            logout(); // Benutzer ausloggen
+            logout(); 
         } catch (error) {
             console.error('Fehler beim Löschen des Kontos:', error);
-            alert('Fehler beim Löschen des Kontos. Bitte versuchen Sie es später erneut.');
+            alert('Fehler beim Löschen des Kontos. Bitte versuche es später erneut.');
         }
     };
 
@@ -144,7 +144,7 @@ export default function Settings() {
                     <h1 className="text-4xl font-bold text-gray-800 mb-6">Einstellungen</h1>
                     <p className="text-gray-600 mb-6"> Drücke auf den Stift (rechts) um etwas zu ändern.</p>
                     <form onSubmit={handleSave} className="space-y-6">
-                        {/* E-Mail-Adresse */}
+                        {/*emailaddress*/}
                         <div>
                             <div className="flex items-center justify-between">
                                 <label className="block text-gray-700 font-bold mb-2" htmlFor="email">
@@ -155,7 +155,7 @@ export default function Settings() {
                                     onClick={() => toggleEditMode('email')}
                                     className="text-gray-500 hover:text-gray-700"
                                 >
-                                    <FiEdit2 />
+                                    <FiEdit2 /> {/*edit icon*/}
                                 </button>
                             </div>
                             <input
@@ -173,7 +173,7 @@ export default function Settings() {
                             />
                         </div>
 
-                        {/* Passwort ändern */}
+                        {/*change password*/}
                         <div>
                             <div className="flex items-center justify-between">
                                 <label className="block text-gray-700 font-bold mb-2" htmlFor="password">
@@ -222,7 +222,7 @@ export default function Settings() {
                             )}
                         </div>
 
-                        {/* Öffentliches Profil */}
+                        {/*public profile */}
                         <div>
                             <div className="flex items-center justify-between">
                                 <label htmlFor="isPublic" className="block text-gray-700 font-bold">
@@ -249,7 +249,7 @@ export default function Settings() {
                             />
                         </div>
 
-                        {/* Konto löschen */}
+                        {/*delete account*/}
                         <div>
                             <button
                                 type="button"
