@@ -3,12 +3,10 @@ export default function Community() {
     return (
 <div id ="community-section" className="p-20 items-center justify-center flex flex-col">
     <h1 className="ueberschrift">Community</h1>
-    
-    {/*<img className="mx-auto mb-16 rounded" src="community.jpg" alt="Peoples holding each others" width="600" height="250"></img>*/}
     <p className="mb-10 font-anonymous-pro text-center text-2xl">So hilft dir Consumerlessm, deinen Konsum zu reduzieren:</p>
     
     <div className="container">
-        {/*Feld 1*/}
+        {/*field 1*/}
         <div className="item">
             <div className="icon">
                 <img src="goal.png" alt="Zielscheibe Icon" className="icon-img"></img>
@@ -19,7 +17,7 @@ export default function Community() {
             </div>
         </div>
 
-        {/*Feld 2*/}
+        {/*field 2*/}
         <div className="item">
             <div className="icon">
                 <img src="ressourcen.png" alt="Ressources Icon" className="icon-img"></img>
@@ -30,7 +28,7 @@ export default function Community() {
             </div>
         </div>
 
-        {/*Feld 3*/}
+        {/*field 3*/}
         <div className="item">
             <div className="icon">
                 <img src="community_support.png" alt="Community Support Icon" className="icon-img"></img>
@@ -41,7 +39,7 @@ export default function Community() {
             </div>
         </div>
 
-        {/*Feld 4*/}
+        {/*field 4*/}
         <div className="item">
             <div className="icon">
                 <img src="events.png" alt="Events Icon" className="icon-img"></img>

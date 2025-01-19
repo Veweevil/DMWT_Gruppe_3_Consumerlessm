@@ -13,7 +13,6 @@ export default function Footer() {
                 <li className="text-gray-700 hover:text-black">
                     <Link href="/FaQ">FAQ</Link>
                 </li>
-                <li className="text-gray-700 hover:text-black">About us</li>
 
             </ul>
 
