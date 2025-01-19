@@ -43,7 +43,15 @@ export default function Header() {
             {/* Auth-Bereich */}
             <div className="auth-buttons flex items-center space-x-4">
                 {isLoggedIn && (
-                    <>
+                    <div className="flex items-center space-x-2">
+                        {/* Settings-Icon */}
+                        <Link href="/Settings">
+                            <img
+                                src="/settings.png"
+                                alt="Settings"
+                                className="h-6 w-6 cursor-pointer"
+                            />
+                        </Link>
                         {/* Logout-Button */}
                         <button
                             onClick={logout}
@@ -51,10 +59,10 @@ export default function Header() {
                         >
                             Logout
                         </button>
-                    </>
+                    </div>
                 )}
                 {!isLoggedIn && (
-                    <>
+                    <div className="flex space-x-4">
                         <Link href="/Login">
                             <button className="bg-[#A9D09A] hover:bg-[#90B883] text-gray-800 px-4 py-2 rounded">
                                 Login
@@ -65,7 +73,7 @@ export default function Header() {
                                 Registrieren
                             </button>
                         </Link>
-                    </>
+                    </div>
                 )}
             </div>
         </div>

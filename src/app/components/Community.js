@@ -54,7 +54,7 @@ export default function Community() {
     </div>
     <p className="mb-5 mt-10 font-anonymous-pro text-center text-3xl italic">Entdecke die Community, die dich inspiriert</p>
     <Link href="/Register">
-    <button className="bg-gray-200 hover:bg-gray-300 text-gray-800 px-8 py-4 rounded shadow text-xl mt-10">
+    <button className="mt-2 bg-white text-black border-2 border-[#A9D09A] px-6 py-2 rounded hover:bg-[#A9D09A] hover:text-white"    >
                 Jetzt registrieren!
     </button>
     </Link>

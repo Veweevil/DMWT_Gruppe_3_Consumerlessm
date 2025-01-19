@@ -20,8 +20,8 @@ export default function Home() {
         <div> <Hero/> </div>
         <div id="kaufreue-section"> <Kaufreue/> </div>
         <div id="what-you-can-do-section"><WhatYouCanDo/></div>
-        <div id="calendar-section"> <Calendar /> </div>
         {!isLoggedIn && <div> <Community /> </div>}
+        <div id="calendar-section"> <Calendar /> </div>
         <div><Footer/></div>
     </div>
   );
