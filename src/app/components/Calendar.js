@@ -180,8 +180,8 @@ export default function Calendar() {
         return bookmarkedEvents.map((event, index) => (
             <div key={`${event.id}-${index}`} className="bg-white p-4 rounded-lg shadow-md mb-4">        
                 <h2 className="font-anonymous-pro text-lg text-gray-800">{event.titel}</h2>
-                <p className="text-sm text-gray-500">🗓 {event.datum}</p>
-                <p className="text-sm text-gray-500">📍 {event.ort}</p>
+                <p className="text-sm text-gray-500">🗓 {format(parseISO(event.datum), 'dd.MM.yyyy')}</p>
+                <p className="text-sm text-gray-500">⏰ {event.uhrzeit.slice(0, 5)}</p>
                 <button
                     className="mt-2 bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600"
                     onClick={() => handleRemoveBookmark(event.id)}
@@ -216,14 +216,14 @@ export default function Calendar() {
                 body: JSON.stringify({ id: eventId }),
             });
     
-            const responseBody = await response.text(); // Get the response body as text
+            const responseBody = await response.text(); //Get the response body as text
     
             if (!response.ok) {
                 console.error(`Error response: ${response.status} - ${responseBody}`);
                 throw new Error(responseBody || 'Error deleting the event.');
             }
     
-            // Update the event list after successful deletion
+            //Update the event list after successful deletion
             setEvents((prevEvents) => prevEvents.filter((event) => event.id !== eventId));
             alert('Event erfolgreich abgesagt.');
         } catch (error) {
@@ -413,28 +413,28 @@ export default function Calendar() {
                                     </div>
                                 </div>
                                 {isLoggedIn && (
-    <div className="bg-gray-50 mt-8 p-6 rounded-lg shadow-lg">
-        <h3 className="font-anonymous-pro text-xl text-gray-800 mb-4 flex justify-between items-center">
-            Vorgemerkte Events
-            <div className="flex items-center">
-                <label
-                    htmlFor="notificationToggle"
-                    className="mr-2 text-sm font-medium text-gray-800"
-                >
-                    Erinnerung per Mail an <strong>{user?.email || 'unbekannt'}</strong>
-                </label>
-                <input
-                    id="notificationToggle"
-                    type="checkbox"
-                    className="toggle-switch"
-                    checked={notificationsEnabled}
-                    onChange={handleNotificationToggle}
-                />
-            </div>
-        </h3>
-        {renderBookmarkedEvents()}
-    </div>
-)}
+                                <div className="bg-gray-50 mt-8 p-6 rounded-lg shadow-lg">
+                                    <h3 className="font-anonymous-pro text-xl text-gray-800 mb-4 flex justify-between items-center">
+                                        Vorgemerkte Events
+                                        <div className="flex items-center">
+                                            <label
+                                                htmlFor="notificationToggle"
+                                                className="mr-2 text-sm font-medium text-gray-800"
+                                            >
+                                                Erinnerung per Mail an <strong>{user?.email || 'unbekannt'}</strong>
+                                            </label>
+                                            <input
+                                                id="notificationToggle"
+                                                type="checkbox"
+                                                className="toggle-switch"
+                                                checked={notificationsEnabled}
+                                                onChange={handleNotificationToggle}
+                                            />
+                                        </div>
+                                    </h3>
+                                    {renderBookmarkedEvents()}
+                                </div>
+                                )}
 
                             </div>
                             {isModalOpen && (
