@@ -13,7 +13,7 @@
       transform: translateY(0);
   }
 }
-
+/*discard items*/
 @keyframes discard {
   0% {
       transform: translateX(0) scale(1);
@@ -43,49 +43,48 @@
 
 @keyframes discard-iphone {
   0% {
-    transform: translateX(0) translateY(-338%) scale(1); /* Startet bei der iPhone-Position */
-    opacity: 1; /* Voll sichtbar */
+    transform: translateX(0) translateY(-338%) scale(1); 
+    opacity: 1; 
   }
   100% {
-    transform: translateX(100vw) translateY(28%) scale(0.5); /* Bewegt nach rechts, bleibt auf Y-Position */
-    opacity: 0; /* Unsichtbar */
+    transform: translateX(100vw) translateY(28%) scale(0.5); 
+    opacity: 0;
   }
 }
 
 @keyframes discard-chocolate {
   0% {
-    transform: translateX(0) translateY(-330%) scale(1); /* Startet bei der Schokoladen-Position */
-    opacity: 1; /* Voll sichtbar */
+    transform: translateX(0) translateY(-330%) scale(1); 
+    opacity: 1; 
   }
   100% {
-    transform: translateX(100vw) translateY(-15%) scale(0.5); /* Bewegt nach rechts, bleibt auf Y-Position */
-    opacity: 0; /* Unsichtbar */
+    transform: translateX(100vw) translateY(-15%) scale(0.5); 
+    opacity: 0; 
   }
 }
 
 @keyframes discard-bottle {
   0% {
-    transform: translateX(100) translateY(-400%) scale(1); /* Startet bei der Flaschen-Position */
-    opacity: 1; /* Voll sichtbar */
+    transform: translateX(100) translateY(-400%) scale(1); 
+    opacity: 1; 
   }
   100% {
-    transform: translateX(100vw) translateY(30%) scale(0.5); /* Bewegt nach rechts, bleibt auf Y-Position */
-    opacity: 0; /* Unsichtbar */
+    transform: translateX(100vw) translateY(30%) scale(0.5); 
+    opacity: 0; 
   }
 }
 
 @keyframes discard-jacket {
   0% {
-    transform: translateX(0) translateY(-500%) scale(1); /* Startet bei der Jacken-Position */
-    opacity: 1; /* Voll sichtbar */
+    transform: translateX(0) translateY(-500%) scale(1); 
+    opacity: 1; 
   }
   100% {
-    transform: translateX(100vw) translateY(0%) scale(0.5); /* Bewegt nach rechts */
-    opacity: 0; /* Unsichtbar */
+    transform: translateX(100vw) translateY(0%) scale(0.5); 
+    opacity: 0; 
   }
 }
 
-/* Klassen für die spezifischen Animationen */
 .animate-discard-iphone {
   animation: discard-iphone 1s ease-out forwards;
 }
@@ -102,13 +101,12 @@
 }
 
 
-/* CSS-Regeln für globale Variablen */
 :root {
-  --background: #ffffff; /* Weiß als Standardhintergrund */
-  --foreground: #000000; /* Schwarz als Schriftfarbe */
+  --background: #ffffff; 
+  --foreground: #000000; 
 }
 
-/* Lokale Schriftart Trash Hand */
+/*Local Font Trash Hand*/
 @font-face {
   font-family: 'Trash Hand';
   src: url('/fonts/TrashHand.TTF') format('truetype');
@@ -116,7 +114,7 @@
   font-style: normal;
 }
 
-/* Lokale Schriftart Anonymous Pro */
+
 @font-face {
   font-family: 'Anonymous Pro';
   src: url('/fonts/AnonymousPro-Regular.ttf') format('truetype');
@@ -145,7 +143,7 @@
   font-style: italic;
 }
 
-/* Schriftart für den Body */
+
 body {
   font-family: 'Anonymous Pro', monospace;
   color: var(--foreground);
@@ -169,28 +167,27 @@ body {
   padding: 5rem;
 }
 
-/* Trennlinie unter den Überschriften */
 .hr-mitte {
-  width: 30%;               /* w-1/4: Setzt die Breite auf 25% */
-  border-top: 2px solid #9CA3AF; /* border-t-2 und border-gray-400: 2px graue Linie */
-  margin-bottom: 1.5rem;    /* mb-6: Abstand nach unten */
-  margin-left: auto;        /* mx-auto: Automatische Ränder links */
-  margin-right: auto;       /* mx-auto: Automatische Ränder rechts */
+  width: 30%;              
+  border-top: 2px solid #9CA3AF; 
+  margin-bottom: 1.5rem;   
+  margin-left: auto;        
+  margin-right: auto;       
 }
 
 .hr-mitte1 {
-  width: 40%;               /* w-1/4: Setzt die Breite auf 25% */
-  border-top: 1px solid #9CA3AF; /* border-t-2 und border-gray-400: 2px graue Linie */
-  margin-bottom: 1.5rem;    /* mb-6: Abstand nach unten */
-  margin-left: auto;        /* mx-auto: Automatische Ränder links */
-  margin-right: auto;       /* mx-auto: Automatische Ränder rechts */
+  width: 40%;               
+  border-top: 1px solid #9CA3AF;
+  margin-bottom: 1.5rem;   
+  margin-left: auto;       
+  margin-right: auto;      
 }
 
-/* Community - Argumente */
+
 .container {
   display: flex;
-  flex-direction: row; /* Die Richtung der Anordung der items ist von links nach rechts */
-  flex-wrap: wrap; /* Die items rücken in die zweite Zeile wenn nötig */
+  flex-direction: row; 
+  flex-wrap: wrap; 
   justify-content: space-between;
   margin: 0 auto;
   width: 900px;
@@ -201,14 +198,14 @@ body {
   align-items: center;
   gap: 15px;
   width: calc(50% - 40px);
-  padding: 20px; /* Innenabstand */
+  padding: 20px; 
   background-color: #F0F7EC;
-  margin-bottom: 20px; /* Abstand nach unten für jedes item */
+  margin-bottom: 20px; 
   border-radius: 10px;
 }
 
 .icon {
-  flex-shrink: 0; /* Verhindert dass das Icon skaliert */
+  flex-shrink: 0; 
 }
 
 .icon-img {
