@@ -133,7 +133,7 @@ export default function Calendar() {
             </div>
         ));
     };
-    const renderCalendar = () => {
+    const renderCalendar = () => { //render calendar
         const startMonth = startOfMonth(currentMonth);
         const endMonth = endOfMonth(currentMonth);
         const startDate = startOfWeek(startMonth, { locale: de });
@@ -143,19 +143,19 @@ export default function Calendar() {
         let days = [];
         let day = startDate;
     
-        while (day <= endDate) {
+        while (day <= endDate) { //loop through each day of the month
             for (let i = 0; i < 7; i++) {
                 const currentDay = day;
                 const dayEvents = events.filter((event) =>
                     event.datum && isSameDay(currentDay, parseISO(event.datum))
                 );
-                days.push(
+                days.push( //show each day in the calendar
                     <div
-                        key={currentDay.toISOString()}
+                        key={currentDay.toISOString()} //unique key for each day
                         className={`border p-2 text-center cursor-pointer ${
                             isSameDay(currentDay, selectedDate) ? 'bg-[#A9D09A] text-white' : 'bg-white'
                         } ${!isSameMonth(currentDay, currentMonth) ? 'text-gray-400' : ''}`}
-                        onClick={() => setSelectedDate(new Date(currentDay))}
+                        onClick={() => setSelectedDate(new Date(currentDay))} //select the day when clicked
                     >
                         <p className="font-bold">{format(currentDay, 'd')}</p>
                         {dayEvents.length > 0 && (
@@ -163,18 +163,18 @@ export default function Calendar() {
                         )}
                     </div>
                 );
-                day = addDays(day, 1);
+                day = addDays(day, 1);  //increment the day
             }
-            rows.push(<div key={`row-${day}`} className="grid grid-cols-7">{days}</div>);
-            days = [];
+            rows.push(<div key={`row-${day}`} className="grid grid-cols-7">{days}</div>);   //show days in a row
+            days = [];  //reset the days array
         }
     
         return rows;
     };
     
-    const renderBookmarkedEvents = () => {
+    const renderBookmarkedEvents = () => { //render bookmarked events
         if (bookmarkedEvents.length === 0) {
-            return <p className="text-gray-600">Keine vorgemerkten Events.</p>;
+            return <p className="text-gray-600">Keine vorgemerkten Events.</p>; 
         }
     
         return bookmarkedEvents.map((event, index) => (
@@ -191,15 +191,15 @@ export default function Calendar() {
             </div>
         ));
     };
-    const handleBookmarkEvent = (event) => {
+    const handleBookmarkEvent = (event) => { //bookmark an event
         if (bookmarkedEvents.some((e) => e.id === event.id)) {
             alert('Dieses Event ist bereits vorgemerkt.');
             return;
         }
 
-        const updatedBookmarks = [...bookmarkedEvents, event];
-        setBookmarkedEvents(updatedBookmarks);
-        localStorage.setItem('bookmarkedEvents', JSON.stringify(updatedBookmarks));
+        const updatedBookmarks = [...bookmarkedEvents, event]; //add the event to the bookmarked events 
+        setBookmarkedEvents(updatedBookmarks);  
+        localStorage.setItem('bookmarkedEvents', JSON.stringify(updatedBookmarks)); //save the bookmarked events in local storage
         alert('Event wurde vorgemerkt!');
     };
     const handleRemoveBookmark = (eventId) => {
@@ -246,7 +246,7 @@ export default function Calendar() {
                         <div className="flex justify-between items-center mb-4">
                             <button
                                 className="bg-[#A9D09A] text-white px-4 py-2 rounded hover:bg-[#A9D09A]"
-                                onClick={() => setCurrentMonth(subMonths(currentMonth, 1))}
+                                onClick={() => setCurrentMonth(subMonths(currentMonth, 1))}  //show the previous month
                             >
                                 ◀ Zurück
                             </button>
@@ -255,12 +255,12 @@ export default function Calendar() {
                             </h2>
                             <button
                                 className="bg-[#A9D09A] text-white px-4 py-2 rounded hover:bg-[#90B883]"
-                                onClick={() => setCurrentMonth(addMonths(currentMonth, 1))}
+                                onClick={() => setCurrentMonth(addMonths(currentMonth, 1))} //show the next month
                             >
                                 Weiter ▶
                             </button>
                         </div>
-                        <div className="grid grid-cols-7 gap-1">
+                        <div className="grid grid-cols-7 gap-1">    {/*show the days of the week*/}
                             <div className="font-bold text-gray-600">Mo</div>
                             <div className="font-bold text-gray-600">Di</div>
                             <div className="font-bold text-gray-600">Mi</div>
@@ -269,13 +269,13 @@ export default function Calendar() {
                             <div className="font-bold text-gray-600">Sa</div>
                             <div className="font-bold text-gray-600">So</div>
                         </div>
-                        {renderCalendar()}
+                        {renderCalendar()} {/*show the calendar*/}
                     </div>
                     <div className="bg-gray-100 p-6 rounded-lg shadow-lg">
                         <h2 className="font-anonymous-pro text-xl text-gray-800 mb-4">
                             Events am {format(selectedDate, 'dd.MM.yyyy')}
                         </h2>
-                        {renderEvents()}
+                        {renderEvents()} {/*show the events*/}
                         
                     </div>
                 </div>
@@ -285,7 +285,7 @@ export default function Calendar() {
                 <div className="fixed inset-0 bg-gray-800 bg-opacity-50 flex items-center justify-center">
                     <div className="bg-white p-6 rounded-lg shadow-lg w-full max-w-md">
                         <h2 className="font-anonymous-pro text-xl text-gray-800 mb-4">
-                            Neue Veranstaltung hinzufügen
+                            Neue Veranstaltung hinzufügen   
                         </h2>
                         <div className="mb-4">
                             <label className="block text-gray-700 mb-2">Datum</label>
@@ -293,7 +293,7 @@ export default function Calendar() {
                                 type="date"
                                 value={newEvent.date}
                                 onChange={(e) =>
-                                    setNewEvent({ ...newEvent, date: e.target.value })
+                                    setNewEvent({ ...newEvent, date: e.target.value })  //add the date of the event
                                 }
                                 className="w-full px-4 py-2 border rounded-lg"
                             />
@@ -304,7 +304,7 @@ export default function Calendar() {
                                 type="time"
                                 value={newEvent.time}
                                 onChange={(e) =>
-                                    setNewEvent({ ...newEvent, time: e.target.value })
+                                    setNewEvent({ ...newEvent, time: e.target.value })  //add the time of the event
                                 }
                                 className="w-full px-4 py-2 border rounded-lg"
                             />
@@ -315,17 +315,17 @@ export default function Calendar() {
                                 type="text"
                                 value={newEvent.title}
                                 onChange={(e) =>
-                                    setNewEvent({ ...newEvent, title: e.target.value })
+                                    setNewEvent({ ...newEvent, title: e.target.value }) //add the title of the event    
                                 }
                                 className="w-full px-4 py-2 border rounded-lg"
                             />
                         </div>
                         <div className="mb-4">
-                            <label className="block text-gray-700 mb-2">Beschreibung</label>
+                            <label className="block text-gray-700 mb-2">Beschreibung</label> 
                             <textarea
                                 value={newEvent.description}
                                 onChange={(e) =>
-                                    setNewEvent({ ...newEvent, description: e.target.value })
+                                    setNewEvent({ ...newEvent, description: e.target.value })       //add the description of the event
                                 }
                                 className="w-full px-4 py-2 border rounded-lg"
                             ></textarea>
@@ -336,7 +336,7 @@ export default function Calendar() {
                                 type="text"
                                 value={newEvent.location}
                                 onChange={(e) =>
-                                    setNewEvent({ ...newEvent, location: e.target.value })
+                                    setNewEvent({ ...newEvent, location: e.target.value })  //add the location of the event
                                 }
                                 className="w-full px-4 py-2 border rounded-lg"
                             />
@@ -344,13 +344,13 @@ export default function Calendar() {
                         <div className="flex justify-end space-x-4">
                             <button
                                 className="bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600"
-                                onClick={() => setIsModalOpen(false)}
+                                onClick={() => setIsModalOpen(false)}   //close the modal
                             >
                                 Abbrechen
                             </button>
                             <button
                                 className="bg-[#A9D09A] text-white px-4 py-2 rounded hover:bg-[#90B883]"
-                                onClick={handleAddEvent}
+                                onClick={handleAddEvent}    //add the event
                             >
                                 Hinzufügen
                             </button>
@@ -370,7 +370,7 @@ export default function Calendar() {
                                  <div className="flex justify-between items-center mb-4">
                                      <button
                                         className="bg-[#A9D09A] text-white px-4 py-2 rounded hover:bg-[#A9D09A]"
-                                        onClick={() => setCurrentMonth(subMonths(currentMonth, 1))}
+                                        onClick={() => setCurrentMonth(subMonths(currentMonth, 1))}     //show the previous month
                                         >
                                       ◀ Zurück
                                     </button>
@@ -379,7 +379,7 @@ export default function Calendar() {
                                         </h2>
                                         <button
                                             className="bg-[#A9D09A] text-white px-4 py-2 rounded hover:bg-[#90B883]"
-                                            onClick={() => setCurrentMonth(addMonths(currentMonth, 1))}
+                                            onClick={() => setCurrentMonth(addMonths(currentMonth, 1))}     //show the next month
                                             >
                                                 Weiter ▶
                                         </button>
@@ -421,9 +421,9 @@ export default function Calendar() {
                                                 htmlFor="notificationToggle"
                                                 className="mr-2 text-sm font-medium text-gray-800"
                                             >
-                                                Erinnerung per Mail an <strong>{user?.email || 'unbekannt'}</strong>
+                                                Erinnerung per Mail an <strong>{user?.email || 'unbekannt'}</strong> 
                                             </label>
-                                            <input
+                                            <input  
                                                 id="notificationToggle"
                                                 type="checkbox"
                                                 className="toggle-switch"
@@ -432,7 +432,7 @@ export default function Calendar() {
                                             />
                                         </div>
                                     </h3>
-                                    {renderBookmarkedEvents()}
+                                    {renderBookmarkedEvents()}  {/*show the bookmarked events*/}
                                 </div>
                                 )}
 
@@ -444,7 +444,7 @@ export default function Calendar() {
                                             Neue Veranstaltung hinzufügen
                                         </h2>
                                         <div className="mb-4">
-                                            <label className="block text-gray-700 mb-2">Datum</label>
+                                            <label className="block text-gray-700 mb-2">Datum</label> 
                                             <input
                                                 type="date"
                                                 value={newEvent.date}
